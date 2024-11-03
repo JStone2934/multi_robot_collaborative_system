@@ -1,0 +1,13 @@
+amcl:
+  ros__parameters:
+    use_sim_time: true
+    global_frame_id: "map"
+    robot_base_frame_id: "base_footprint"
+    odom_frame_id: "odom"
+    scan_topic: "scan"
+    initial_pose_x: 0.0
+    initial_pose_y: 0.0
+    initial_pose_a: 0.0
+    recovery_behavior_enabled: true
+    # 添加自定义地图的参数
+    map: "/home/jstone/Documents/graduation_project/T7/src/gazebo_tutorials/worlds/room4/map.yaml"
