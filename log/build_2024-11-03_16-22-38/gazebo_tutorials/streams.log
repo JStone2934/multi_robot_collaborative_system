@@ -1,0 +1,33 @@
+[0.473s] Invoking command in '/home/jstone/Documents/graduation_project/T7/src/gazebo_tutorials': PYTHONPATH=/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gazebo_tutorials build --build-base /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build install --record /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log --single-version-externally-managed install_data
+[0.610s] running egg_info
+[0.611s] creating ../../build/gazebo_tutorials/gazebo_tutorials.egg-info
+[0.611s] writing ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/PKG-INFO
+[0.611s] writing dependency_links to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/dependency_links.txt
+[0.611s] writing entry points to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/entry_points.txt
+[0.611s] writing requirements to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/requires.txt
+[0.611s] writing top-level names to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/top_level.txt
+[0.613s] writing manifest file '../../build/gazebo_tutorials/gazebo_tutorials.egg-info/SOURCES.txt'
+[0.633s] reading manifest file '../../build/gazebo_tutorials/gazebo_tutorials.egg-info/SOURCES.txt'
+[0.634s] writing manifest file '../../build/gazebo_tutorials/gazebo_tutorials.egg-info/SOURCES.txt'
+[0.634s] running build
+[0.634s] running build_py
+[0.634s] creating /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build
+[0.634s] creating /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build/lib
+[0.634s] creating /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build/lib/gazebo_tutorials
+[0.634s] copying gazebo_tutorials/__init__.py -> /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build/lib/gazebo_tutorials
+[0.634s] running install
+[0.634s] running install_lib
+[0.635s] creating /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials
+[0.635s] copying /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build/lib/gazebo_tutorials/__init__.py -> /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials
+[0.635s] byte-compiling /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials/__init__.py to __init__.cpython-38.pyc
+[0.636s] running install_data
+[0.636s] creating /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/share/ament_index
+[0.636s] creating /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/share/ament_index/resource_index
+[0.636s] creating /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/share/ament_index/resource_index/packages
+[0.636s] copying resource/gazebo_tutorials -> /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/share/ament_index/resource_index/packages
+[0.636s] copying package.xml -> /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/share/gazebo_tutorials
+[0.636s] running install_egg_info
+[0.637s] Copying ../../build/gazebo_tutorials/gazebo_tutorials.egg-info to /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials-0.0.0-py3.8.egg-info
+[0.638s] running install_scripts
+[0.648s] writing list of installed files to '/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log'
+[0.660s] Invoked command in '/home/jstone/Documents/graduation_project/T7/src/gazebo_tutorials' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gazebo_tutorials build --build-base /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build install --record /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log --single-version-externally-managed install_data
