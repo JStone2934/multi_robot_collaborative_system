@@ -1,0 +1,20 @@
+[0.393s] Invoking command in '/home/jstone/Documents/graduation_project/T7/src/gazebo_tutorials': PYTHONPATH=/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gazebo_tutorials build --build-base /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build install --record /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log --single-version-externally-managed install_data
+[0.534s] running egg_info
+[0.534s] writing ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/PKG-INFO
+[0.534s] writing dependency_links to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/dependency_links.txt
+[0.534s] writing entry points to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/entry_points.txt
+[0.534s] writing requirements to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/requires.txt
+[0.535s] writing top-level names to ../../build/gazebo_tutorials/gazebo_tutorials.egg-info/top_level.txt
+[0.555s] reading manifest file '../../build/gazebo_tutorials/gazebo_tutorials.egg-info/SOURCES.txt'
+[0.556s] writing manifest file '../../build/gazebo_tutorials/gazebo_tutorials.egg-info/SOURCES.txt'
+[0.556s] running build
+[0.556s] running build_py
+[0.556s] running install
+[0.557s] running install_lib
+[0.557s] running install_data
+[0.558s] running install_egg_info
+[0.558s] removing '/home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials-0.0.0-py3.8.egg-info' (and everything under it)
+[0.559s] Copying ../../build/gazebo_tutorials/gazebo_tutorials.egg-info to /home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages/gazebo_tutorials-0.0.0-py3.8.egg-info
+[0.559s] running install_scripts
+[0.569s] writing list of installed files to '/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log'
+[0.580s] Invoked command in '/home/jstone/Documents/graduation_project/T7/src/gazebo_tutorials' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/T7/install/gazebo_tutorials/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gazebo_tutorials build --build-base /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/build install --record /home/jstone/Documents/graduation_project/T7/build/gazebo_tutorials/install.log --single-version-externally-managed install_data

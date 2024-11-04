@@ -12,9 +12,15 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        # 添加这一行，确保 launch 文件夹和其中的文件被包含
+        # 确保 launch 文件夹和其中的文件被包含
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
+        (os.path.join('share', package_name, 'worlds'), glob('worlds/*.world')),  # 修正这里
     ],
+    package_data={
+        package_name: [
+            'worlds/*',  # 包含 worlds 文件夹下的所有文件
+        ],
+    },
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='jstone',
