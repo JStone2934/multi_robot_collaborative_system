@@ -1,0 +1,42 @@
+[1.316s] Invoking command in '/home/jstone/Documents/graduation_project/9T/robot_army/src/multiRobotExploration/drone/sjtu_drone_bringup': PYTHONPATH=/home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../build/sjtu_drone_bringup build --build-base /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build install --record /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/install.log --single-version-externally-managed install_data
+[1.476s] running egg_info
+[1.476s] creating ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info
+[1.476s] writing ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/PKG-INFO
+[1.476s] writing dependency_links to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/dependency_links.txt
+[1.476s] writing entry points to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/entry_points.txt
+[1.477s] writing requirements to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/requires.txt
+[1.477s] writing top-level names to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/top_level.txt
+[1.477s] writing manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+[1.499s] reading manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+[1.500s] writing manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+[1.500s] running build
+[1.500s] running build_py
+[1.500s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build
+[1.500s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib
+[1.500s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+[1.500s] copying sjtu_drone_bringup/__init__.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+[1.500s] copying sjtu_drone_bringup/spawn_drone.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+[1.501s] running install
+[1.501s] running install_lib
+[1.502s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+[1.502s] copying /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup/__init__.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+[1.502s] copying /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup/spawn_drone.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+[1.502s] byte-compiling /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup/__init__.py to __init__.cpython-38.pyc
+[1.503s] byte-compiling /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup/spawn_drone.py to spawn_drone.cpython-38.pyc
+[1.503s] running install_data
+[1.503s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/ament_index
+[1.503s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/ament_index/resource_index
+[1.503s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/ament_index/resource_index/packages
+[1.504s] copying resource/sjtu_drone_bringup -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/ament_index/resource_index/packages
+[1.504s] copying package.xml -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup
+[1.504s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+[1.504s] copying launch/sjtu_drone_gazebo.launch.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+[1.504s] copying launch/sjtu_drone_bringup.launch.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+[1.504s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup/rviz
+[1.504s] copying rviz/rviz.rviz -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/share/sjtu_drone_bringup/rviz
+[1.504s] running install_egg_info
+[1.505s] Copying ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info to /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup-0.0.0-py3.8.egg-info
+[1.505s] running install_scripts
+[1.517s] Installing spawn_drone script to /home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/sjtu_drone_bringup
+[1.517s] writing list of installed files to '/home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/install.log'
+[1.532s] Invoked command in '/home/jstone/Documents/graduation_project/9T/robot_army/src/multiRobotExploration/drone/sjtu_drone_bringup' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/9T/robot_army/src/install/sjtu_drone_bringup/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../build/sjtu_drone_bringup build --build-base /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/build install --record /home/jstone/Documents/graduation_project/9T/robot_army/src/build/sjtu_drone_bringup/install.log --single-version-externally-managed install_data

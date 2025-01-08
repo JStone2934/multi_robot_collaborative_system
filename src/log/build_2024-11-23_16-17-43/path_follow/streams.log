@@ -1,0 +1,37 @@
+[1.167s] Invoking command in '/home/jstone/Documents/graduation_project/9T/robot_army/src/multiRobotExploration/path_follow': PYTHONPATH=/home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/path_follow build --build-base /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build install --record /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/install.log --single-version-externally-managed install_data
+[1.348s] running egg_info
+[1.348s] creating ../../build/path_follow/path_follow.egg-info
+[1.348s] writing ../../build/path_follow/path_follow.egg-info/PKG-INFO
+[1.348s] writing dependency_links to ../../build/path_follow/path_follow.egg-info/dependency_links.txt
+[1.348s] writing entry points to ../../build/path_follow/path_follow.egg-info/entry_points.txt
+[1.348s] writing requirements to ../../build/path_follow/path_follow.egg-info/requires.txt
+[1.349s] writing top-level names to ../../build/path_follow/path_follow.egg-info/top_level.txt
+[1.349s] writing manifest file '../../build/path_follow/path_follow.egg-info/SOURCES.txt'
+[1.373s] reading manifest file '../../build/path_follow/path_follow.egg-info/SOURCES.txt'
+[1.373s] writing manifest file '../../build/path_follow/path_follow.egg-info/SOURCES.txt'
+[1.373s] running build
+[1.373s] running build_py
+[1.373s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build
+[1.373s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib
+[1.373s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib/path_follow
+[1.373s] copying path_follow/__init__.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib/path_follow
+[1.373s] copying path_follow/path_follow.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib/path_follow
+[1.373s] running install
+[1.374s] running install_lib
+[1.375s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow
+[1.375s] copying /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib/path_follow/__init__.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow
+[1.375s] copying /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build/lib/path_follow/path_follow.py -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow
+[1.375s] byte-compiling /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow/__init__.py to __init__.cpython-38.pyc
+[1.376s] byte-compiling /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow/path_follow.py to path_follow.cpython-38.pyc
+[1.377s] running install_data
+[1.377s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/share/ament_index
+[1.377s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/share/ament_index/resource_index
+[1.377s] creating /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/share/ament_index/resource_index/packages
+[1.377s] copying resource/path_follow -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/share/ament_index/resource_index/packages
+[1.377s] copying package.xml -> /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/share/path_follow
+[1.377s] running install_egg_info
+[1.378s] Copying ../../build/path_follow/path_follow.egg-info to /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages/path_follow-0.0.0-py3.8.egg-info
+[1.379s] running install_scripts
+[1.391s] Installing path_follow script to /home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/path_follow
+[1.392s] writing list of installed files to '/home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/install.log'
+[1.407s] Invoked command in '/home/jstone/Documents/graduation_project/9T/robot_army/src/multiRobotExploration/path_follow' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/9T/robot_army/src/install/path_follow/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/path_follow build --build-base /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/build install --record /home/jstone/Documents/graduation_project/9T/robot_army/src/build/path_follow/install.log --single-version-externally-managed install_data

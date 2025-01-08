@@ -1,0 +1,6 @@
+source;share/merge_map/hook/pythonpath.ps1
+source;share/merge_map/hook/pythonpath.dsv
+source;share/merge_map/hook/pythonpath.sh
+source;share/merge_map/hook/ament_prefix_path.ps1
+source;share/merge_map/hook/ament_prefix_path.dsv
+source;share/merge_map/hook/ament_prefix_path.sh

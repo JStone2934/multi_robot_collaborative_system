@@ -1,0 +1,15 @@
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/ament_index/resource_index/package_run_dependencies/robot_army
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/ament_index/resource_index/parent_prefix_path/robot_army
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/environment/ament_prefix_path.sh
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/environment/ament_prefix_path.dsv
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/environment/path.sh
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/environment/path.dsv
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/local_setup.bash
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/local_setup.sh
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/local_setup.zsh
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/local_setup.dsv
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/package.dsv
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/ament_index/resource_index/packages/robot_army
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/cmake/robot_armyConfig.cmake
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/cmake/robot_armyConfig-version.cmake
+/home/jstone/Documents/graduation_project/1P/robot_army/install/robot_army/share/robot_army/package.xml
