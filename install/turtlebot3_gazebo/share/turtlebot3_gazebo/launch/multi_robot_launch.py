@@ -12,9 +12,9 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    model_folder = 'turtlebot3_burger'
+    model_folder = 'turtlebot3_waffle'
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
-    robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_gazebo"), "urdf", "turtlebot3_burger.urdf")
+    robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_gazebo"), "urdf", "turtlebot3_waffle.urdf")
     world = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'worlds','turtlebot3_house.world')
     urdf_path1 = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'models',model_folder+'_0','model.sdf')
     urdf_path2 = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'models',model_folder+'_1','model.sdf')
@@ -193,7 +193,7 @@ def generate_launch_description():
         }],
     )
     ld = LaunchDescription()
-    ld.add_action(drone_control)
+    #ld.add_action(drone_control)
     ld.add_action(drone)
     ld.add_action(pathFollow1)
     ld.add_action(pathFollow2)

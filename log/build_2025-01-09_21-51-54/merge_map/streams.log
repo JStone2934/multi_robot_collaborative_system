@@ -1,0 +1,21 @@
+[1.096s] Invoking command in '/home/jstone/Documents/graduation_project/1P/robot_army/src/merge_map': PYTHONPATH=/home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/1P/robot_army/install/merge_map/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/merge_map build --build-base /home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/build install --record /home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/install.log --single-version-externally-managed install_data
+[1.258s] running egg_info
+[1.258s] writing ../../build/merge_map/merge_map.egg-info/PKG-INFO
+[1.258s] writing dependency_links to ../../build/merge_map/merge_map.egg-info/dependency_links.txt
+[1.259s] writing entry points to ../../build/merge_map/merge_map.egg-info/entry_points.txt
+[1.259s] writing requirements to ../../build/merge_map/merge_map.egg-info/requires.txt
+[1.259s] writing top-level names to ../../build/merge_map/merge_map.egg-info/top_level.txt
+[1.281s] reading manifest file '../../build/merge_map/merge_map.egg-info/SOURCES.txt'
+[1.282s] writing manifest file '../../build/merge_map/merge_map.egg-info/SOURCES.txt'
+[1.282s] running build
+[1.282s] running build_py
+[1.282s] running install
+[1.283s] running install_lib
+[1.284s] running install_data
+[1.284s] running install_egg_info
+[1.285s] removing '/home/jstone/Documents/graduation_project/1P/robot_army/install/merge_map/lib/python3.8/site-packages/merge_map-0.0.0-py3.8.egg-info' (and everything under it)
+[1.286s] Copying ../../build/merge_map/merge_map.egg-info to /home/jstone/Documents/graduation_project/1P/robot_army/install/merge_map/lib/python3.8/site-packages/merge_map-0.0.0-py3.8.egg-info
+[1.287s] running install_scripts
+[1.299s] Installing merge_map script to /home/jstone/Documents/graduation_project/1P/robot_army/install/merge_map/lib/merge_map
+[1.299s] writing list of installed files to '/home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/install.log'
+[1.318s] Invoked command in '/home/jstone/Documents/graduation_project/1P/robot_army/src/merge_map' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/1P/robot_army/install/merge_map/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/merge_map build --build-base /home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/build install --record /home/jstone/Documents/graduation_project/1P/robot_army/build/merge_map/install.log --single-version-externally-managed install_data

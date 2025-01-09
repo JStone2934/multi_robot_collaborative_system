@@ -5,6 +5,9 @@
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model-1_4.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model.config
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_1/model-1_4.sdf
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_1/model.sdf
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_1/model.config
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.config
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model-1_4.sdf
@@ -41,6 +44,9 @@
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model-1_4.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model.config
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_0/model-1_4.sdf
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_0/model.sdf
+/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_0/model.config
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model-1_4_.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.sdf
 /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.config
