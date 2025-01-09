@@ -1,9 +1,0 @@
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/install/strip.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/install/local.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/edit_cache.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/test.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/install.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/list_install_components.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/rebuild_cache.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/robot_army_uninstall.dir
-/home/jstone/Documents/graduation_project/1P/robot_army/build/robot_army/CMakeFiles/uninstall.dir

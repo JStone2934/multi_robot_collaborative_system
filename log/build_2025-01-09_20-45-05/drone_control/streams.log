@@ -1,0 +1,37 @@
+[1.045s] Invoking command in '/home/jstone/Documents/graduation_project/1P/robot_army/src/drone/drone_control': PYTHONPATH=/home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/drone_control build --build-base /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build install --record /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/install.log --single-version-externally-managed install_data
+[1.198s] running egg_info
+[1.198s] creating ../../../build/drone_control/drone_control.egg-info
+[1.198s] writing ../../../build/drone_control/drone_control.egg-info/PKG-INFO
+[1.199s] writing dependency_links to ../../../build/drone_control/drone_control.egg-info/dependency_links.txt
+[1.199s] writing entry points to ../../../build/drone_control/drone_control.egg-info/entry_points.txt
+[1.199s] writing requirements to ../../../build/drone_control/drone_control.egg-info/requires.txt
+[1.199s] writing top-level names to ../../../build/drone_control/drone_control.egg-info/top_level.txt
+[1.200s] writing manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+[1.238s] reading manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+[1.239s] writing manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+[1.239s] running build
+[1.239s] running build_py
+[1.239s] creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build
+[1.239s] creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib
+[1.239s] creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+[1.239s] copying drone_control/drone_control.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+[1.240s] copying drone_control/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+[1.240s] running install
+[1.241s] running install_lib
+[1.241s] creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+[1.241s] copying /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control/drone_control.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+[1.241s] copying /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+[1.242s] byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control/drone_control.py to drone_control.cpython-38.pyc
+[1.244s] byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control/__init__.py to __init__.cpython-38.pyc
+[1.244s] running install_data
+[1.244s] creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index
+[1.244s] creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index
+[1.244s] creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index/packages
+[1.244s] copying resource/drone_control -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index/packages
+[1.244s] copying package.xml -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/drone_control
+[1.244s] running install_egg_info
+[1.246s] Copying ../../../build/drone_control/drone_control.egg-info to /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control-0.0.0-py3.8.egg-info
+[1.246s] running install_scripts
+[1.264s] Installing drone_control script to /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/drone_control
+[1.265s] writing list of installed files to '/home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/install.log'
+[1.289s] Invoked command in '/home/jstone/Documents/graduation_project/1P/robot_army/src/drone/drone_control' returned '0': PYTHONPATH=/home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/drone_control build --build-base /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build install --record /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/install.log --single-version-externally-managed install_data

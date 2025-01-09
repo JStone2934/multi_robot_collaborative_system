@@ -1,0 +1,40 @@
+running egg_info
+creating ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info
+writing ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/PKG-INFO
+writing dependency_links to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/dependency_links.txt
+writing entry points to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/entry_points.txt
+writing requirements to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/requires.txt
+writing top-level names to ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/top_level.txt
+writing manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+reading manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+writing manifest file '../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+copying sjtu_drone_bringup/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+copying sjtu_drone_bringup/spawn_drone.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup
+running install
+running install_lib
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+copying /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+copying /home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/build/lib/sjtu_drone_bringup/spawn_drone.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup
+byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup/__init__.py to __init__.cpython-38.pyc
+byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup/spawn_drone.py to spawn_drone.cpython-38.pyc
+running install_data
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/ament_index
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/ament_index/resource_index
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/ament_index/resource_index/packages
+copying resource/sjtu_drone_bringup -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/ament_index/resource_index/packages
+copying package.xml -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+copying launch/sjtu_drone_gazebo.launch.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+copying launch/sjtu_drone_bringup.launch.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup/launch
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup/rviz
+copying rviz/rviz.rviz -> /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/share/sjtu_drone_bringup/rviz
+running install_egg_info
+Copying ../../../build/sjtu_drone_bringup/sjtu_drone_bringup.egg-info to /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/python3.8/site-packages/sjtu_drone_bringup-0.0.0-py3.8.egg-info
+running install_scripts
+Installing spawn_drone script to /home/jstone/Documents/graduation_project/1P/robot_army/install/sjtu_drone_bringup/lib/sjtu_drone_bringup
+writing list of installed files to '/home/jstone/Documents/graduation_project/1P/robot_army/build/sjtu_drone_bringup/install.log'

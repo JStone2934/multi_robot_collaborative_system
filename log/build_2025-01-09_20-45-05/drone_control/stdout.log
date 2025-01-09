@@ -1,0 +1,35 @@
+running egg_info
+creating ../../../build/drone_control/drone_control.egg-info
+writing ../../../build/drone_control/drone_control.egg-info/PKG-INFO
+writing dependency_links to ../../../build/drone_control/drone_control.egg-info/dependency_links.txt
+writing entry points to ../../../build/drone_control/drone_control.egg-info/entry_points.txt
+writing requirements to ../../../build/drone_control/drone_control.egg-info/requires.txt
+writing top-level names to ../../../build/drone_control/drone_control.egg-info/top_level.txt
+writing manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+reading manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+writing manifest file '../../../build/drone_control/drone_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib
+creating /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+copying drone_control/drone_control.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+copying drone_control/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control
+running install
+running install_lib
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+copying /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control/drone_control.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+copying /home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/build/lib/drone_control/__init__.py -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control
+byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control/drone_control.py to drone_control.cpython-38.pyc
+byte-compiling /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index
+creating /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index/packages
+copying resource/drone_control -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/ament_index/resource_index/packages
+copying package.xml -> /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/share/drone_control
+running install_egg_info
+Copying ../../../build/drone_control/drone_control.egg-info to /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/python3.8/site-packages/drone_control-0.0.0-py3.8.egg-info
+running install_scripts
+Installing drone_control script to /home/jstone/Documents/graduation_project/1P/robot_army/install/drone_control/lib/drone_control
+writing list of installed files to '/home/jstone/Documents/graduation_project/1P/robot_army/build/drone_control/install.log'

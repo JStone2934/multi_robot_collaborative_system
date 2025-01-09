@@ -1,0 +1,224 @@
+[0.722s] Invoking command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/jstone/Documents/graduation_project/1P/robot_army/src/turtlebot3_gazebo -DCMAKE_INSTALL_PREFIX=/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo
+[0.760s] -- The C compiler identification is GNU 9.4.0
+[0.799s] -- The CXX compiler identification is GNU 9.4.0
+[0.802s] -- Check for working C compiler: /usr/bin/cc
+[0.845s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.846s] -- Detecting C compiler ABI info
+[0.889s] -- Detecting C compiler ABI info - done
+[0.896s] -- Detecting C compile features
+[0.896s] -- Detecting C compile features - done
+[0.897s] -- Check for working CXX compiler: /usr/bin/c++
+[0.948s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.949s] -- Detecting CXX compiler ABI info
+[1.006s] -- Detecting CXX compiler ABI info - done
+[1.014s] -- Detecting CXX compile features
+[1.014s] -- Detecting CXX compile features - done
+[1.016s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[1.033s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[1.033s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[1.089s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+[1.092s] -- Checking for module 'bullet>=2.82'
+[1.101s] --   Found bullet, version 2.88
+[1.180s] -- Found ccd: /usr/include (found suitable version "2.0", minimum required is "2.0") 
+[1.219s] -- Found fcl: /usr/include (found suitable version "0.5.0", minimum required is "0.3.2") 
+[1.264s] -- Found assimp: /usr/include (found version "5.0.0") 
+[1.277s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[1.457s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[1.471s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found version "3.6.1") 
+[1.474s] -- Looking for ignition-math6 -- found version 6.15.1
+[1.478s] -- Searching for dependencies of ignition-math6
+[1.479s] -- Looking for OGRE...
+[1.479s] -- OGRE_PREFIX_WATCH changed.
+[1.482s] -- Checking for module 'OGRE'
+[1.491s] --   Found OGRE, version 1.9.0
+[1.514s] -- Found Ogre Ghadamon (1.9.0)
+[1.519s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[1.527s] -- Looking for OGRE_Paging...
+[1.533s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[1.533s] -- Looking for OGRE_Terrain...
+[1.537s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[1.537s] -- Looking for OGRE_Property...
+[1.540s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[1.540s] -- Looking for OGRE_RTShaderSystem...
+[1.544s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[1.544s] -- Looking for OGRE_Volume...
+[1.548s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[1.548s] -- Looking for OGRE_Overlay...
+[1.552s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[1.631s] -- Looking for ignition-math6 -- found version 6.15.1
+[1.632s] -- Looking for ignition-transport8 -- found version 8.5.0
+[1.632s] -- Searching for dependencies of ignition-transport8
+[1.654s] -- Checking for module 'uuid'
+[1.663s] --   Found uuid, version 2.34.0
+[1.686s] -- Found UUID: TRUE  
+[1.687s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[1.687s] -- Searching for dependencies of ignition-msgs5
+[1.701s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread (found suitable version "3.6.1", minimum required is "3") 
+[1.701s] -- Looking for ignition-math6 -- found version 6.15.1
+[1.706s] -- Checking for module 'tinyxml2'
+[1.717s] --   Found tinyxml2, version 6.2.0
+[1.744s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[1.745s] -- Looking for ignition-common3 -- found version 3.17.0
+[1.746s] -- Searching for dependencies of ignition-common3
+[1.746s] -- Looking for dlfcn.h - found
+[1.747s] -- Looking for libdl - found
+[1.748s] -- Found DL: TRUE  
+[1.753s] -- Searching for <ignition-common3> component [graphics]
+[1.754s] -- Looking for ignition-common3-graphics -- found version 3.17.0
+[1.755s] -- Searching for dependencies of ignition-common3-graphics
+[1.755s] -- Looking for ignition-math6 -- found version 6.15.1
+[1.757s] -- Looking for ignition-fuel_tools4 -- found version 4.9.1
+[1.757s] -- Searching for dependencies of ignition-fuel_tools4
+[1.805s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.68.0")  
+[1.810s] -- Checking for module 'jsoncpp'
+[1.818s] --   Found jsoncpp, version 1.7.4
+[1.842s] -- Found JSONCPP: TRUE  
+[1.845s] -- Checking for module 'libzip'
+[1.854s] --   Found libzip, version 1.5.1
+[1.877s] -- Found ZIP: TRUE  
+[1.877s] -- Looking for ignition-common3 -- found version 3.17.0
+[1.877s] -- Looking for ignition-math6 -- found version 6.15.1
+[1.878s] -- Looking for ignition-msgs5 -- found version 5.11.0
+[1.880s] -- Found gazebo_ros_pkgs: 3.5.2 (/opt/ros/galactic/share/gazebo_ros_pkgs/cmake)
+[1.881s] -- Found geometry_msgs: 2.2.4 (/opt/ros/galactic/share/geometry_msgs/cmake)
+[1.899s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.903s] -- Found rosidl_adapter: 2.2.3 (/opt/ros/galactic/share/rosidl_adapter/cmake)
+[1.950s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[1.968s] -- Found FastRTPS: /opt/ros/galactic/include  
+[2.017s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.069s] -- Found nav_msgs: 2.2.4 (/opt/ros/galactic/share/nav_msgs/cmake)
+[2.114s] -- Found rclcpp: 9.2.2 (/opt/ros/galactic/share/rclcpp/cmake)
+[2.145s] -- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)
+[2.146s] -- Found rmw_cyclonedds_cpp: 0.22.6 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)
+[2.158s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[2.159s] -- Found Threads: TRUE  
+[2.245s] -- Found sensor_msgs: 2.2.4 (/opt/ros/galactic/share/sensor_msgs/cmake)
+[2.290s] -- Found tf2: 0.17.5 (/opt/ros/galactic/share/tf2/cmake)
+[2.334s] -- Configuring done
+[2.353s] -- Generating done
+[2.360s] -- Build files have been written to: /home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo
+[2.370s] Invoked command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/jstone/Documents/graduation_project/1P/robot_army/src/turtlebot3_gazebo -DCMAKE_INSTALL_PREFIX=/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo
+[2.370s] Invoking command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo -- -j16 -l16
+[2.395s] [35m[1mScanning dependencies of target obstacles[0m
+[2.395s] [35m[1mScanning dependencies of target obstacle2[0m
+[2.396s] [35m[1mScanning dependencies of target turtlebot3_drive[0m
+[2.396s] [35m[1mScanning dependencies of target obstacle1[0m
+[2.426s] [ 12%] [32mBuilding CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o[0m
+[2.457s] [ 25%] [32mBuilding CXX object CMakeFiles/obstacle2.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacle2.cc.o[0m
+[2.457s] [ 37%] [32mBuilding CXX object CMakeFiles/obstacle1.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacle1.cc.o[0m
+[2.458s] [ 50%] [32mBuilding CXX object CMakeFiles/obstacles.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc.o[0m
+[8.494s] [ 62%] [32m[1mLinking CXX shared library libobstacles.so[0m
+[8.527s] [ 75%] [32m[1mLinking CXX shared library libobstacle1.so[0m
+[8.595s] [ 87%] [32m[1mLinking CXX shared library libobstacle2.so[0m
+[8.672s] [ 87%] Built target obstacles
+[8.717s] [ 87%] Built target obstacle1
+[8.757s] [100%] [32m[1mLinking CXX executable turtlebot3_drive[0m
+[8.767s] [100%] Built target obstacle2
+[8.997s] [100%] Built target turtlebot3_drive
+[9.005s] Invoked command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo -- -j16 -l16
+[9.012s] Invoking command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo
+[9.017s] -- Install configuration: ""
+[9.017s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive
+[9.020s] -- Set runtime path of "/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive" to ""
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/spawn_turtlebot3.launch.py
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/robot_state_publisher.launch.py
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/multi_robot_launch.py
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model-1_4.sdf
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model.sdf
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_1/model.config
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.sdf
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.config
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model-1_4.sdf
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model.sdf
+[9.020s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/meshes
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/meshes/wall.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/meshes/hexagon.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model.config
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/tire.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/waffle_pi_base.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/waffle_base.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/lds.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/burger_base.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/meshes/r200.dae
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_common/model.config
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacle2.cc
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacle1.cc
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/CMakeLists.txt
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/inner_walls
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/inner_walls/model.sdf
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/inner_walls/model.config
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/model.sdf
+[9.021s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle1
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle1/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle1/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/goal_box
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/goal_box/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/goal_box/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle2
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle2/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle2/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacles
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacles/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacles/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model-1_4.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model-1_4.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger_0/model.config
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model-1_4_.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.sdf
+[9.022s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.config
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//rviz
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//rviz/tb3_gazebo.rviz
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//urdf
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//urdf/turtlebot3_waffle.urdf
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//urdf/common_properties.urdf
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//urdf/turtlebot3_waffle_pi.urdf
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//urdf/turtlebot3_burger.urdf
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage2.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_world.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage4.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_house.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage3.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage1.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/empty_world.world
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//config
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//config/tb3_1.rviz
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo//config/tb3_0.rviz
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/include/
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/include//turtlebot3_gazebo
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/include//turtlebot3_gazebo/turtlebot3_drive.hpp
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/ament_index/resource_index/package_run_dependencies/turtlebot3_gazebo
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/ament_index/resource_index/parent_prefix_path/turtlebot3_gazebo
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/ament_prefix_path.sh
+[9.023s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/ament_prefix_path.dsv
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/path.sh
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/path.dsv
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.bash
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.sh
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.zsh
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.dsv
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.dsv
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/ament_index/resource_index/packages/turtlebot3_gazebo
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/ament_cmake_export_include_directories-extras.cmake
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/ament_cmake_export_dependencies-extras.cmake
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/turtlebot3_gazeboConfig.cmake
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/turtlebot3_gazeboConfig-version.cmake
+[9.024s] -- Installing: /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.xml
+[9.026s] Invoked command in '/home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/jstone/Documents/graduation_project/1P/robot_army/build/turtlebot3_gazebo
