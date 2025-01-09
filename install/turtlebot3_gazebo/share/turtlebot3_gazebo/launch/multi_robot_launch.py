@@ -194,7 +194,7 @@ def generate_launch_description():
     )
     ld = LaunchDescription()
     #ld.add_action(drone_control)
-    ld.add_action(drone)
+    #ld.add_action(drone)
     ld.add_action(pathFollow1)
     ld.add_action(pathFollow2)
     ld.add_action(gzserver_cmd)
