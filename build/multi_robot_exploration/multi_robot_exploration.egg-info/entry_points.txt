@@ -1,3 +1,0 @@
-[console_scripts]
-control = multi_robot_exploration.control:main
-

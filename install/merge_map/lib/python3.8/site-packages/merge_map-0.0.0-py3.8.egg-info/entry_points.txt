@@ -1,3 +1,0 @@
-[console_scripts]
-merge_map = merge_map.merge_map:main
-

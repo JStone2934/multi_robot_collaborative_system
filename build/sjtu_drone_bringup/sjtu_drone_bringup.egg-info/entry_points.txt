@@ -1,3 +1,0 @@
-[console_scripts]
-spawn_drone = sjtu_drone_bringup.spawn_drone:main
-

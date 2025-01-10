@@ -1,3 +1,0 @@
-[console_scripts]
-path_follow = path_follow.path_follow:main
-

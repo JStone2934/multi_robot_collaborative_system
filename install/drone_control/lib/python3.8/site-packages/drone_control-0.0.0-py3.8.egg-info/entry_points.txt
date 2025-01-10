@@ -1,3 +1,0 @@
-[console_scripts]
-drone_control = drone_control.drone_control:main
-
