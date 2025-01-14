@@ -1,0 +1,215 @@
+[INFO] [launch]: All log files can be found below /home/jstone/.ros/log/2025-01-14-20-09-55-023621-jstone-virtual-machine-332782
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [path_follow-1]: process started with pid [332784]
+[INFO] [path_follow-2]: process started with pid [332786]
+[INFO] [gzserver-3]: process started with pid [332788]
+[INFO] [gzclient --verbose  verbose-4]: process started with pid [332790]
+[INFO] [spawn_entity.py-5]: process started with pid [332792]
+[INFO] [robot_state_publisher-6]: process started with pid [332795]
+[INFO] [async_slam_toolbox_node-7]: process started with pid [332798]
+[INFO] [rviz2-8]: process started with pid [332800]
+[INFO] [spawn_entity.py-9]: process started with pid [332802]
+[INFO] [robot_state_publisher-10]: process started with pid [332804]
+[INFO] [async_slam_toolbox_node-11]: process started with pid [332806]
+[INFO] [rviz2-12]: process started with pid [332818]
+[robot_state_publisher-6] Link base_link had 7 children
+[robot_state_publisher-6] Link camera_link had 2 children
+[robot_state_publisher-6] Link camera_depth_frame had 1 children
+[robot_state_publisher-6] Link camera_depth_optical_frame had 0 children
+[robot_state_publisher-6] Link camera_rgb_frame had 1 children
+[robot_state_publisher-6] Link camera_rgb_optical_frame had 0 children
+[robot_state_publisher-6] Link caster_back_left_link had 0 children
+[robot_state_publisher-6] Link caster_back_right_link had 0 children
+[robot_state_publisher-6] Link imu_link had 0 children
+[robot_state_publisher-6] Link base_scan had 0 children
+[robot_state_publisher-6] Link wheel_left_link had 0 children
+[robot_state_publisher-6] Link wheel_right_link had 0 children
+[robot_state_publisher-6] [INFO] [1736856595.869110681] [tb3_0.robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-6] [INFO] [1736856595.869209405] [tb3_0.robot_state_publisher]: got segment base_link
+[robot_state_publisher-6] [INFO] [1736856595.869218311] [tb3_0.robot_state_publisher]: got segment base_scan
+[robot_state_publisher-6] [INFO] [1736856595.869223461] [tb3_0.robot_state_publisher]: got segment camera_depth_frame
+[robot_state_publisher-6] [INFO] [1736856595.869228510] [tb3_0.robot_state_publisher]: got segment camera_depth_optical_frame
+[robot_state_publisher-6] [INFO] [1736856595.869233670] [tb3_0.robot_state_publisher]: got segment camera_link
+[robot_state_publisher-6] [INFO] [1736856595.869238559] [tb3_0.robot_state_publisher]: got segment camera_rgb_frame
+[robot_state_publisher-6] [INFO] [1736856595.869243398] [tb3_0.robot_state_publisher]: got segment camera_rgb_optical_frame
+[robot_state_publisher-6] [INFO] [1736856595.869248387] [tb3_0.robot_state_publisher]: got segment caster_back_left_link
+[robot_state_publisher-6] [INFO] [1736856595.869253206] [tb3_0.robot_state_publisher]: got segment caster_back_right_link
+[robot_state_publisher-6] [INFO] [1736856595.869258276] [tb3_0.robot_state_publisher]: got segment imu_link
+[robot_state_publisher-6] [INFO] [1736856595.869263225] [tb3_0.robot_state_publisher]: got segment wheel_left_link
+[robot_state_publisher-6] [INFO] [1736856595.869268314] [tb3_0.robot_state_publisher]: got segment wheel_right_link
+[robot_state_publisher-10] Link base_link had 7 children
+[robot_state_publisher-10] Link camera_link had 2 children
+[robot_state_publisher-10] Link camera_depth_frame had 1 children
+[robot_state_publisher-10] Link camera_depth_optical_frame had 0 children
+[robot_state_publisher-10] Link camera_rgb_frame had 1 children
+[robot_state_publisher-10] Link camera_rgb_optical_frame had 0 children
+[robot_state_publisher-10] Link caster_back_left_link had 0 children
+[robot_state_publisher-10] Link caster_back_right_link had 0 children
+[robot_state_publisher-10] Link imu_link had 0 children
+[robot_state_publisher-10] Link base_scan had 0 children
+[robot_state_publisher-10] Link wheel_left_link had 0 children
+[robot_state_publisher-10] Link wheel_right_link had 0 children
+[robot_state_publisher-10] [INFO] [1736856595.883036340] [tb3_1.robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-10] [INFO] [1736856595.883156904] [tb3_1.robot_state_publisher]: got segment base_link
+[robot_state_publisher-10] [INFO] [1736856595.883168566] [tb3_1.robot_state_publisher]: got segment base_scan
+[robot_state_publisher-10] [INFO] [1736856595.883175910] [tb3_1.robot_state_publisher]: got segment camera_depth_frame
+[robot_state_publisher-10] [INFO] [1736856595.883182883] [tb3_1.robot_state_publisher]: got segment camera_depth_optical_frame
+[robot_state_publisher-10] [INFO] [1736856595.883190096] [tb3_1.robot_state_publisher]: got segment camera_link
+[robot_state_publisher-10] [INFO] [1736856595.883196909] [tb3_1.robot_state_publisher]: got segment camera_rgb_frame
+[robot_state_publisher-10] [INFO] [1736856595.883203892] [tb3_1.robot_state_publisher]: got segment camera_rgb_optical_frame
+[robot_state_publisher-10] [INFO] [1736856595.883210775] [tb3_1.robot_state_publisher]: got segment caster_back_left_link
+[robot_state_publisher-10] [INFO] [1736856595.883217427] [tb3_1.robot_state_publisher]: got segment caster_back_right_link
+[robot_state_publisher-10] [INFO] [1736856595.883223729] [tb3_1.robot_state_publisher]: got segment imu_link
+[robot_state_publisher-10] [INFO] [1736856595.883230351] [tb3_1.robot_state_publisher]: got segment wheel_left_link
+[robot_state_publisher-10] [INFO] [1736856595.883237214] [tb3_1.robot_state_publisher]: got segment wheel_right_link
+[async_slam_toolbox_node-11] [INFO] [1736856596.101409970] [tb3_1.async_slam_toolbox_node]: Using solver plugin solver_plugins::CeresSolver
+[async_slam_toolbox_node-7] [INFO] [1736856596.102769423] [tb3_0.async_slam_toolbox_node]: Using solver plugin solver_plugins::CeresSolver
+[gzclient --verbose  verbose-4] Gazebo multi-robot simulator, version 11.15.1
+[gzclient --verbose  verbose-4] Copyright (C) 2012 Open Source Robotics Foundation.
+[gzclient --verbose  verbose-4] Released under the Apache 2 License.
+[gzclient --verbose  verbose-4] http://gazebosim.org
+[gzclient --verbose  verbose-4] 
+[gzclient --verbose  verbose-4] 
+[gzclient --verbose  verbose-4] #     # ####### ####### ###  #####  #######
+[gzclient --verbose  verbose-4] ##    # #     #    #     #  #     # #
+[gzclient --verbose  verbose-4] # #   # #     #    #     #  #       #
+[gzclient --verbose  verbose-4] #  #  # #     #    #     #  #       #####
+[gzclient --verbose  verbose-4] #   # # #     #    #     #  #       #
+[gzclient --verbose  verbose-4] #    ## #     #    #     #  #     # #
+[gzclient --verbose  verbose-4] #     # #######    #    ###  #####  #######
+[gzclient --verbose  verbose-4] 
+[gzclient --verbose  verbose-4] This version of Gazebo, now called Gazebo classic, reaches end-of-life
+[gzclient --verbose  verbose-4] in January 2025. Users are highly encouraged to migrate to the new Gazebo
+[gzclient --verbose  verbose-4] using our migration guides (https://gazebosim.org/docs/latest/gazebo_classic_migration/)
+[gzclient --verbose  verbose-4] 
+[gzclient --verbose  verbose-4] 
+[gzserver-3] Gazebo multi-robot simulator, version 11.15.1
+[gzserver-3] Copyright (C) 2012 Open Source Robotics Foundation.
+[gzserver-3] Released under the Apache 2 License.
+[gzserver-3] http://gazebosim.org
+[gzserver-3] 
+[gzserver-3] 
+[gzserver-3] #     # ####### ####### ###  #####  #######
+[gzserver-3] ##    # #     #    #     #  #     # #
+[gzserver-3] # #   # #     #    #     #  #       #
+[gzserver-3] #  #  # #     #    #     #  #       #####
+[gzserver-3] #   # # #     #    #     #  #       #
+[gzserver-3] #    ## #     #    #     #  #     # #
+[gzserver-3] #     # #######    #    ###  #####  #######
+[gzserver-3] 
+[gzserver-3] This version of Gazebo, now called Gazebo classic, reaches end-of-life
+[gzserver-3] in January 2025. Users are highly encouraged to migrate to the new Gazebo
+[gzserver-3] using our migration guides (https://gazebosim.org/docs/latest/gazebo_classic_migration/)
+[gzserver-3] 
+[gzserver-3] 
+[spawn_entity.py-5] [INFO] [1736856596.308899882] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-5] [INFO] [1736856596.309229997] [spawn_entity]: Loading entity XML from file /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_waffle_0/model.sdf
+[spawn_entity.py-5] [INFO] [1736856596.310154508] [spawn_entity]: Waiting for service /spawn_entity, timeout = 5
+[spawn_entity.py-5] [INFO] [1736856596.310456030] [spawn_entity]: Waiting for service /spawn_entity
+[spawn_entity.py-9] [INFO] [1736856596.311000745] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-9] [INFO] [1736856596.311447757] [spawn_entity]: Loading entity XML from file /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_waffle_1/model.sdf
+[spawn_entity.py-9] [INFO] [1736856596.312566932] [spawn_entity]: Waiting for service /spawn_entity, timeout = 5
+[spawn_entity.py-9] [INFO] [1736856596.312979099] [spawn_entity]: Waiting for service /spawn_entity
+[rviz2-12] [INFO] [1736856596.360964328] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-12] [INFO] [1736856596.361120008] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-8] [INFO] [1736856596.365798031] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] [INFO] [1736856596.366007070] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-12] [INFO] [1736856596.384193404] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] [INFO] [1736856596.386802874] [rviz2]: Stereo is NOT SUPPORTED
+[gzserver-3] [Msg] Waiting for master.
+[gzserver-3] [Msg] Connected to gazebo master @ http://127.0.0.1:11345
+[gzserver-3] [Msg] Publicized address: 192.168.1.5
+[gzserver-3] Warning [parser.cc:833] XML Attribute[version] in element[sdf] not defined in SDF, ignoring.
+[spawn_entity.py-5] [INFO] [1736856597.315225111] [spawn_entity]: Calling service /spawn_entity
+[spawn_entity.py-9] [INFO] [1736856597.318971069] [spawn_entity]: Calling service /spawn_entity
+[gzserver-3] [INFO] [1736856597.543515470] [tb3_0.turtlebot3_imu]: <initial_orientation_as_reference> is unset, using default value of false to comply with REP 145 (world as orientation reference)
+[gzserver-3] [WARN] [1736856597.641805265] [tb3_0.turtlebot3_laserscan]: New subscription discovered on topic '/tb3_0/scan', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[spawn_entity.py-5] [INFO] [1736856597.648838004] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [tb3_0]
+[rviz2-8] [WARN] [1736856597.654479563] [rviz2]: New publisher discovered on topic '/tb3_0/scan', offering incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[INFO] [spawn_entity.py-5]: process has finished cleanly [pid 332792]
+[gzserver-3] [INFO] [1736856599.316025080] [tb3_0.camera_driver]: Publishing camera info to [/tb3_0/camera/camera_info]
+[gzserver-3] [INFO] [1736856599.370852755] [tb3_0.turtlebot3_diff_drive]: Wheel pair 1 separation set to [0.287000m]
+[gzserver-3] [INFO] [1736856599.370924739] [tb3_0.turtlebot3_diff_drive]: Wheel pair 1 diameter set to [0.066000m]
+[gzserver-3] [INFO] [1736856599.372356716] [tb3_0.turtlebot3_diff_drive]: Subscribed to [/tb3_0/cmd_vel]
+[gzserver-3] [INFO] [1736856599.374327999] [tb3_0.turtlebot3_diff_drive]: Advertise odometry on [/tb3_0/odom]
+[gzserver-3] [INFO] [1736856599.377219345] [tb3_0.turtlebot3_diff_drive]: Publishing odom transforms between [odom] and [base_footprint]
+[gzserver-3] [INFO] [1736856599.388430346] [tb3_0.turtlebot3_joint_state]: Going to publish joint [wheel_left_joint]
+[gzserver-3] [INFO] [1736856599.388484076] [tb3_0.turtlebot3_joint_state]: Going to publish joint [wheel_right_joint]
+[gzserver-3] [INFO] [1736856599.713300845] [tb3_1.turtlebot3_imu]: <initial_orientation_as_reference> is unset, using default value of false to comply with REP 145 (world as orientation reference)
+[spawn_entity.py-9] [INFO] [1736856599.783441243] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [tb3_1]
+[gzserver-3] [WARN] [1736856599.790326427] [tb3_1.turtlebot3_laserscan]: New subscription discovered on topic '/tb3_1/scan', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[gzserver-3] [INFO] [1736856599.795182863] [tb3_1.camera_driver]: Publishing camera info to [/tb3_1/camera/camera_info]
+[rviz2-12] [WARN] [1736856599.814838175] [rviz2]: New publisher discovered on topic '/tb3_1/scan', offering incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[gzserver-3] [INFO] [1736856599.889872115] [tb3_1.turtlebot3_diff_drive]: Wheel pair 1 separation set to [0.287000m]
+[gzserver-3] [INFO] [1736856599.889990025] [tb3_1.turtlebot3_diff_drive]: Wheel pair 1 diameter set to [0.066000m]
+[gzserver-3] [INFO] [1736856599.890657018] [tb3_1.turtlebot3_diff_drive]: Subscribed to [/tb3_1/cmd_vel]
+[gzserver-3] [INFO] [1736856599.891347234] [tb3_1.turtlebot3_diff_drive]: Advertise odometry on [/tb3_1/odom]
+[gzserver-3] [INFO] [1736856599.891939327] [tb3_1.turtlebot3_diff_drive]: Publishing odom transforms between [odom] and [base_footprint]
+[gzserver-3] [INFO] [1736856599.896014998] [tb3_1.turtlebot3_joint_state]: Going to publish joint [wheel_left_joint]
+[gzserver-3] [INFO] [1736856599.896078256] [tb3_1.turtlebot3_joint_state]: Going to publish joint [wheel_right_joint]
+[INFO] [spawn_entity.py-9]: process has finished cleanly [pid 332802]
+[async_slam_toolbox_node-7] [INFO] [1736856600.133709230] [tb3_0.async_slam_toolbox_node]: Message Filter dropping message: frame 'base_scan' at time 0.214 for reason 'discarding message because the queue is full'
+[async_slam_toolbox_node-11] [INFO] [1736856600.135493434] [tb3_1.async_slam_toolbox_node]: Message Filter dropping message: frame 'base_scan' at time 0.214 for reason 'discarding message because the queue is full'
+[async_slam_toolbox_node-7] [INFO] [1736856600.349642170] [tb3_0.async_slam_toolbox_node]: Message Filter dropping message: frame 'base_scan' at time 0.415 for reason 'discarding message because the queue is full'
+[async_slam_toolbox_node-11] [INFO] [1736856600.350398078] [tb3_1.async_slam_toolbox_node]: Message Filter dropping message: frame 'base_scan' at time 0.416 for reason 'discarding message because the queue is full'
+^C[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[rviz2-12] [INFO] [1736856600.571178067] [rclcpp]: signal_handler(signal_value=2)
+[async_slam_toolbox_node-7] [INFO] [1736856600.571173618] [rclcpp]: signal_handler(signal_value=2)
+[async_slam_toolbox_node-11] [INFO] [1736856600.571173678] [rclcpp]: signal_handler(signal_value=2)
+[rviz2-8] [INFO] [1736856600.571176824] [rclcpp]: signal_handler(signal_value=2)
+[robot_state_publisher-10] [INFO] [1736856600.571178517] [rclcpp]: signal_handler(signal_value=2)
+[robot_state_publisher-6] [INFO] [1736856600.571250782] [rclcpp]: signal_handler(signal_value=2)
+[path_follow-1] Path follower node has been started
+[path_follow-1] Traceback (most recent call last):
+[path_follow-1]   File "/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/path_follow/path_follow", line 11, in <module>
+[path_follow-1]     load_entry_point('path-follow==0.0.0', 'console_scripts', 'path_follow')()
+[path_follow-1]   File "/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/python3.8/site-packages/path_follow/path_follow.py", line 114, in main
+[path_follow-1]     rclpy.spin(path_follower)
+[path_follow-1]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/__init__.py", line 196, in spin
+[path_follow-1]     executor.spin_once()
+[path_follow-1]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 705, in spin_once
+[path_follow-1]     handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+[path_follow-1]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 691, in wait_for_ready_callbacks
+[path_follow-1]     return next(self._cb_iter)
+[path_follow-1]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 588, in _wait_for_ready_callbacks
+[path_follow-1]     wait_set.wait(timeout_nsec)
+[path_follow-1] KeyboardInterrupt
+[path_follow-2] Path follower node has been started
+[path_follow-2] Traceback (most recent call last):
+[path_follow-2]   File "/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/path_follow/path_follow", line 11, in <module>
+[path_follow-2]     load_entry_point('path-follow==0.0.0', 'console_scripts', 'path_follow')()
+[path_follow-2]   File "/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/python3.8/site-packages/path_follow/path_follow.py", line 114, in main
+[path_follow-2]     rclpy.spin(path_follower)
+[path_follow-2]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/__init__.py", line 196, in spin
+[path_follow-2]     executor.spin_once()
+[path_follow-2]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 705, in spin_once
+[path_follow-2]     handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+[path_follow-2]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 691, in wait_for_ready_callbacks
+[path_follow-2]     return next(self._cb_iter)
+[path_follow-2]   File "/opt/ros/galactic/lib/python3.8/site-packages/rclpy/executors.py", line 588, in _wait_for_ready_callbacks
+[path_follow-2]     wait_set.wait(timeout_nsec)
+[path_follow-2] KeyboardInterrupt
+[ERROR] [async_slam_toolbox_node-7]: process has died [pid 332798, exit code -11, cmd '/opt/ros/galactic/lib/slam_toolbox/async_slam_toolbox_node --ros-args -r __node:=async_slam_toolbox_node -r __ns:=/tb3_0 --params-file /tmp/launch_params_cwwqks4y -r /map:=map -r /map_metadata:=map_metadata -r /slam_toolbox/scan_visualization:=slam_toolbox/scan_visualization -r /slam_toolbox/graph_visualization:=slam_toolbox/graph_visualization'].
+[ERROR] [async_slam_toolbox_node-11]: process has died [pid 332806, exit code -11, cmd '/opt/ros/galactic/lib/slam_toolbox/async_slam_toolbox_node --ros-args -r __node:=async_slam_toolbox_node -r __ns:=/tb3_1 --params-file /tmp/launch_params_6fn_ozsj -r /map:=map -r /map_metadata:=map_metadata -r /slam_toolbox/scan_visualization:=slam_toolbox/scan_visualization -r /slam_toolbox/graph_visualization:=slam_toolbox/graph_visualization'].
+[INFO] [robot_state_publisher-6]: process has finished cleanly [pid 332795]
+[ERROR] [path_follow-2]: process has died [pid 332786, exit code -2, cmd '/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/path_follow/path_follow --ros-args -r __node:=pathFollow -r __ns:=/tb3_1 --params-file /tmp/launch_params_uni2m1y_ -r /path:=/tb3_1/path -r /cmd_vel:=/tb3_1/cmd_vel -r /odom:=/tb3_1/odom -r /visual_path:=/tb3_0/visual_path'].
+[ERROR] [path_follow-1]: process has died [pid 332784, exit code -2, cmd '/home/jstone/Documents/graduation_project/1P/robot_army/install/path_follow/lib/path_follow/path_follow --ros-args -r __node:=pathFollow -r __ns:=/tb3_0 --params-file /tmp/launch_params_dvmzxzhp -r /path:=/tb3_0/path -r /cmd_vel:=/tb3_0/cmd_vel -r /odom:=/tb3_0/odom -r /visual_path:=/tb3_1/visual_path'].
+[rviz2-8] QFileSystemWatcher::removePaths: list is empty
+[rviz2-8] QFileSystemWatcher::removePaths: list is empty
+[rviz2-12] QFileSystemWatcher::removePaths: list is empty
+[rviz2-12] QFileSystemWatcher::removePaths: list is empty
+[INFO] [rviz2-8]: process has finished cleanly [pid 332800]
+[INFO] [rviz2-12]: process has finished cleanly [pid 332818]
+[INFO] [robot_state_publisher-10]: process has finished cleanly [pid 332804]
+[gzserver-3] [Msg] Loading world file [/home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/worlds/turtlebot3_house.world]
+[ERROR] [gzserver-3]: process has died [pid 332788, exit code -2, cmd 'gzserver /home/jstone/Documents/graduation_project/1P/robot_army/install/turtlebot3_gazebo/share/turtlebot3_gazebo/worlds/turtlebot3_house.world      --verbose                                                                -s libgazebo_ros_init.so   -s libgazebo_ros_factory.so   -s libgazebo_ros_force_system.so       verbose'].
+[gzserver-3] 
+[gzserver-3] 
+[gzclient --verbose  verbose-4] 
+[gzclient --verbose  verbose-4] libcurl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to fuel.ignitionrobotics.org:443 
+[ERROR] [gzclient --verbose  verbose-4]: process[gzclient --verbose  verbose-4] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [gzclient --verbose  verbose-4]: sending signal 'SIGTERM' to process[gzclient --verbose  verbose-4]
+[ERROR] [gzclient --verbose  verbose-4]: process has died [pid 332790, exit code -15, cmd 'gzclient --verbose  verbose'].
+jstone@jstone-virtual-machine:~/Documents/graduation_project/1P/robot_army$ 
+
+Ljs030722.
