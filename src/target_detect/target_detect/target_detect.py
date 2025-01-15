@@ -73,15 +73,23 @@ class MultiRobotMapUpdater(Node):
         angle_index = int((self.target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
         self.get_logger().info(f" angle index:{angle_index}")
         self.get_logger().info(f"len angle: {len(scan_msg.ranges)}")
+        
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
+            
+            # 过滤掉距离为 inf 或超过最大有效距离（3.5米）的值
+            if distance == float('inf') or distance > scan_msg.range_max:
+                self.get_logger().warn(f"Invalid distance value: {distance}, skipping map update.")
+                return
+            
             # 将激光雷达数据转换为地图坐标
             x = distance * math.cos(math.radians(self.target_angle))
             y = distance * math.sin(math.radians(self.target_angle))
             self.get_logger().info(f"Updating map")
+            
             # 在地图上更新物体位置
             self.update_map(x, y, robot_id)
-
+            
     def update_map(self, x, y, robot_id):
         self.get_logger().info(f"Updating map with position: ({x}, {y}), robot_id: {robot_id}")
         resolution = self.current_map.info.resolution
