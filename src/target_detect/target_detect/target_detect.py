@@ -4,6 +4,8 @@ from nav_msgs.msg import OccupancyGrid
 from sensor_msgs.msg import LaserScan
 import math
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
+from visualization_msgs.msg import Marker
+from geometry_msgs.msg import Point
 
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
@@ -45,6 +47,9 @@ class MultiRobotMapUpdater(Node):
             best_effort_qos
             )
         
+        # 发布标记消息
+        self.marker_pub = self.create_publisher(Marker, '/map_markers', best_effort_qos)
+
         self.current_map = None
         self.target_angle = 1  # 指定角度
         
@@ -54,7 +59,6 @@ class MultiRobotMapUpdater(Node):
     def map_callback(self, msg):
         #self.get_logger().info("Map data received.")
         self.current_map = msg
-        
 
     def scan_callback_robot1(self, scan_msg):
         if self.current_map is None:
@@ -128,9 +132,38 @@ class MultiRobotMapUpdater(Node):
 
             # 发布更新后的地图
             self.map_pub.publish(updated_map)
-            #self.get_logger().info("Updated map published.")
+            
+            # 发布标记信息
+            self.publish_markers()
+
         else:
             self.get_logger().warn(f"Invalid index {index}, skipping map update.")
+    
+    def publish_markers(self):
+        # 创建标记消息
+        marker = Marker()
+        marker.header.frame_id = 'merge_map'
+        marker.header.stamp = self.get_clock().now().to_msg()
+        marker.ns = 'robot_markers'
+        marker.id = 0
+        marker.type = Marker.POINTS
+        marker.action = Marker.ADD
+        marker.pose.orientation.w = 1.0
+        marker.scale.x = 0.1  # 点的大小
+        marker.scale.y = 0.1
+        marker.color.r = 1.0  # 红色
+        marker.color.g = 0.0
+        marker.color.b = 0.0
+        marker.color.a = 1.0
+
+        for pos in self.marked_positions:
+            point = Point()
+            point.x = pos[0] * self.current_map.info.resolution + self.current_map.info.origin.position.x
+            point.y = pos[1] * self.current_map.info.resolution + self.current_map.info.origin.position.y
+            marker.points.append(point)
+
+        # 发布标记
+        self.marker_pub.publish(marker)
 
 def main(args=None):
     rclpy.init(args=args)
