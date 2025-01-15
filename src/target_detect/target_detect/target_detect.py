@@ -100,6 +100,7 @@ class MultiRobotMapUpdater(Node):
             # 创建新的地图数据
             updated_map = OccupancyGrid()
             updated_map.header = self.current_map.header
+            updated_map.header.frame_id = 'merge_map'
             updated_map.info = self.current_map.info
             updated_map.data = list(self.current_map.data)
 
