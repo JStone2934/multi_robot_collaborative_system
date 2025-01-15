@@ -47,6 +47,9 @@ class MultiRobotMapUpdater(Node):
         
         self.current_map = None
         self.target_angle = 1  # 指定角度
+        
+        # 存储已标记的物体位置
+        self.marked_positions = []
 
     def map_callback(self, msg):
         #self.get_logger().info("Map data received.")
@@ -68,30 +71,30 @@ class MultiRobotMapUpdater(Node):
         self.process_scan(scan_msg, robot_id="robot2")
 
     def process_scan(self, scan_msg, robot_id):
-        self.get_logger().info(f"Processing scan for {robot_id}.")
+        #self.get_logger().info(f"Processing scan for {robot_id}.")
         # 计算指定角度上物体的位置
         angle_index = int((self.target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
-        self.get_logger().info(f" angle index:{angle_index}")
-        self.get_logger().info(f"len angle: {len(scan_msg.ranges)}")
+        #self.get_logger().info(f" angle index:{angle_index}")
+        #self.get_logger().info(f"len angle: {len(scan_msg.ranges)}")
         
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
             
             # 过滤掉距离为 inf 或超过最大有效距离（3.5米）的值
             if distance == float('inf') or distance > scan_msg.range_max:
-                self.get_logger().warn(f"Invalid distance value: {distance}, skipping map update.")
+                #self.get_logger().warn(f"Invalid distance value: {distance}, skipping map update.")
                 return
             
             # 将激光雷达数据转换为地图坐标
             x = distance * math.cos(math.radians(self.target_angle))
             y = distance * math.sin(math.radians(self.target_angle))
-            self.get_logger().info(f"Updating map")
+            #self.get_logger().info(f"Updating map")
             
             # 在地图上更新物体位置
             self.update_map(x, y, robot_id)
             
     def update_map(self, x, y, robot_id):
-        self.get_logger().info(f"Updating map with position: ({x}, {y}), robot_id: {robot_id}")
+        #self.get_logger().info(f"Updating map with position: ({x}, {y}), robot_id: {robot_id}")
         resolution = self.current_map.info.resolution
         origin_x = self.current_map.info.origin.position.x
         origin_y = self.current_map.info.origin.position.y
@@ -100,10 +103,10 @@ class MultiRobotMapUpdater(Node):
         grid_y = int((y - origin_y) / resolution)
         index = grid_y * self.current_map.info.width + grid_x
 
-        self.get_logger().info(f"Calculated grid position: ({grid_x}, {grid_y}), index: {index}")
+        #self.get_logger().info(f"Calculated grid position: ({grid_x}, {grid_y}), index: {index}")
 
         if 0 <= index < len(self.current_map.data):
-            self.get_logger().info(f"Index {index} is valid, updating map.")
+            #self.get_logger().info(f"Index {index} is valid, updating map.")
             
             # 创建新的地图数据
             updated_map = OccupancyGrid()
@@ -118,9 +121,14 @@ class MultiRobotMapUpdater(Node):
             elif robot_id == "robot2":
                 updated_map.data[index] = 50   # 机器人2标记
 
+            # 如果这个位置已经被标记过，保留原标记
+            if (grid_x, grid_y) not in self.marked_positions:
+                self.marked_positions.append((grid_x, grid_y))
+                self.get_logger().warn(f"marked_positions {grid_x},{grid_y}")
+
             # 发布更新后的地图
             self.map_pub.publish(updated_map)
-            self.get_logger().info("Updated map published.")
+            #self.get_logger().info("Updated map published.")
         else:
             self.get_logger().warn(f"Invalid index {index}, skipping map update.")
 
