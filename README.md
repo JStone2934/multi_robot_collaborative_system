@@ -15,7 +15,11 @@ ros2 launch turtlebot3_gazebo multi_robot_launch.py
 ```bash
 ros2 launch merge_map merge_map_launch.py
 ```
-第三个终端运行自动探图控制器：
+第三个终端运行目标检测：
+```bash
+ros2 launch target_detect target_detect target_detect_launch.py 
+```
+第四个终端运行自动探图控制器：
 ```bash
 ros2 run multi_robot_exploration control
 ```
