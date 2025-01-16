@@ -14,10 +14,13 @@ best_effort_qos = QoSProfile(
     history=QoSHistoryPolicy.KEEP_LAST,
     depth=10
 )
-
 class MultiRobotMapUpdater(Node):
     def __init__(self):
         super().__init__('multi_robot_map_updater')
+        
+        # 为两个机器人分别设置不同的目标角度
+        self.target_angle_robot1 = math.radians(0)   # 机器人1的目标角度
+        self.target_angle_robot2 = math.radians(0)   # 机器人2的目标角度
         
         # 订阅两个机器人的激光雷达数据
         self.scan_sub_robot1 = self.create_subscription(
@@ -66,8 +69,6 @@ class MultiRobotMapUpdater(Node):
         self.marker_pub = self.create_publisher(Marker, '/map_markers', best_effort_qos)
 
         self.current_map = None
-        self.target_angle = 1  # 指定角度
-        
         # 存储已标记的物体位置
         self.marked_positions = []
 
@@ -92,17 +93,17 @@ class MultiRobotMapUpdater(Node):
         if self.current_map is None or self.robot1_pose is None:
             self.get_logger().warn("Map or Odometry not received yet.")
             return
-        self.process_scan(scan_msg, robot_id="robot1", robot_pose=self.robot1_pose)
+        self.process_scan(scan_msg, robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
 
     def scan_callback_robot2(self, scan_msg):
         if self.current_map is None or self.robot2_pose is None:
             self.get_logger().warn("Map or Odometry not received yet.")
             return
-        self.process_scan(scan_msg, robot_id="robot2", robot_pose=self.robot2_pose)
+        self.process_scan(scan_msg, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
 
-    def process_scan(self, scan_msg, robot_id, robot_pose):
+    def process_scan(self, scan_msg, robot_id, robot_pose, target_angle):
         # 计算指定角度上物体的位置
-        angle_index = int((self.target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
+        angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
         self.get_logger().warn(f"process_scan")
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
@@ -112,8 +113,8 @@ class MultiRobotMapUpdater(Node):
                 return
             
             # 将激光雷达数据转换为局部坐标
-            local_x = distance * math.cos(math.radians(self.target_angle))
-            local_y = distance * math.sin(math.radians(self.target_angle))
+            local_x = distance * math.cos(math.radians(target_angle))
+            local_y = distance * math.sin(math.radians(target_angle))
             
             # 转换为全局坐标
             robot_x = robot_pose.position.x
@@ -193,6 +194,7 @@ class MultiRobotMapUpdater(Node):
 
         # 发布标记
         self.marker_pub.publish(marker)
+
 
 def main(args=None):
     rclpy.init(args=args)
