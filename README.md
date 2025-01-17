@@ -15,11 +15,16 @@ ros2 launch turtlebot3_gazebo multi_robot_launch.py
 ```bash
 ros2 launch merge_map merge_map_launch.py
 ```
-第三个终端运行目标检测：
+第三个终端运行图像识别：
 ```bash
-ros2 launch target_detect target_detect target_detect_launch.py 
+ros2 run yolov5_ros2 yolo_detect_2d --ros-args -p device:=cpu 
 ```
-第四个终端运行自动探图控制器：
+第四个终端运行目标检测：
+```bash
+ros2 launch target_detect target_detect_launch.py 
+```
+第五个终端运行自动探图控制器：
 ```bash
 ros2 run multi_robot_exploration control
 ```
+
