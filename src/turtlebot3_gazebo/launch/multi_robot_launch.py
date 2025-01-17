@@ -15,7 +15,7 @@ def generate_launch_description():
     model_folder = 'turtlebot3_waffle'
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
     robot_desc_path = os.path.join(get_package_share_directory("turtlebot3_gazebo"), "urdf", "turtlebot3_waffle.urdf")
-    world = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'worlds','turtlebot3_house.world')
+    world = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'worlds','house_with_cone.world')
     urdf_path1 = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'models',model_folder+'_0','model.sdf')
     urdf_path2 = os.path.join(get_package_share_directory('turtlebot3_gazebo'),'models',model_folder+'_1','model.sdf')
     with open(robot_desc_path, 'r') as infp:
