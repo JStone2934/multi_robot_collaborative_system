@@ -87,8 +87,13 @@ class YoloV5Ros2(Node):
 
     def image_callback(self, msg: Image, robot_id: int):
         # Detect and publish results.
-        image = self.bridge.imgmsg_to_cv2(msg)
-        detect_result = self.yolov5.predict(image)
+        image_rgb = self.bridge.imgmsg_to_cv2(msg)
+
+        # Convert the image from BGR to RGB.
+        image_bgr = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2BGR)
+
+        # Perform YOLOv5 detection on the RGB image.
+        detect_result = self.yolov5.predict(image_rgb)
         self.get_logger().info(f"Robot {robot_id} detection result: {str(detect_result)}")
 
         result_msg = Detection2DArray()
@@ -114,7 +119,7 @@ class YoloV5Ros2(Node):
             center_x = (x1+x2)/2.0
             center_y = (y1+y2)/2.0
 
-            if ros_distribution=='galactic':
+            if ros_distribution == 'galactic':
                 detection2d.bbox.center.x = center_x
                 detection2d.bbox.center.y = center_y
             else:
@@ -131,21 +136,20 @@ class YoloV5Ros2(Node):
             detection2d.results.append(obj_pose)
             result_msg.detections.append(detection2d)
 
-            # Draw results.
+            # Draw results on the original BGR image.
             if self.show_result or self.pub_result_img:
-                cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                cv2.putText(image, f"{name}", (x1, y1),
+                cv2.rectangle(image_bgr, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(image_bgr, f"{name}", (x1, y1),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
-                cv2.waitKey(1)
 
         # Display results if needed.
         if self.show_result:
-            cv2.imshow(f'result_{robot_id}', image)
+            cv2.imshow(f'result_{robot_id}', image_bgr)
             cv2.waitKey(1)
 
         # Publish result images if needed.
         if self.pub_result_img:
-            result_img_msg = self.bridge.cv2_to_imgmsg(image, encoding="bgr8")
+            result_img_msg = self.bridge.cv2_to_imgmsg(image_bgr, encoding="bgr8")
             result_img_msg.header = msg.header
             if robot_id == 0:
                 self.result_img_pub_0.publish(result_img_msg)
