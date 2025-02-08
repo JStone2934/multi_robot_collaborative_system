@@ -28,8 +28,8 @@ class YoloV5Ros2(Node):
         self.declare_parameter("device", "cuda", ParameterDescriptor(
             name="device", description="Compute device selection, default: cpu, options: cuda:0"))
 
-        self.declare_parameter("model", "yolov5s", ParameterDescriptor(
-            name="model", description="Default model selection: yolov5s"))
+        self.declare_parameter("model", "cone_force", ParameterDescriptor(
+            name="model", description="Default model selection: cone"))
 
         self.declare_parameter("image_topic_0", "/tb3_0/camera/image_raw", ParameterDescriptor(
             name="image_topic_0", description="Image topic for tb3_0, default: /tb3_0/camera/image_raw"))
