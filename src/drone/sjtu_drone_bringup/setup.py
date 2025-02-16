@@ -21,7 +21,9 @@ setup(
     maintainer_email='georg.novtony@aon.at',
     description='TODO: Package description',
     license='TODO: License declaration',
-    tests_require=['pytest'],
+    extras_require={
+        'dev': ['pytest'],  # 通过 extras_require 来指定测试依赖
+    },
     entry_points={
         'console_scripts': [
             'spawn_drone = sjtu_drone_bringup.spawn_drone:main',

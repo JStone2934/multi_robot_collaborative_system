@@ -17,7 +17,9 @@ setup(
     maintainer_email='abdulkadir.ture@std.yildiz.edu.tr',
     description='TODO: Package description',
     license='TODO: License declaration',
-    tests_require=['pytest'],
+    extras_require={
+        'dev': ['pytest'],  # 通过 extras_require 来指定测试依赖
+    },
     entry_points={
         'console_scripts': [
             'control = multi_robot_exploration.control:main'

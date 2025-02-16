@@ -8,6 +8,7 @@ from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point
 from tf_transformations import euler_from_quaternion  
 import tf2_ros
+from vision_msgs.msg import Detection2DArray, Detection2D
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -50,6 +51,20 @@ class MultiRobotMapUpdater(Node):
             best_effort_qos
             )
         
+        # 订阅每个机器人的目标物体（识别结果）
+        self.detection_sub_robot1 = self.create_subscription(
+            Detection2DArray,
+            '/yolo_result0',  # 机器人1检测到的物体
+            self.detection_callback_robot1,
+            best_effort_qos
+        )
+        self.detection_sub_robot2 = self.create_subscription(
+            Detection2DArray,
+            '/yolo_result1',  # 机器人2检测到的物体
+            self.detection_callback_robot2,
+            best_effort_qos
+        )
+
         # 订阅合并地图
         self.map_sub = self.create_subscription(
             OccupancyGrid,
@@ -76,35 +91,76 @@ class MultiRobotMapUpdater(Node):
         self.robot1_pose = None
         self.robot2_pose = None
 
+        #机器人yolo识别结果
+        self.robot1_detection = None
+        self.robot2_detection = None
+
     def map_callback(self, msg):
         self.current_map = msg
 
     def odom_callback_robot1(self, msg):
         # 获取第一个机器人的位姿
         self.robot1_pose = msg.pose.pose
-        self.get_logger().info(f"Received Odometry for robot1: {self.robot1_pose}")
+        #self.get_logger().info(f"Received Odometry for robot1: {self.robot1_pose}")
 
     def odom_callback_robot2(self, msg):
         # 获取第二个机器人的位姿
         self.robot2_pose = msg.pose.pose
-        self.get_logger().info(f"Received Odometry for robot2: {self.robot2_pose}")
+        #self.get_logger().info(f"Received Odometry for robot2: {self.robot2_pose}")
 
     def scan_callback_robot1(self, scan_msg):
         if self.current_map is None or self.robot1_pose is None:
             self.get_logger().warn("Map or Odometry not received yet.")
             return
-        self.process_scan(scan_msg, robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
+        self.process_scan(scan_msg, self.robot1_detection,robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
 
     def scan_callback_robot2(self, scan_msg):
         if self.current_map is None or self.robot2_pose is None:
             self.get_logger().warn("Map or Odometry not received yet.")
             return
-        self.process_scan(scan_msg, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
+        self.process_scan(scan_msg, self.robot2_detection,robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
 
-    def process_scan(self, scan_msg, robot_id, robot_pose, target_angle):
+    def detection_callback_robot1(self, cam_detection):
+        if cam_detection is None:
+            self.get_logger().warn("No detection from R1")
+            return
+        self.robot1_detection = cam_detection
+        # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
+        for detection in cam_detection.detections:
+            if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+                # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
+                object_x = detection.bbox.center.x
+        self.target_angle_robot1 = self.camera_to_lidar_angle(object_x)
+
+    def detection_callback_robot2(self, cam_detection):
+        if cam_detection is None:
+            self.get_logger().warn("No detection from R2")
+            return
+        self.robot2_detection = cam_detection
+        for detection in cam_detection.detections:
+            if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+                # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
+                object_x = detection.bbox.center.x
+        self.target_angle_robot2 = self.camera_to_lidar_angle(object_x)
+
+    def camera_to_lidar_angle(self, object_x, fov_camera=1.02974, resolution_width=1920):
+        # 计算每个像素的视角宽度（弧度）
+        fov_per_pixel = fov_camera / resolution_width
+        # 计算图像中心位置
+        image_center = resolution_width / 2
+        # 计算激光雷达的角度（弧度）
+        angle = (object_x - image_center) * fov_per_pixel
+        if angle < 0:
+            laser_angle = 6.280000/2 + angle
+        else :
+            laser_angle = angle
+        return laser_angle
+
+    def process_scan(self, scan_msg, cam_detection, robot_id, robot_pose, target_angle):
         # 计算指定角度上物体的位置
         angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
-        self.get_logger().warn(f"process_scan")
+        #self.get_logger().info(f"Angle min: {scan_msg.angle_min}")
+        #self.get_logger().warn(f"process_scan")
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
             
@@ -130,9 +186,9 @@ class MultiRobotMapUpdater(Node):
             global_y = robot_y + local_x * math.sin(robot_theta) + local_y * math.cos(robot_theta)
             
             # 更新地图
-            self.update_map(global_x, global_y, robot_id)
+            self.update_map(global_x, global_y, robot_id, cam_detection)
             
-    def update_map(self, x, y, robot_id):
+    def update_map(self, x, y, robot_id, cam_detection):
         resolution = self.current_map.info.resolution
         origin_x = self.current_map.info.origin.position.x
         origin_y = self.current_map.info.origin.position.y
@@ -154,11 +210,17 @@ class MultiRobotMapUpdater(Node):
                 updated_map.data[index] = 100  # 机器人1标记
             elif robot_id == "robot2":
                 updated_map.data[index] = 50   # 机器人2标记
-
-            # 如果这个位置已经被标记过，保留原标记
-            if (grid_x, grid_y) not in self.marked_positions:
-                self.marked_positions.append((grid_x, grid_y))
-                self.get_logger().warn(f"marked_positions {grid_x},{grid_y}")
+            if cam_detection is None:
+                pass
+            else:
+                for detection in cam_detection.detections:
+                    if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+                        # 如果这个位置已经被标记过，保留原标记
+                        if (grid_x, grid_y) not in self.marked_positions:
+                            self.marked_positions.append((grid_x, grid_y))
+                            self.get_logger().warn(f"marked_positions {grid_x},{grid_y}")
+                        self.robot1_detection = None
+                        self.robot2_detection = None
 
             # 发布更新后的地图
             self.map_pub.publish(updated_map)
