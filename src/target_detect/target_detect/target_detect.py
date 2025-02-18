@@ -18,7 +18,7 @@ best_effort_qos = QoSProfile(
 class MultiRobotMapUpdater(Node):
     def __init__(self):
         super().__init__('multi_robot_map_updater')
-        
+        self.detect_target = "beer"
         # 为两个机器人分别设置不同的目标角度
         self.target_angle_robot1 = math.radians(0)   # 机器人1的目标角度
         self.target_angle_robot2 = math.radians(0)   # 机器人2的目标角度
@@ -127,7 +127,7 @@ class MultiRobotMapUpdater(Node):
         self.robot1_detection = cam_detection
         # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
         for detection in cam_detection.detections:
-            if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+            if detection.results[0].hypothesis.class_id == self.detect_target:  # 检查物体标签
                 # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
                 object_x = detection.bbox.center.x
         self.target_angle_robot1 = self.camera_to_lidar_angle(object_x)
@@ -138,7 +138,7 @@ class MultiRobotMapUpdater(Node):
             return
         self.robot2_detection = cam_detection
         for detection in cam_detection.detections:
-            if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+            if detection.results[0].hypothesis.class_id == self.detect_target:  # 检查物体标签
                 # 获取目标物体的坐标 (bbox.center.x 和 bbox.center.y)
                 object_x = detection.bbox.center.x
         self.target_angle_robot2 = self.camera_to_lidar_angle(object_x)
@@ -214,7 +214,7 @@ class MultiRobotMapUpdater(Node):
                 pass
             else:
                 for detection in cam_detection.detections:
-                    if detection.results[0].hypothesis.class_id == "cone":  # 检查物体标签是否为 "cone"
+                    if detection.results[0].hypothesis.class_id == self.detect_target:# 检查物体标签
                         # 如果这个位置已经被标记过，保留原标记
                         if (grid_x, grid_y) not in self.marked_positions:
                             self.marked_positions.append((grid_x, grid_y))
