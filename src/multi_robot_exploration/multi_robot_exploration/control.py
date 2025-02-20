@@ -10,9 +10,10 @@ import scipy.interpolate as si
 import datetime
 
 lookahead_distance = 0.22 #one bakma mesafesi
-speed = 0.18 #maksimum hiz
+speed = 0.10 #maksimum hiz
 expansion_size = 4 #duvar genisletme katsayisi
 target_error = 0.15 #hedefe olan hata payi
+MAX_ANGULAR_VELOCITY = 0.2  # 最大角速度
 
 TB0_PATH = [(0,0)]
 TB0_PATHF = 0
@@ -406,17 +407,25 @@ class HeadquartersControl(Node):
         self.tb1_x = msg.pose.pose.position.x
         self.tb1_y = msg.pose.pose.position.y  
 
-    def tb0_status_control(self,msg):
+    def tb0_status_control(self, msg):
         if msg.linear.x == 0 and msg.angular.z == 0:
             self.tb0_s = True
         else:
-            self.tb0_s = False #False ise robot hareket ediyor. MESGUL
+            self.tb0_s = False  # False 表示机器人在移动
+
+        # 限制最大角速度
+        if abs(msg.angular.z) > MAX_ANGULAR_VELOCITY:
+            msg.angular.z = np.sign(msg.angular.z) * MAX_ANGULAR_VELOCITY
     
-    def tb1_status_control(self,msg):
+    def tb1_status_control(self, msg):
         if msg.linear.x == 0 and msg.angular.z == 0:
             self.tb1_s = True
         else:
-            self.tb1_s = False #False ise robot hareket ediyor. MESGUL
+            self.tb1_s = False  # False 表示机器人在移动
+
+        # 限制最大角速度
+        if abs(msg.angular.z) > MAX_ANGULAR_VELOCITY:
+            msg.angular.z = np.sign(msg.angular.z) * MAX_ANGULAR_VELOCITY
 
     def tb0_path_pub(self):
         global TB0_PATH
