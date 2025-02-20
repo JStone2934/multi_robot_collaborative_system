@@ -95,6 +95,18 @@ class MultiRobotMapUpdater(Node):
         self.robot1_detection = None
         self.robot2_detection = None
 
+        self.scan_msg_robot1 = None
+        self.scan_time_robot1 = None
+        self.scan_msg_robot2 = None
+        self.scan_time_robot2 = None
+
+        self.detection_msg_robot1 = None
+        self.detection_time_robot1 = None
+        self.detection_msg_robot2 = None
+        self.detection_time_robot2 = None
+        self.start_time_R1 = None
+        self.start_time_R2 = None
+
     def map_callback(self, msg):
         self.current_map = msg
 
@@ -105,19 +117,59 @@ class MultiRobotMapUpdater(Node):
         self.robot2_pose = msg.pose.pose
 
     def scan_callback_robot1(self, scan_msg):
-        if self.current_map is None or self.robot1_pose is None:
-            self.get_logger().warn("Map or Odometry not received yet.")
-            return
-        self.process_scan(scan_msg, self.robot1_detection, robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
+        self.scan_msg_robot1 = scan_msg
+        self.scan_time_robot1 = scan_msg.header.stamp
+        self.try_process_robot1()
 
     def scan_callback_robot2(self, scan_msg):
-        if self.current_map is None or self.robot2_pose is None:
-            self.get_logger().warn("Map or Odometry not received yet.")
-            return
-        self.process_scan(scan_msg, self.robot2_detection, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
-    
+        self.scan_msg_robot2 = scan_msg
+        self.scan_time_robot2 = scan_msg.header.stamp
+        self.try_process_robot2()
+
     def detection_callback_robot1(self, cam_detection):
-        if cam_detection is None:
+        self.detection_msg_robot1 = cam_detection
+        self.detection_time_robot1 = cam_detection.header.stamp
+        self.try_process_robot1()
+
+    def detection_callback_robot2(self, cam_detection):
+        self.detection_msg_robot2 = cam_detection
+        self.detection_time_robot2 = cam_detection.header.stamp
+        self.try_process_robot2()
+    def try_process_robot1(self):
+        if self.scan_msg_robot1 is not None and self.detection_msg_robot1 is not None:
+            # 获取 scan 和 detection 的时间戳（秒）
+            scan_time_sec = self.scan_time_robot1.sec
+            detection_time_sec = self.detection_time_robot1.sec
+            if self.start_time_R1 == None:
+                self.start_time_R1=detection_time_sec
+
+            # 计算时间差（秒）
+            time_diff = abs( detection_time_sec- self.start_time_R1 -scan_time_sec )
+            self.get_logger().warn(f"Robot1 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
+            
+            if time_diff < 3.0:  # 允许的时间差（1秒以内）
+                self.process_robot1()
+
+    def try_process_robot2(self):
+        if self.scan_msg_robot2 is not None and self.detection_msg_robot2 is not None:
+            # 获取 scan 和 detection 的时间戳（秒）
+            scan_time_sec = self.scan_time_robot2.sec
+            detection_time_sec = self.detection_time_robot2.sec
+            if self.start_time_R2 == None:
+                self.start_time_R2=detection_time_sec
+            # 计算时间差（秒）
+            time_diff = abs(detection_time_sec - scan_time_sec - self.start_time_R2)
+            self.get_logger().warn(f"Robot2 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
+            
+            if time_diff < 3.0:  # 允许的时间差（1秒以内）
+                self.process_robot2()
+
+
+    def process_robot1(self):
+        self.get_logger().warn("NR2")
+        scan_msg = self.scan_msg_robot1
+        cam_detection = self.detection_msg_robot1
+        if scan_msg is None and cam_detection is None:
             self.get_logger().warn("No detection from R1")
             return
         self.robot1_detection = cam_detection
@@ -133,14 +185,22 @@ class MultiRobotMapUpdater(Node):
                     best_detection = (object_x, object_y, confidence)
         if best_detection:
             self.target_angle_robot1 = self.camera_to_lidar_angle(object_x)
+            self.process_scan(scan_msg, cam_detection, robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
+        
+        # 清空缓存
+        self.scan_msg_robot1 = None
+        self.detection_msg_robot1 = None
 
-    def detection_callback_robot2(self, cam_detection):
-        if cam_detection is None:
+    def process_robot2(self):
+        self.get_logger().warn("NR2")
+        scan_msg = self.scan_msg_robot2
+        cam_detection = self.detection_msg_robot2
+        if scan_msg is None and cam_detection is None:
             self.get_logger().warn("No detection from R2")
             return
         self.robot2_detection = cam_detection
-        best_detection = None
         highest_confidence = 0.0
+        best_detection = None
         for detection in cam_detection.detections:
             if detection.results[0].hypothesis.class_id == "beer":
                 object_x = detection.bbox.center.x
@@ -151,6 +211,11 @@ class MultiRobotMapUpdater(Node):
                     best_detection = (object_x, object_y, confidence)
         if best_detection:
             self.target_angle_robot2 = self.camera_to_lidar_angle(object_x)
+            self.process_scan(scan_msg, cam_detection, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
+        
+        # 清空缓存
+        self.scan_msg_robot2 = None
+        self.detection_msg_robot2 = None
 
     def camera_to_lidar_angle(self, object_x, fov_camera=1.02974, resolution_width=1920):
         # 计算每个像素的视角宽度（弧度）
@@ -173,6 +238,8 @@ class MultiRobotMapUpdater(Node):
             distance = scan_msg.ranges[angle_index]
             if distance != float('inf') and distance < scan_msg.range_max:
                 self.target_in_laser = True
+            else:
+                return
             local_x = distance * math.cos(math.radians(target_angle))
             local_y = distance * math.sin(math.radians(target_angle))
             
@@ -218,12 +285,12 @@ class MultiRobotMapUpdater(Node):
                         if detection.results[0].hypothesis.class_id == self.detect_target:
                             if robot_id == "robot1" and (grid_x, grid_y) not in self.marked_positions_robot1:
                                 self.marked_positions_robot1.append((grid_x, grid_y))
-                                self.cam_detection = None
-                                self.target_in_laser == False
+                                cam_detection = None
+                                self.target_in_laser = False
                             elif robot_id == "robot2" and (grid_x, grid_y) not in self.marked_positions_robot2:
                                 self.marked_positions_robot2.append((grid_x, grid_y))
-                                self.cam_detection = None
-                                self.target_in_laser == False
+                                cam_detection = None
+                                self.target_in_laser = False
 
             self.map_pub.publish(updated_map)
             self.publish_markers()
