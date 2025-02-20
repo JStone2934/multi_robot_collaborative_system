@@ -21,7 +21,7 @@ class MultiRobotMapUpdater(Node):
         self.detect_target = "beer"
         self.target_angle_robot1 = math.radians(0)  # 机器人1的目标角度
         self.target_angle_robot2 = math.radians(0)  # 机器人2的目标角度
-        
+        self.target_in_laser = False
         # 订阅两个机器人的激光雷达数据
         self.scan_sub_robot1 = self.create_subscription(
             LaserScan,
@@ -167,7 +167,13 @@ class MultiRobotMapUpdater(Node):
 
     # 更新地图并更新标记
     def process_scan(self, scan_msg, cam_detection, robot_id, robot_pose, target_angle):
+        
         angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
+        distance = scan_msg.ranges[angle_index]
+
+        # Check if the distance is valid
+        if distance != float('inf') and distance < scan_msg.range_max:
+            self.target_in_laser = True
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
             if distance == float('inf') or distance > scan_msg.range_max:
@@ -212,14 +218,17 @@ class MultiRobotMapUpdater(Node):
                 updated_map.data[index] = 50
 
             if cam_detection is not None:
-                for detection in cam_detection.detections:
-                    if detection.results[0].hypothesis.class_id == self.detect_target:
-                        if robot_id == "robot1" and (grid_x, grid_y) not in self.marked_positions_robot1:
-                            self.marked_positions_robot1.append((grid_x, grid_y))
-                            cam_detection = None
-                        elif robot_id == "robot2" and (grid_x, grid_y) not in self.marked_positions_robot2:
-                            self.marked_positions_robot2.append((grid_x, grid_y))
-                            cam_detection = None
+                if self.target_in_laser == True:
+                    for detection in cam_detection.detections:
+                        if detection.results[0].hypothesis.class_id == self.detect_target:
+                            if robot_id == "robot1" and (grid_x, grid_y) not in self.marked_positions_robot1:
+                                self.marked_positions_robot1.append((grid_x, grid_y))
+                                cam_detection = None
+                                self.target_in_laser == False
+                            elif robot_id == "robot2" and (grid_x, grid_y) not in self.marked_positions_robot2:
+                                self.marked_positions_robot2.append((grid_x, grid_y))
+                                cam_detection = None
+                                self.target_in_laser == False
 
             self.map_pub.publish(updated_map)
             self.publish_markers()
