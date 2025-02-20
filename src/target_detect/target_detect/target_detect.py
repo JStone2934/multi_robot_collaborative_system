@@ -118,50 +118,47 @@ class MultiRobotMapUpdater(Node):
 
     def scan_callback_robot1(self, scan_msg):
         self.scan_msg_robot1 = scan_msg
-        self.scan_time_robot1 = scan_msg.header.stamp
+        self.scan_time_robot1 = self.get_clock().now()  # 使用仿真时间
         self.try_process_robot1()
 
     def scan_callback_robot2(self, scan_msg):
         self.scan_msg_robot2 = scan_msg
-        self.scan_time_robot2 = scan_msg.header.stamp
+        self.scan_time_robot2 = self.get_clock().now()  # 使用仿真时间
         self.try_process_robot2()
 
     def detection_callback_robot1(self, cam_detection):
         self.detection_msg_robot1 = cam_detection
-        self.detection_time_robot1 = cam_detection.header.stamp
+        self.detection_time_robot1 = self.get_clock().now()  # 使用仿真时间
         self.try_process_robot1()
 
     def detection_callback_robot2(self, cam_detection):
         self.detection_msg_robot2 = cam_detection
-        self.detection_time_robot2 = cam_detection.header.stamp
+        self.detection_time_robot2 = self.get_clock().now()  # 使用仿真时间
         self.try_process_robot2()
+
     def try_process_robot1(self):
         if self.scan_msg_robot1 is not None and self.detection_msg_robot1 is not None:
-            # 获取 scan 和 detection 的时间戳（秒）
-            scan_time_sec = self.scan_time_robot1.sec
-            detection_time_sec = self.detection_time_robot1.sec
-            if self.start_time_R1 == None:
-                self.start_time_R1=detection_time_sec
+            # 获取 scan 和 detection 的时间戳（仿真时间）
+            scan_time_sec = self.scan_time_robot1.nanoseconds / 1e9
+            detection_time_sec = self.detection_time_robot1.nanoseconds / 1e9
 
             # 计算时间差（秒）
-            time_diff = abs( detection_time_sec- self.start_time_R1 -scan_time_sec )
+            time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot1 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 3.0:  # 允许的时间差（1秒以内）
+            if time_diff < 0.3:  # 允许的时间差（1秒以内）
                 self.process_robot1()
 
     def try_process_robot2(self):
         if self.scan_msg_robot2 is not None and self.detection_msg_robot2 is not None:
-            # 获取 scan 和 detection 的时间戳（秒）
-            scan_time_sec = self.scan_time_robot2.sec
-            detection_time_sec = self.detection_time_robot2.sec
-            if self.start_time_R2 == None:
-                self.start_time_R2=detection_time_sec
+            # 获取 scan 和 detection 的时间戳（仿真时间）
+            scan_time_sec = self.scan_time_robot2.nanoseconds / 1e9
+            detection_time_sec = self.detection_time_robot2.nanoseconds / 1e9
             # 计算时间差（秒）
-            time_diff = abs(detection_time_sec - scan_time_sec - self.start_time_R2)
+            time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot2 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 3.0:  # 允许的时间差（1秒以内）
+            if time_diff < 0.3:  # 允许的时间差（1秒以内）
                 self.process_robot2()
 
 
