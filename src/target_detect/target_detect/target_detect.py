@@ -146,7 +146,7 @@ class MultiRobotMapUpdater(Node):
             time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot1 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 0.3:  # 允许的时间差（1秒以内）
+            if time_diff < 0.1:  # 允许的时间差（0.1秒以内）
                 self.process_robot1()
 
     def try_process_robot2(self):
@@ -158,7 +158,7 @@ class MultiRobotMapUpdater(Node):
             time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot2 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 0.3:  # 允许的时间差（1秒以内）
+            if time_diff < 0.1:  # 允许的时间差（0.1秒以内）
                 self.process_robot2()
 
 
