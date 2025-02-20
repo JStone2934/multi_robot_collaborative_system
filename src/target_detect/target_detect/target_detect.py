@@ -169,15 +169,10 @@ class MultiRobotMapUpdater(Node):
     def process_scan(self, scan_msg, cam_detection, robot_id, robot_pose, target_angle):
         
         angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
-        distance = scan_msg.ranges[angle_index]
-
-        # Check if the distance is valid
-        if distance != float('inf') and distance < scan_msg.range_max:
-            self.target_in_laser = True
         if 0 <= angle_index < len(scan_msg.ranges):
             distance = scan_msg.ranges[angle_index]
-            if distance == float('inf') or distance > scan_msg.range_max:
-                return
+            if distance != float('inf') and distance < scan_msg.range_max:
+                self.target_in_laser = True
             local_x = distance * math.cos(math.radians(target_angle))
             local_y = distance * math.sin(math.radians(target_angle))
             
@@ -223,11 +218,11 @@ class MultiRobotMapUpdater(Node):
                         if detection.results[0].hypothesis.class_id == self.detect_target:
                             if robot_id == "robot1" and (grid_x, grid_y) not in self.marked_positions_robot1:
                                 self.marked_positions_robot1.append((grid_x, grid_y))
-                                cam_detection = None
+                                self.cam_detection = None
                                 self.target_in_laser == False
                             elif robot_id == "robot2" and (grid_x, grid_y) not in self.marked_positions_robot2:
                                 self.marked_positions_robot2.append((grid_x, grid_y))
-                                cam_detection = None
+                                self.cam_detection = None
                                 self.target_in_laser == False
 
             self.map_pub.publish(updated_map)
