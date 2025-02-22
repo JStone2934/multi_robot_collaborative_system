@@ -9,11 +9,11 @@ import heapq , math , time , threading
 import scipy.interpolate as si
 import datetime
 
-lookahead_distance = 0.22 #one bakma mesafesi
-speed = 0.10 #maksimum hiz
+lookahead_distance = 0.3 #one bakma mesafesi
+speed = 0.2 #maksimum hiz
 expansion_size = 4 #duvar genisletme katsayisi
 target_error = 0.15 #hedefe olan hata payi
-MAX_ANGULAR_VELOCITY = 0.2  # 最大角速度
+MAX_ANGULAR_VELOCITY = 0.05  # 最大角速度
 
 TB0_PATH = [(0,0)]
 TB0_PATHF = 0
@@ -281,12 +281,12 @@ def exploration(data,width,height,resolution,column,row,originX,originY,choice):
 def get(choice):
     now = datetime.datetime.now()
     time_string = now.strftime("%H:%M:%S")
-    print(f"[BILGI] {time_string}: {choice+1}. ROBOT TARAFINDAN YOL ISTEGI ALINDI")
+    print(f"[INFO] {time_string}: {choice+1}. 机器人请求了路径")
 
 def response(choice):
     now = datetime.datetime.now()
     time_string = now.strftime("%H:%M:%S")
-    print(f"[BILGI] {time_string}: {choice+1}. ROBOTA YOL ISTEK CEVABI GONDERILDI")
+    print(f"[INFO] {time_string}: {choice+1}. 响应路径请求")
 
 class HeadquartersControl(Node):
     def __init__(self):
@@ -299,8 +299,8 @@ class HeadquartersControl(Node):
         self.subscription_tb3_0_cmd_vel = self.create_subscription(Twist,'tb3_0/cmd_vel',self.tb0_status_control,4)
         self.subscription_tb3_1_cmd_vel = self.create_subscription(Twist,'tb3_1/cmd_vel',self.tb1_status_control,4)
         self.publiser_drone_loc = self.create_publisher(Pose,'drone/target_pose',10)
-        print("[BILGI] KESIF MODU AKTIF")
-        print("[BILGI] DRONE GOZLEM MODU AKTIF")
+        print("[INFO] 探索开始")
+        #print("[BILGI] DRONE GOZLEM MODU AKTIF")
         self.kesif = True
         threading.Thread(target=self.start_exploration_r0).start() #Kesif fonksiyonunu thread olarak calistirir. Robot1
         threading.Thread(target=self.start_exploration_r1).start() #Kesif fonksiyonunu thread olarak calistirir. Robot2
@@ -324,8 +324,8 @@ class HeadquartersControl(Node):
                     self.tb0_s = False
                 if TB0_PATHF == -1:
                     self.kesif = False
-                    print("[BILGI] KESIF TAMAMLANDI")
-                    print("[BILGI] KESIF MODU PASIF")
+                    print("[INFO] 探索完成")
+                    print("[INFO] 停止探索")
                     break
                 time.sleep(0.1)
                 if self.tb0_s == True:
@@ -350,8 +350,8 @@ class HeadquartersControl(Node):
                     self.tb1_s = False
                 if TB1_PATHF == -1:
                     self.kesif = False
-                    print("[BILGI] KESIF TAMAMLANDI")
-                    print("[BILGI] KESIF MODU PASIF")
+                    print("[INFO]探索完成")
+                    print("[INFO]停止探索")
                     break
                 time.sleep(0.1)
                 if self.tb1_s == True:
@@ -365,7 +365,7 @@ class HeadquartersControl(Node):
         while True:
             if not hasattr(self, 'tb0_x') or not hasattr(self, 'tb1_x'):
                 continue
-            print("[BILGI] DRONE GOZLEM NOKTASI HEDEFI GONDERILDI")
+            #print("[BILGI] DRONE GOZLEM NOKTASI HEDEFI GONDERILDI")
             time.sleep(5)
             pose = Pose()
             x = (self.tb0_x + self.tb1_x)/2

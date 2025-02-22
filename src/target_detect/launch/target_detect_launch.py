@@ -1,5 +1,4 @@
-# Authors: Abdulkadir Ture
-# Github : abdulkadrtr
+# Authors: Luojuanshi
 
 import os
 

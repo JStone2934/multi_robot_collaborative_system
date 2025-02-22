@@ -146,7 +146,7 @@ class MultiRobotMapUpdater(Node):
             time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot1 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 0.1:  # 允许的时间差（0.1秒以内）
+            if time_diff < 0.07:  # 允许的时间差（0.1秒以内）
                 self.process_robot1()
 
     def try_process_robot2(self):
@@ -158,7 +158,7 @@ class MultiRobotMapUpdater(Node):
             time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot2 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 0.1:  # 允许的时间差（0.1秒以内）
+            if time_diff < 0.07:  # 允许的时间差（0.1秒以内）
                 self.process_robot2()
 
 
@@ -292,7 +292,26 @@ class MultiRobotMapUpdater(Node):
             self.map_pub.publish(updated_map)
             self.publish_markers()
 
-    # 发布标记
+    def update_map(self, x, y, robot_id, cam_detection):
+        # 直接使用机器人检测到的目标位置（在全局坐标系下）
+        # 不需要将标记点转换为网格坐标（grid_x, grid_y）
+        if cam_detection is not None and self.target_in_laser:
+            for detection in cam_detection.detections:
+                if detection.results[0].hypothesis.class_id == self.detect_target:
+                    # 在目标首次检测到时，将标记点位置添加到已存储的列表
+                    if robot_id == "robot1" and (x, y) not in self.marked_positions_robot1:
+                        self.marked_positions_robot1.append((x, y))
+                        cam_detection = None
+                        self.target_in_laser = False
+                    elif robot_id == "robot2" and (x, y) not in self.marked_positions_robot2:
+                        self.marked_positions_robot2.append((x, y))
+                        cam_detection = None
+                        self.target_in_laser = False
+
+        # 发布更新后的地图
+        self.map_pub.publish(self.current_map)
+        self.publish_markers()  # 只根据标记点的位置发布
+
     def publish_markers(self):
         marker_robot1 = Marker()
         marker_robot1.header.frame_id = 'merge_map'
@@ -308,6 +327,7 @@ class MultiRobotMapUpdater(Node):
         marker_robot1.color.g = 0.0
         marker_robot1.color.b = 0.0
         marker_robot1.color.a = 1.0
+        marker_robot1.frame_locked = False
 
         marker_robot2 = Marker()
         marker_robot2.header.frame_id = 'merge_map'
@@ -323,21 +343,25 @@ class MultiRobotMapUpdater(Node):
         marker_robot2.color.g = 1.0
         marker_robot2.color.b = 0.0
         marker_robot2.color.a = 1.0
+        marker_robot2.frame_locked = False
 
+        # 发布标记点，使用全局坐标而不是基于地图原点的坐标
         for pos in self.marked_positions_robot1:
             point = Point()
-            point.x = pos[0] * self.current_map.info.resolution + self.current_map.info.origin.position.x
-            point.y = pos[1] * self.current_map.info.resolution + self.current_map.info.origin.position.y
+            point.x = pos[0]  # 使用存储的全局坐标
+            point.y = pos[1]  # 使用存储的全局坐标
             marker_robot1.points.append(point)
 
         for pos in self.marked_positions_robot2:
             point = Point()
-            point.x = pos[0] * self.current_map.info.resolution + self.current_map.info.origin.position.x
-            point.y = pos[1] * self.current_map.info.resolution + self.current_map.info.origin.position.y
+            point.x = pos[0]  # 使用存储的全局坐标
+            point.y = pos[1]  # 使用存储的全局坐标
             marker_robot2.points.append(point)
 
+        # 发布标记点
         self.marker_pub_robot1.publish(marker_robot1)
         self.marker_pub_robot2.publish(marker_robot2)
+
 
 
 

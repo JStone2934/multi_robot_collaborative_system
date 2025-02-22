@@ -1,24 +1,10 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/jstone/Documents/graduation_project/1P/robot_army/src/turtlebot3_gazebo/src",
-      "program": "/home/jstone/Documents/graduation_project/1P/robot_army/src/turtlebot3_gazebo/src/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
+    "version": "0.2.0",
+    "configurations":[
         {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
+            "name": "ROS: Attach",
+            "type": "ros",
+            "request": "attach"
         }
-      ]
-    }
-  ]
+    ]
 }
