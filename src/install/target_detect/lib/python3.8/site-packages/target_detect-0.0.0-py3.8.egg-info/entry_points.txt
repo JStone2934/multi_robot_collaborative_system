@@ -1,0 +1,3 @@
+[console_scripts]
+target_detect = target_detect.target_detect:main
+test_detect = target_detect.test_detect:main

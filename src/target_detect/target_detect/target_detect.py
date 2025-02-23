@@ -10,7 +10,7 @@ from tf_transformations import euler_from_quaternion
 import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
-
+from .marker_fix import fix_points
 TIME_DIFF = 0.02 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
@@ -47,11 +47,16 @@ class MultiRobotMapUpdater(Node):
         self.robot1_pose = None
         self.robot2_pose = None
 
+        self.fix_positions = []
+
         # 发布者，用于发布机器人1的标记点
         self.marker_pub_robot1 = self.create_publisher(Marker, 'map_markers_robot1', best_effort_qos)
 
         # 发布者，用于发布机器人2的标记点
         self.marker_pub_robot2 = self.create_publisher(Marker, 'map_markers_robot2', best_effort_qos)
+
+        # 发布者，用于发布修正后的标记点
+        self.marker_pub_fix = self.create_publisher(Marker, 'map_markers_fix', best_effort_qos)
 
         # 订阅数据
         self.scan_sub_robot1 = self.create_subscription(
@@ -187,7 +192,7 @@ class MultiRobotMapUpdater(Node):
             
             # 计算时间差
             time_diff = abs(msg_time - detection_time)
-            print(f"Message Time: {msg_time}, Detection Time: {detection_time}, Time Diff: {time_diff}")
+            #print(f"Message Time: {msg_time}, Detection Time: {detection_time}, Time Diff: {time_diff}")
 
             # 如果时间差小于最大时间差，认为符合条件
             if time_diff <= max_time_diff:
@@ -200,7 +205,7 @@ class MultiRobotMapUpdater(Node):
 
 
     def process_robot1(self, scan_msg, cam_detection, odom_msg):
-        self.get_logger().warn("NR2")
+        #self.get_logger().warn("NR2")
         scan_msg = self.scan_msg_robot1
         cam_detection = self.detection_msg_robot1
         if scan_msg is None and cam_detection is None:
@@ -226,7 +231,7 @@ class MultiRobotMapUpdater(Node):
         self.detection_msg_robot1 = None
 
     def process_robot2(self, scan_msg, cam_detection, odom_msg):
-        self.get_logger().warn("NR2")
+        #self.get_logger().warn("NR2")
         scan_msg = self.scan_msg_robot2
         cam_detection = self.detection_msg_robot2
         if scan_msg is None and cam_detection is None:
@@ -293,43 +298,6 @@ class MultiRobotMapUpdater(Node):
     
     # 更新地图
     def update_map(self, x, y, robot_id, cam_detection):
-        resolution = self.current_map.info.resolution
-        origin_x = self.current_map.info.origin.position.x
-        origin_y = self.current_map.info.origin.position.y
-
-        grid_x = int((x - origin_x) / resolution)
-        grid_y = int((y - origin_y) / resolution)
-        index = grid_y * self.current_map.info.width + grid_x
-
-        if 0 <= index < len(self.current_map.data):
-            updated_map = OccupancyGrid()
-            updated_map.header = self.current_map.header
-            updated_map.header.frame_id = 'merge_map'
-            updated_map.info = self.current_map.info
-            updated_map.data = list(self.current_map.data)
-
-            if robot_id == "robot1":
-                updated_map.data[index] = 100
-            elif robot_id == "robot2":
-                updated_map.data[index] = 50
-
-            if cam_detection is not None:
-                if self.target_in_laser == True:
-                    for detection in cam_detection.detections:
-                        if detection.results[0].hypothesis.class_id == self.detect_target:
-                            if robot_id == "robot1" and (grid_x, grid_y) not in self.marked_positions_robot1:
-                                self.marked_positions_robot1.append((grid_x, grid_y))
-                                cam_detection = None
-                                self.target_in_laser = False
-                            elif robot_id == "robot2" and (grid_x, grid_y) not in self.marked_positions_robot2:
-                                self.marked_positions_robot2.append((grid_x, grid_y))
-                                cam_detection = None
-                                self.target_in_laser = False
-
-            self.map_pub.publish(updated_map)
-            self.publish_markers()
-
-    def update_map(self, x, y, robot_id, cam_detection):
         # 直接使用机器人检测到的目标位置（在全局坐标系下）
         # 不需要将标记点转换为网格坐标（grid_x, grid_y）
         if cam_detection is not None and self.target_in_laser:
@@ -344,7 +312,8 @@ class MultiRobotMapUpdater(Node):
                         self.marked_positions_robot2.append((x, y))
                         cam_detection = None
                         self.target_in_laser = False
-
+        merge_points = self.marked_positions_robot1+self.marked_positions_robot2
+        self.fix_positions = fix_points(merge_points)
         # 发布更新后的地图
         self.map_pub.publish(self.current_map)
         self.publish_markers()  # 只根据标记点的位置发布
@@ -382,6 +351,22 @@ class MultiRobotMapUpdater(Node):
         marker_robot2.color.a = 1.0
         marker_robot2.frame_locked = False
 
+        marker_fix = Marker()
+        marker_fix.header.frame_id = 'merge_map'
+        marker_fix.header.stamp = self.get_clock().now().to_msg()
+        marker_fix.ns = 'robot2_markers'
+        marker_fix.id = 0
+        marker_fix.type = Marker.POINTS
+        marker_fix.action = Marker.ADD
+        marker_fix.pose.orientation.w = 1.0
+        marker_fix.scale.x = 0.5
+        marker_fix.scale.y = 0.5
+        marker_fix.color.r = 0.0
+        marker_fix.color.g = 1.0
+        marker_fix.color.b = 0.0
+        marker_fix.color.a = 1.0
+        marker_fix.frame_locked = False
+
         # 发布标记点，使用全局坐标而不是基于地图原点的坐标
         for pos in self.marked_positions_robot1:
             point = Point()
@@ -395,9 +380,16 @@ class MultiRobotMapUpdater(Node):
             point.y = pos[1]  # 使用存储的全局坐标
             marker_robot2.points.append(point)
 
+        for pos in self.fix_positions:
+            point = Point()
+            point.x = pos[0]  # 使用存储的全局坐标
+            point.y = pos[1]  # 使用存储的全局坐标
+            marker_fix.points.append(point)
+
         # 发布标记点
         self.marker_pub_robot1.publish(marker_robot1)
         self.marker_pub_robot2.publish(marker_robot2)
+        self.marker_pub_fix.publish(marker_fix)
 
 
 

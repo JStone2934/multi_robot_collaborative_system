@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: yolov5_ros2
+Version: 0.0.0
+Summary: TODO: Package description
+Maintainer: fishros
+Maintainer-email: fishros@foxmail.com
+License: TODO: License declaration
+Requires-Dist: setuptools
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"

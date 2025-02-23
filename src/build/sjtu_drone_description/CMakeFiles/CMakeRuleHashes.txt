@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+ac3e4d77d53c1a152f50472d1d7d9fc9 CMakeFiles/sjtu_drone_description_uninstall

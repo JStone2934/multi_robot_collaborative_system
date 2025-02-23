@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: sjtu_drone_bringup
+Version: 0.0.0
+Summary: TODO: Package description
+Maintainer: ubuntu
+Maintainer-email: georg.novtony@aon.at
+License: TODO: License declaration
+Requires-Dist: setuptools
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"

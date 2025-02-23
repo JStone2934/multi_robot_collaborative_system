@@ -17,8 +17,8 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='abd',
-    maintainer_email='abd@todo.todo',
+    maintainer='jstone',
+    maintainer_email='2823659087@qq.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
