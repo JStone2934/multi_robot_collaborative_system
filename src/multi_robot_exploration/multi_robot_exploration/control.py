@@ -9,11 +9,15 @@ import heapq , math , time , threading
 import scipy.interpolate as si
 import datetime
 
-lookahead_distance = 0.3 #one bakma mesafesi
-speed = 0.2 #maksimum hiz
-expansion_size = 4 #duvar genisletme katsayisi
-target_error = 0.15 #hedefe olan hata payi
+lookahead_distance = 0.3  # 前视距离
+speed = 0.2  # 最大速度
+expansion_size = 5  # 墙壁扩展系数
+target_error = 0.01  # 目标误差
 MAX_ANGULAR_VELOCITY = 0.05  # 最大角速度
+SAFETY_DISTANCE = 1  # 机器人安全距离，过近会暂停行动
+
+
+
 
 TB0_PATH = [(0,0)]
 TB0_PATHF = 0
@@ -300,14 +304,54 @@ class HeadquartersControl(Node):
         self.subscription_tb3_1_cmd_vel = self.create_subscription(Twist,'tb3_1/cmd_vel',self.tb1_status_control,4)
         self.publiser_drone_loc = self.create_publisher(Pose,'drone/target_pose',10)
         print("[INFO] 探索开始")
-        #print("[BILGI] DRONE GOZLEM MODU AKTIF")
         self.kesif = True
-        threading.Thread(target=self.start_exploration_r0).start() #Kesif fonksiyonunu thread olarak calistirir. Robot1
-        threading.Thread(target=self.start_exploration_r1).start() #Kesif fonksiyonunu thread olarak calistirir. Robot2
-        threading.Thread(target=self.start_exploration_r2).start() #Kesif fonksiyonunu thread olarak calistirir. Robot3
 
-
+        # 启动线程来定期检查距离并启动探索任务
         
+        threading.Thread(target=self.start_exploration_r0).start() # 启动机器人1的探索线程
+        threading.Thread(target=self.start_exploration_r1).start() # 启动机器人2的探索线程
+        threading.Thread(target=self.start_exploration_r2).start() # 启动机器人3的探索线程
+        threading.Thread(target=self.robot_distance_check).start()
+      
+
+    def check_robot_distance(self):
+        try:
+            # 计算两个机器人之间的欧几里得距离
+            distance = math.sqrt((self.tb0_x - self.tb1_x)**2 + (self.tb0_y - self.tb1_y)**2)
+            return distance
+        except:
+            distance = 10
+            return distance
+
+    def control_robot_movement(self):
+        # 设置安全距离阈值
+        safety_distance = SAFETY_DISTANCE  # 可以根据实际需求调整
+
+        # 检查两个机器人之间的距离
+        distance_between_robots = self.check_robot_distance()
+        print(distance_between_robots)
+        try:
+            if distance_between_robots < safety_distance:
+                #self.tb0_status_control(Twist())  # 暂停机器人0的运动
+                #print("[INFO] 避碰程序启动")
+                pass
+            else:
+                # 如果距离足够远，恢复运动
+                if self.tb0_s == True:  # 检查机器人是否在运动
+                    #threading.Thread(target=self.start_exploration_r0).start()
+                    # 恢复机器人0的运动
+                    #self.tb0_status_control(Twist())  # 根据实际情况恢复运动指令
+                    pass
+                print("[INFO] 两个机器人继续运动")
+        except:
+            print("避碰程序初始化")
+            pass
+
+    def robot_distance_check(self):
+        while True:
+            # 每隔0.1秒检查一次
+            self.control_robot_movement()
+            time.sleep(0.5)
 
     def start_exploration_r0(self):
         while True:
@@ -315,6 +359,7 @@ class HeadquartersControl(Node):
                 continue
             self.c_tb0 = int((self.tb0_x - self.originX)/self.resolution)
             self.r_tb0 = int((self.tb0_y - self.originY)/self.resolution)
+
             if self.kesif:
                 if TB0_PATHF == 0:
                     get(0)
@@ -350,8 +395,8 @@ class HeadquartersControl(Node):
                     self.tb1_s = False
                 if TB1_PATHF == -1:
                     self.kesif = False
-                    print("[INFO]探索完成")
-                    print("[INFO]停止探索")
+                    print("[INFO] 探索完成")
+                    print("[INFO] 停止探索")
                     break
                 time.sleep(0.1)
                 if self.tb1_s == True:
@@ -360,12 +405,11 @@ class HeadquartersControl(Node):
                     response(1)
                     self.tb1_path_pub()
                 time.sleep(0.4)
-                                   
+
     def start_exploration_r2(self):
         while True:
             if not hasattr(self, 'tb0_x') or not hasattr(self, 'tb1_x'):
                 continue
-            #print("[BILGI] DRONE GOZLEM NOKTASI HEDEFI GONDERILDI")
             time.sleep(5)
             pose = Pose()
             x = (self.tb0_x + self.tb1_x)/2
@@ -380,6 +424,7 @@ class HeadquartersControl(Node):
             pose.orientation.w = 0.0
             self.publiser_drone_loc.publish(pose)
             time.sleep(15)
+
 
     def target_callback(self,msg):
         if msg == 0:

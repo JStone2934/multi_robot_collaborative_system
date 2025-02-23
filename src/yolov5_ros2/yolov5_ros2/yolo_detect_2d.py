@@ -99,7 +99,7 @@ class YoloV5Ros2(Node):
         result_msg = Detection2DArray()
         result_msg.detections.clear()
         result_msg.header.frame_id = f"camera_{robot_id}"
-        result_msg.header.stamp = self.get_clock().now().to_msg()
+        result_msg.header.stamp = msg.header.stamp  # Use original image timestamp
 
         # Parse the result.
         predictions = detect_result.pred[0]
@@ -116,8 +116,8 @@ class YoloV5Ros2(Node):
             y1 = int(y1)
             x2 = int(x2)
             y2 = int(y2)
-            center_x = (x1+x2)/2.0
-            center_y = (y1+y2)/2.0
+            center_x = (x1 + x2) / 2.0
+            center_y = (y1 + y2) / 2.0
 
             if ros_distribution == 'galactic':
                 detection2d.bbox.center.x = center_x
@@ -126,8 +126,8 @@ class YoloV5Ros2(Node):
                 detection2d.bbox.center.position.x = center_x
                 detection2d.bbox.center.position.y = center_y
 
-            detection2d.bbox.size_x = float(x2-x1)
-            detection2d.bbox.size_y = float(y2-y1)
+            detection2d.bbox.size_x = float(x2 - x1)
+            detection2d.bbox.size_y = float(y2 - y1)
 
             obj_pose = ObjectHypothesisWithPose()
             obj_pose.hypothesis.class_id = name
@@ -150,7 +150,7 @@ class YoloV5Ros2(Node):
         # Publish result images if needed.
         if self.pub_result_img:
             result_img_msg = self.bridge.cv2_to_imgmsg(image_bgr, encoding="bgr8")
-            result_img_msg.header = msg.header
+            result_img_msg.header = msg.header  # Use original image timestamp
             if robot_id == 0:
                 self.result_img_pub_0.publish(result_img_msg)
             else:
@@ -161,6 +161,7 @@ class YoloV5Ros2(Node):
                 self.yolo_result_pub_0.publish(result_msg)
             else:
                 self.yolo_result_pub_1.publish(result_msg)
+
 
 def main():
     rclpy.init()

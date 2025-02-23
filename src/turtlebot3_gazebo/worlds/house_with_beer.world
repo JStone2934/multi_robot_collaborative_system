@@ -49,10 +49,10 @@
         <uri>model://beer_in_house</uri>
       </include>
     </model>
-    <model name="turtlebot3_house">
+    <model name="turtlebot3_house_safe">
       <static>1</static>
       <include>
-        <uri>model://turtlebot3_house</uri>
+        <uri>model://turtlebot3_house_safe</uri>
       </include>
     </model>
   </world>

@@ -9,6 +9,8 @@ from geometry_msgs.msg import Point
 from tf_transformations import euler_from_quaternion  
 import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
+
+TIME_DIFF = 0.02 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -158,7 +160,7 @@ class MultiRobotMapUpdater(Node):
             time_diff = abs(detection_time_sec - scan_time_sec)
             self.get_logger().warn(f"Robot2 Time Diff: {time_diff} seconds")  # 输出时间差调试信息
             
-            if time_diff < 0.07:  # 允许的时间差（0.1秒以内）
+            if time_diff < TIME_DIFF:  # 允许的时间差（0.1秒以内）
                 self.process_robot2()
 
 
