@@ -11,7 +11,7 @@ import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
 from .marker_fix import fix_points
-TIME_DIFF = 0.02 #激光雷达与视觉识别的同步
+TIME_DIFF = 0.05 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -332,7 +332,7 @@ class MultiRobotMapUpdater(Node):
         marker_robot1.color.r = 1.0
         marker_robot1.color.g = 0.0
         marker_robot1.color.b = 0.0
-        marker_robot1.color.a = 1.0
+        marker_robot1.color.a = 0.75
         marker_robot1.frame_locked = False
 
         marker_robot2 = Marker()
@@ -348,7 +348,7 @@ class MultiRobotMapUpdater(Node):
         marker_robot2.color.r = 0.0
         marker_robot2.color.g = 1.0
         marker_robot2.color.b = 0.0
-        marker_robot2.color.a = 1.0
+        marker_robot2.color.a = 0.75
         marker_robot2.frame_locked = False
 
         marker_fix = Marker()
@@ -359,9 +359,9 @@ class MultiRobotMapUpdater(Node):
         marker_fix.type = Marker.POINTS
         marker_fix.action = Marker.ADD
         marker_fix.pose.orientation.w = 1.0
-        marker_fix.scale.x = 0.5
-        marker_fix.scale.y = 0.5
-        marker_fix.color.r = 0.0
+        marker_fix.scale.x = 0.3
+        marker_fix.scale.y = 0.3
+        marker_fix.color.r = 1.0
         marker_fix.color.g = 1.0
         marker_fix.color.b = 0.0
         marker_fix.color.a = 1.0
