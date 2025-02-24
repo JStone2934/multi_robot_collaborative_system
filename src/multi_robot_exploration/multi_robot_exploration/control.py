@@ -233,27 +233,42 @@ def pathLength(path):
     total_distance = np.sum(distances)
     return total_distance
 
-def costmap(data,width,height,resolution):
-    data = np.array(data).reshape(height,width)
+def costmap(data, width, height, resolution):
+    data = np.array(data).reshape(height, width)
     wall = np.where(data == 100)
-    for i in range(-expansion_size,expansion_size+1):
-        for j in range(-expansion_size,expansion_size+1):
-            if i  == 0 and j == 0:
+    for i in range(-expansion_size, expansion_size + 1):
+        for j in range(-expansion_size, expansion_size + 1):
+            if i == 0 and j == 0:
                 continue
-            x = wall[0]+i
-            y = wall[1]+j
-            x = np.clip(x,0,height-1)
-            y = np.clip(y,0,width-1)
-            data[x,y] = 100
-    data = data*resolution
+            x = wall[0] + i
+            y = wall[1] + j
+            x = np.clip(x, 0, height - 1)
+            y = np.clip(y, 0, width - 1)
+            data[x, y] = 100  # 直接标记为障碍物，无需乘以分辨率
     return data
 
 def exploration(data, width, height, resolution, column, row, originX, originY, choice):
-    global TB0_PATH
-    global TB1_PATH
-    global TB0_PATHF
-    global TB1_PATHF
+    global TB0_PATH, TB1_PATH, TB0_PATHF, TB1_PATHF
     f = 1
+    # 转换为一维到二维数组以便处理
+    data_2d = np.array(data).reshape(height, width).copy()
+
+    # 获取对方路径
+    other_path = TB1_PATH if choice == 0 else TB0_PATH
+    # 将对方路径点作为障碍物添加到地图中
+    for (x, y) in other_path:
+        c = int((x - originX) / resolution)
+        r = int((y - originY) / resolution)
+        if 0 <= r < height and 0 <= c < width:
+            # 扩展路径点周围的区域
+            for i in range(-expansion_size, expansion_size + 5):
+                for j in range(-expansion_size, expansion_size + 5):
+                    nr, nc = r + i, c + j
+                    if 0 <= nr < height and 0 <= nc < width:
+                        data_2d[nr][nc] = 100  # 设为障碍物
+    # 转换回一维数组
+    data = data_2d.flatten().tolist()
+    
     data = costmap(data, width, height, resolution)  # 扩展障碍物
     data[row][column] = 0  # 机器人当前位置
     data[data > 5] = 1  # 0 表示可通行区域，100 表示绝对障碍物
@@ -312,47 +327,6 @@ class HeadquartersControl(Node):
         threading.Thread(target=self.start_exploration_r0).start() # 启动机器人1的探索线程
         threading.Thread(target=self.start_exploration_r1).start() # 启动机器人2的探索线程
         threading.Thread(target=self.start_exploration_r2).start() # 启动机器人3的探索线程
-        threading.Thread(target=self.robot_distance_check).start()
-      
-
-    def check_robot_distance(self):
-        try:
-            # 计算两个机器人之间的欧几里得距离
-            distance = math.sqrt((self.tb0_x - self.tb1_x)**2 + (self.tb0_y - self.tb1_y)**2)
-            return distance
-        except:
-            distance = 10
-            return distance
-
-    def control_robot_movement(self):
-        # 设置安全距离阈值
-        safety_distance = SAFETY_DISTANCE  # 可以根据实际需求调整
-
-        # 检查两个机器人之间的距离
-        distance_between_robots = self.check_robot_distance()
-        print(distance_between_robots)
-        try:
-            if distance_between_robots < safety_distance:
-                #self.tb0_status_control(Twist())  # 暂停机器人0的运动
-                #print("[INFO] 避碰程序启动")
-                pass
-            else:
-                # 如果距离足够远，恢复运动
-                if self.tb0_s == True:  # 检查机器人是否在运动
-                    #threading.Thread(target=self.start_exploration_r0).start()
-                    # 恢复机器人0的运动
-                    #self.tb0_status_control(Twist())  # 根据实际情况恢复运动指令
-                    pass
-                print("[INFO] 两个机器人继续运动")
-        except:
-            print("避碰程序初始化")
-            pass
-
-    def robot_distance_check(self):
-        while True:
-            # 每隔0.1秒检查一次
-            self.control_robot_movement()
-            time.sleep(0.5)
 
     def start_exploration_r0(self):
         while True:

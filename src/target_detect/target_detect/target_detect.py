@@ -11,7 +11,7 @@ import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
 from .marker_fix import fix_points
-TIME_DIFF = 0.05 #激光雷达与视觉识别的同步
+TIME_DIFF = 0.03 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -271,30 +271,33 @@ class MultiRobotMapUpdater(Node):
 
     # 更新地图并更新标记
     def process_scan(self, scan_msg, cam_detection, robot_id, robot_pose, target_angle):
-        
-        angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
-        if 0 <= angle_index < len(scan_msg.ranges):
-            distance = scan_msg.ranges[angle_index]
-            if distance != float('inf') and distance < scan_msg.range_max:
-                self.target_in_laser = True
-            else:
-                return
-            local_x = distance * math.cos(math.radians(target_angle))
-            local_y = distance * math.sin(math.radians(target_angle))
-            
-            robot_x = robot_pose.position.x
-            robot_y = robot_pose.position.y
-            robot_theta = euler_from_quaternion([
-                robot_pose.orientation.x,
-                robot_pose.orientation.y,
-                robot_pose.orientation.z,
-                robot_pose.orientation.w
-            ])[2]
-            
-            global_x = robot_x + local_x * math.cos(robot_theta) - local_y * math.sin(robot_theta)
-            global_y = robot_y + local_x * math.sin(robot_theta) + local_y * math.cos(robot_theta)
-            
-            self.update_map(global_x, global_y, robot_id, cam_detection)
+        try:
+            angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
+            if 0 <= angle_index < len(scan_msg.ranges):
+                distance = scan_msg.ranges[angle_index]
+                if distance != float('inf') and distance < scan_msg.range_max:
+                    self.target_in_laser = True
+                else:
+                    return
+                local_x = distance * math.cos(math.radians(target_angle))
+                local_y = distance * math.sin(math.radians(target_angle))
+                
+                robot_x = robot_pose.position.x
+                robot_y = robot_pose.position.y
+                robot_theta = euler_from_quaternion([
+                    robot_pose.orientation.x,
+                    robot_pose.orientation.y,
+                    robot_pose.orientation.z,
+                    robot_pose.orientation.w
+                ])[2]
+                
+                global_x = robot_x + local_x * math.cos(robot_theta) - local_y * math.sin(robot_theta)
+                global_y = robot_y + local_x * math.sin(robot_theta) + local_y * math.cos(robot_theta)
+                
+                self.update_map(global_x, global_y, robot_id, cam_detection)
+        except:
+            print("process scan ERROR")
+            pass
     
     # 更新地图
     def update_map(self, x, y, robot_id, cam_detection):
