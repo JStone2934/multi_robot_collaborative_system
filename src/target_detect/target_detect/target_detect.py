@@ -272,12 +272,15 @@ class MultiRobotMapUpdater(Node):
     # 更新地图并更新标记
     def process_scan(self, scan_msg, cam_detection, robot_id, robot_pose, target_angle):
         try:
+            print("process")
             angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
             if 0 <= angle_index < len(scan_msg.ranges):
                 distance = scan_msg.ranges[angle_index]
-                if distance != float('inf') and distance < scan_msg.range_max:
+                if distance != float('inf') and distance < 2.5:
+                    print(distance)
                     self.target_in_laser = True
                 else:
+                    self.target_in_laser = False
                     return
                 local_x = distance * math.cos(math.radians(target_angle))
                 local_y = distance * math.sin(math.radians(target_angle))
