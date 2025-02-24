@@ -55,10 +55,10 @@ def astar(array, start, goal):
                     if array[neighbor[0]][neighbor[1]] == 1:
                         continue
                 else:
-                    # array bound y walls
+                    # 数组边界的y轴墙壁
                     continue
             else:
-                # array bound x walls
+                # 数组边界的x轴墙壁
                 continue
             if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
                 continue
@@ -67,7 +67,7 @@ def astar(array, start, goal):
                 gscore[neighbor] = tentative_g_score
                 fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
                 heapq.heappush(oheap, (fscore[neighbor], neighbor))
-    # If no path to goal was found, return closest path to goal
+    # 如果没有找到到目标的路径，返回离目标最近的路径
     if goal not in came_from:
         closest_node = None
         closest_dist = float('inf')
@@ -85,6 +85,7 @@ def astar(array, start, goal):
             data = data[::-1]
             return data
     return False
+
 
 def bspline_planning(array, sn):
     try:
@@ -149,10 +150,10 @@ def dfs(matrix, i, j, group, groups):
     dfs(matrix, i - 1, j, group, groups)
     dfs(matrix, i, j + 1, group, groups)
     dfs(matrix, i, j - 1, group, groups)
-    dfs(matrix, i + 1, j + 1, group, groups) # sağ alt çapraz
-    dfs(matrix, i - 1, j - 1, group, groups) # sol üst çapraz
-    dfs(matrix, i - 1, j + 1, group, groups) # sağ üst çapraz
-    dfs(matrix, i + 1, j - 1, group, groups) # sol alt çapraz
+    dfs(matrix, i + 1, j + 1, group, groups) # 右下对角
+    dfs(matrix, i - 1, j - 1, group, groups) # 左上对角
+    dfs(matrix, i - 1, j + 1, group, groups) # 右上对角
+    dfs(matrix, i + 1, j - 1, group, groups) # 左下对角
     return group + 1
 
 def fGroups(groups):
@@ -178,7 +179,7 @@ def visitedControl(targetP):
             return 1
     return 0
 
-def findClosestGroup(matrix,groups, current,resolution,originX,originY,choice):
+def findClosestGroup(matrix, groups, current, resolution, originX, originY, choice):
     global TB0_PATH
     global TB1_PATH
     global TB0_PATHF
@@ -188,24 +189,24 @@ def findClosestGroup(matrix,groups, current,resolution,originX,originY,choice):
     paths = []
     lengths = []
     for i in range(len(groups)):
-        middle = calculate_centroid([p[0] for p in groups[i][1]],[p[1] for p in groups[i][1]]) 
-        t = (middle[1]*resolution+originX,middle[0]*resolution+originY)
+        middle = calculate_centroid([p[0] for p in groups[i][1]], [p[1] for p in groups[i][1]]) 
+        t = (middle[1] * resolution + originX, middle[0] * resolution + originY)
         if visitedControl(t) == 0:
             path = astar(matrix, current, middle)
-            path = [(p[1]*resolution+originX,p[0]*resolution+originY) for p in path]
+            path = [(p[1] * resolution + originX, p[0] * resolution + originY) for p in path]
             total_distance = pathLength(path)
-            distances.append(total_distance) #ROTA UZUNLUĞU
-            paths.append(path) #ROTA
-            lengths.append(len(groups[i][1])) #SINIR ÇİZGİSİ NOKTA SAYISI
-    #ROTA | ROTA UZUNLUĞU | SINIR ÇİZGİSİ NOKTA SAYISI
-    arrays = list(zip(lengths,distances,paths))
-    arrays = sorted(arrays, key=lambda x: x[1], reverse=False) #ROTA UZUNLUĞUNA GÖRE SIRALAMA
-    #Rota uzunluğu target_error*3 ten küçük olanlar çıkarılır.
-    arrays_a = [a for a in arrays if a[1] > target_error*2]
-    p1 = [a for a in arrays_a if a[1] < 2.0] #Rota uzunluğu 2.0 dan küçük olanlar seçilir.
-    #p1 elemanlarından sınır çizgisi nokta sayısı en büyük olan seçilir.
+            distances.append(total_distance)  # 路径长度
+            paths.append(path)  # 路径
+            lengths.append(len(groups[i][1]))  # 边界线点数
+    # 路径 | 路径长度 | 边界线点数
+    arrays = list(zip(lengths, distances, paths))
+    arrays = sorted(arrays, key=lambda x: x[1], reverse=False)  # 按路径长度排序
+    # 移除路径长度小于 target_error * 3 的路径
+    arrays_a = [a for a in arrays if a[1] > target_error * 2]
+    p1 = [a for a in arrays_a if a[1] < 2.0]  # 选择路径长度小于 2.0 的路径
+    # 从 p1 中选择边界线点数最多的路径
     p1 = sorted(p1, key=lambda x: x[0], reverse=True)
-    #p1 boş değilse seçilir.
+    # 如果 p1 不为空，则选择第一个
     if len(p1) > 0:
         targetP = p1[0][2]
     else:
@@ -217,7 +218,7 @@ def findClosestGroup(matrix,groups, current,resolution,originX,originY,choice):
         arrays_a = sorted(arrays, key=lambda x: x[0], reverse=True)
         targetP = arrays_a[0][2]
     if targetP == None:
-        #Burada lengths değeri en büyük olan seçilir.
+        # 这里选择边界线点数最多的路径
         p1 = [a for a in arrays if a[0] == max(lengths)]
         if len(p1) > 0:
             targetP = p1[0][2]
@@ -247,25 +248,25 @@ def costmap(data,width,height,resolution):
     data = data*resolution
     return data
 
-def exploration(data,width,height,resolution,column,row,originX,originY,choice):
+def exploration(data, width, height, resolution, column, row, originX, originY, choice):
     global TB0_PATH
     global TB1_PATH
     global TB0_PATHF
     global TB1_PATHF
     f = 1
-    data = costmap(data,width,height,resolution) #Engelleri genislet
-    data[row][column] = 0 #Robot Anlık Konum
-    data[data > 5] = 1 # 0 olanlar gidilebilir yer, 100 olanlar kesin engel
-    data = frontierB(data) #Sınır noktaları bul
-    data,groups = assign_groups(data) #Sınır noktaları gruplandır
-    groups = fGroups(groups) #Grupları küçükten büyüğe sırala. En buyuk 5 grubu al
-    if len(groups) == 0: #Grup yoksa kesif tamamlandı
+    data = costmap(data, width, height, resolution)  # 扩展障碍物
+    data[row][column] = 0  # 机器人当前位置
+    data[data > 5] = 1  # 0 表示可通行区域，100 表示绝对障碍物
+    data = frontierB(data)  # 找到边界点
+    data, groups = assign_groups(data)  # 将边界点分组
+    groups = fGroups(groups)  # 将组按从小到大排序，取最大的5个组
+    if len(groups) == 0:  # 如果没有组，探索完成
         f = -1
-    else: #Grup varsa en yakın grubu bul
-        data[data < 0] = 1 #-0.05 olanlar bilinmeyen yer. Gidilemez olarak isaretle. 0 = gidilebilir, 1 = gidilemez.
-        path = findClosestGroup(data,groups,(row,column),resolution,originX,originY,choice) #En yakın grubu bul
-        if path != None: #Yol varsa BSpline ile düzelt
-            path = bspline_planning(path,len(path)*5)
+    else:  # 如果有组，找到最近的组
+        data[data < 0] = 1  # -0.05 表示未知区域，标记为不可通行。0 = 可通行，1 = 不可通行。
+        path = findClosestGroup(data, groups, (row, column), resolution, originX, originY, choice)  # 找到最近的组
+        if path != None:  # 如果有路径，使用BSpline进行平滑处理
+            path = bspline_planning(path, len(path) * 5)
         else:
             f = -1
     if choice == 0:

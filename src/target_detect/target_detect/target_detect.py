@@ -332,7 +332,7 @@ class MultiRobotMapUpdater(Node):
         marker_robot1.color.r = 1.0
         marker_robot1.color.g = 0.0
         marker_robot1.color.b = 0.0
-        marker_robot1.color.a = 0.75
+        marker_robot1.color.a = 0.6
         marker_robot1.frame_locked = False
 
         marker_robot2 = Marker()
@@ -348,7 +348,7 @@ class MultiRobotMapUpdater(Node):
         marker_robot2.color.r = 0.0
         marker_robot2.color.g = 1.0
         marker_robot2.color.b = 0.0
-        marker_robot2.color.a = 0.75
+        marker_robot2.color.a = 0.6
         marker_robot2.frame_locked = False
 
         marker_fix = Marker()
