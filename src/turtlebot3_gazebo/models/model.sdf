@@ -39,7 +39,7 @@
           </material>
         </visual>
       </link>
-      <pose>0.257696 2.48015 0 0 -0 0</pose>
+      <pose>-0.160082 2.38867 0 0 -0 0</pose>
     </model>
     <model name='beer_0'>
       <link name='link'>
@@ -79,7 +79,7 @@
           </material>
         </visual>
       </link>
-      <pose>-0.347211 4.03621 0 0 -0 0</pose>
+      <pose>0.811222 1.06862 0 0 -0 0</pose>
     </model>
     <model name='beer_1'>
       <link name='link'>
@@ -119,7 +119,7 @@
           </material>
         </visual>
       </link>
-      <pose>-5.45762 -0.963364 0 0 -0 0</pose>
+      <pose>-6.90628 1.17855 0 0 -0 0</pose>
     </model>
     <model name='beer_2'>
       <link name='link'>
@@ -159,47 +159,7 @@
           </material>
         </visual>
       </link>
-      <pose>6.71272 4.56694 0 0 -0 0</pose>
-    </model>
-    <model name='beer_3'>
-      <link name='link'>
-        <pose>0 0 0.115 0 -0 0</pose>
-        <inertial>
-          <mass>0.39</mass>
-          <inertia>
-            <ixx>0.00058</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.00058</iyy>
-            <iyz>0</iyz>
-            <izz>0.00019</izz>
-          </inertia>
-        </inertial>
-        <collision name='collision'>
-          <geometry>
-            <cylinder>
-              <radius>0.055</radius>
-              <length>0.23</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <cylinder>
-              <radius>0.055</radius>
-              <length>0.23</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://beer/materials/scripts</uri>
-              <uri>model://beer/materials/textures</uri>
-              <name>Beer/Diffuse</name>
-            </script>
-          </material>
-        </visual>
-      </link>
-      <pose>6.42434 -4.22408 0 0 -0 0</pose>
+      <pose>6.25514 -4.63584 0 0 -0 0</pose>
     </model>
     <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
