@@ -11,7 +11,7 @@ import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
 from .marker_fix import fix_points
-TIME_DIFF = 0.03 #激光雷达与视觉识别的同步
+TIME_DIFF = 0.05 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
