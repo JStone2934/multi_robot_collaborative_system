@@ -8,8 +8,9 @@ from nav_msgs.msg import Odometry
 import threading
 import  math , time
 
-lookahead_distance = 0.22 #one bakma mesafesi
-speed = 0.18 #maksimum hiz
+lookahead_distance = 0.22 
+speed = 0.18 #最大速度
+MAX_ANGULAR_VELOCITY= 0.5 #最大角速度
 
 def euler_from_quaternion(x,y,z,w):
     t0 = +2.0 * (w * x + y * z)
@@ -47,11 +48,21 @@ def pure_pursuit(current_x, current_y, current_heading, path,index):
         desired_steering_angle -= 2 * math.pi
     elif desired_steering_angle < -math.pi:
         desired_steering_angle += 2 * math.pi
+    # 控制最大角速度
+    max_angular_velocity = MAX_ANGULAR_VELOCITY  # 设置最大角速度
     if desired_steering_angle > math.pi/6 or desired_steering_angle < -math.pi/6:
         sign = 1 if desired_steering_angle > 0 else -1
         desired_steering_angle = sign * math.pi/4
         v = 0.0
-    return v,desired_steering_angle,index
+
+    # 计算角速度 w
+    w = desired_steering_angle
+
+    # 如果角速度超过最大值，则限制它
+    if abs(w) > max_angular_velocity:
+        w = max_angular_velocity * (w / abs(w))  # 保持方向，但限制角速度的大小
+    print(w)
+    return v, w, index
 
 class pathFollower(Node):
     def __init__(self):

@@ -276,7 +276,7 @@ class MultiRobotMapUpdater(Node):
             angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
             if 0 <= angle_index < len(scan_msg.ranges):
                 distance = scan_msg.ranges[angle_index]
-                if distance != float('inf') and distance < 2.5:
+                if distance != float('inf') and distance < 2.8:
                     print(distance)
                     self.target_in_laser = True
                 else:
