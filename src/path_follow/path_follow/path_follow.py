@@ -9,8 +9,8 @@ import threading
 import  math , time
 
 lookahead_distance = 0.22 
-speed = 0.18 #最大速度
-MAX_ANGULAR_VELOCITY= 0.5 #最大角速度
+speed = 0.12 #最大速度
+MAX_ANGULAR_VELOCITY= 0.3 #最大角速度
 
 def euler_from_quaternion(x,y,z,w):
     t0 = +2.0 * (w * x + y * z)

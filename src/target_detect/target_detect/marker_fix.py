@@ -19,7 +19,7 @@ def fix_points(points_array):
             return
 
         # 使用 DBSCAN 聚类
-        db = DBSCAN(eps=1.0, min_samples=2).fit(points)
+        db = DBSCAN(eps=1.0, min_samples=4).fit(points)
 
         # 获取聚类标签
         labels = db.labels_
@@ -37,13 +37,14 @@ def fix_points(points_array):
         plt.show()
         '''
         # 输出新的聚类点
+        min_cluster_size = 3  # 可以根据需求调整阈值
         new_points = []
         for label in set(labels):
             if label != -1:  # 排除噪声点
                 cluster_points = points[labels == label]
-                # 计算每个聚类的中心点
-                new_point = np.mean(cluster_points, axis=0)
-                new_points.append(new_point)
+                if len(cluster_points) >= min_cluster_size:  # 只保留簇大小大于阈值的簇
+                    new_point = np.mean(cluster_points, axis=0)
+                    new_points.append(new_point)
 
         print("聚类后的新点：")
         for point in new_points:
