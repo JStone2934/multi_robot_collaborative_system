@@ -11,7 +11,7 @@ import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
 from .marker_fix import fix_points
-TIME_DIFF = 0.05 #激光雷达与视觉识别的同步
+TIME_DIFF = 0.02 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
     reliability=QoSReliabilityPolicy.BEST_EFFORT,
@@ -24,8 +24,8 @@ class MultiRobotMapUpdater(Node):
 
         self.map_pub = self.create_publisher(OccupancyGrid, 'updated_map', best_effort_qos)
         self.detect_target = "beer"
-        self.target_angle_robot1 = math.radians(0)
-        self.target_angle_robot2 = math.radians(0)
+        self.target_angle_robot1 = None
+        self.target_angle_robot2 = None
         self.target_in_laser = False
         # 初始化 current_map
         self.current_map = OccupancyGrid()
@@ -224,6 +224,7 @@ class MultiRobotMapUpdater(Node):
                     best_detection = (object_x, object_y, confidence)
         if best_detection:
             self.target_angle_robot1 = self.camera_to_lidar_angle(object_x)
+            print(self.target_angle_robot1)
             self.process_scan(scan_msg, cam_detection, robot_id="robot1", robot_pose=self.robot1_pose, target_angle=self.target_angle_robot1)
         
         # 清空缓存
@@ -250,6 +251,7 @@ class MultiRobotMapUpdater(Node):
                     best_detection = (object_x, object_y, confidence)
         if best_detection:
             self.target_angle_robot2 = self.camera_to_lidar_angle(object_x)
+            print(self.target_angle_robot2)
             self.process_scan(scan_msg, cam_detection, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
         
         # 清空缓存
