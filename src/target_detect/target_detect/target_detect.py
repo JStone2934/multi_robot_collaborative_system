@@ -206,8 +206,8 @@ class MultiRobotMapUpdater(Node):
 
     def process_robot1(self, scan_msg, cam_detection, odom_msg):
         #self.get_logger().warn("NR2")
-        scan_msg = self.scan_msg_robot1
-        cam_detection = self.detection_msg_robot1
+        #scan_msg = self.scan_msg_robot1
+        #cam_detection = self.detection_msg_robot1
         if scan_msg is None and cam_detection is None:
             self.get_logger().warn("No detection from R1")
             return
@@ -233,8 +233,8 @@ class MultiRobotMapUpdater(Node):
 
     def process_robot2(self, scan_msg, cam_detection, odom_msg):
         #self.get_logger().warn("NR2")
-        scan_msg = self.scan_msg_robot2
-        cam_detection = self.detection_msg_robot2
+        #scan_msg = self.scan_msg_robot2
+        #cam_detection = self.detection_msg_robot2
         if scan_msg is None and cam_detection is None:
             self.get_logger().warn("No detection from R2")
             return
@@ -284,8 +284,8 @@ class MultiRobotMapUpdater(Node):
                 else:
                     self.target_in_laser = False
                     return
-                local_x = distance * math.cos(math.radians(target_angle))
-                local_y = distance * math.sin(math.radians(target_angle))
+                local_x = distance * math.cos(target_angle)
+                local_y = distance * math.sin(target_angle)
                 
                 robot_x = robot_pose.position.x
                 robot_y = robot_pose.position.y
