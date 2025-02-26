@@ -266,7 +266,7 @@ class MultiRobotMapUpdater(Node):
         # 计算激光雷达的角度（弧度）
         angle = (object_x - image_center) * fov_per_pixel
         if angle < 0:
-            laser_angle = 6.280000/2 + angle
+            laser_angle = 6.280000 + angle
         else:
             laser_angle = angle
         return laser_angle
