@@ -251,7 +251,6 @@ class MultiRobotMapUpdater(Node):
                     best_detection = (object_x, object_y, confidence)
         if best_detection:
             self.target_angle_robot2 = self.camera_to_lidar_angle(object_x)
-            print(self.target_angle_robot2)
             self.process_scan(scan_msg, cam_detection, robot_id="robot2", robot_pose=self.robot2_pose, target_angle=self.target_angle_robot2)
         
         # 清空缓存
@@ -265,10 +264,14 @@ class MultiRobotMapUpdater(Node):
         image_center = resolution_width / 2
         # 计算激光雷达的角度（弧度）
         angle = (object_x - image_center) * fov_per_pixel
+        '''
         if angle < 0:
             laser_angle = 6.280000 + angle
         else:
             laser_angle = angle
+        '''
+        print(f"角度{angle}，object{object_x}")
+        laser_angle = angle
         return laser_angle
 
     # 更新地图并更新标记
@@ -279,7 +282,7 @@ class MultiRobotMapUpdater(Node):
             if 0 <= angle_index < len(scan_msg.ranges):
                 distance = scan_msg.ranges[angle_index]
                 if distance != float('inf') and distance < 2.8:
-                    print(distance)
+                    print(f"距离:{distance}")
                     self.target_in_laser = True
                 else:
                     self.target_in_laser = False
