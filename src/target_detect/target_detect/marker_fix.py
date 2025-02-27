@@ -45,11 +45,11 @@ def fix_points(points_array):
                 if len(cluster_points) >= min_cluster_size:  # 只保留簇大小大于阈值的簇
                     new_point = np.mean(cluster_points, axis=0)
                     new_points.append(new_point)
-        '''
+        
         print("聚类后的新点：")
         for point in new_points:
             print(f"x: {point[0]}, y: {point[1]}")
-        '''
+        
         return new_points
     except:
         return

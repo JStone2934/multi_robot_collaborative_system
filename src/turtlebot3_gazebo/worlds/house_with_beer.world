@@ -45,7 +45,7 @@
 
     <model name="beer_in_house">
       <static>1</static>
-      <pose>1 1 0 0 0 0</pose>
+      <pose>-0.3 1.7 0 0 0 0</pose>
       <include>
         <uri>model://beer_in_house</uri>
       </include>
