@@ -11,6 +11,7 @@ import tf2_ros
 from vision_msgs.msg import Detection2DArray, Detection2D
 from collections import deque
 from .marker_fix import fix_points
+from rclpy.parameter import Parameter
 TIME_DIFF = 0.02 #激光雷达与视觉识别的同步
 # 设置 QoS 为 BEST_EFFORT，与发布者一致
 best_effort_qos = QoSProfile(
@@ -20,7 +21,10 @@ best_effort_qos = QoSProfile(
 )
 class MultiRobotMapUpdater(Node):
     def __init__(self):
-        super().__init__('multi_robot_map_updater')
+        super().__init__('multi_robot_map_updater',
+                         parameter_overrides=[
+                            Parameter('use_sim_time', Parameter.Type.BOOL, True)
+                        ])
 
         self.map_pub = self.create_publisher(OccupancyGrid, 'updated_map', best_effort_qos)
         self.detect_target = "beer"
