@@ -614,8 +614,8 @@
 \def\optionpaperclassen#1{\def\@optionpaperclassen{#1}} % paperclass english
 \def\optionas#1{\def\@optionas{#1}} % Advisor OR Supervisor
 \ifismaster
-  \optionpaperclass{硕士}
-  \optionpaperclassen{Master}
+  \optionpaperclass{本科}
+  \optionpaperclassen{Undergraduate}
   \optionas{Advisor}
 \else
   \optionpaperclass{博士}
@@ -671,13 +671,7 @@
   \begin{center}\leavevmode % 表格环境
   \begin{minipage}{\textwidth}
       \vspace{-1cm}
-      {\songti \xiaosi[1.25]%
-        \begin{tabular}{llcll}
-          \hspace{3.7em} 分类号：  & \entry{1}{0cm}{\@classification}  \hspace*{6.2cm}   %
-          密级： & \entry{1}{0cm}{\@confidentiality} \\[1.5mm]
-          \hspace{3.7em} UDC & \entry{1}{0cm}{\@udc}     \hspace*{6.2cm}%
-          学号：  & \entry{1}{0cm}{\@serialno}
-        \end{tabular}
+      {
       }
       \par
   \end{minipage}
@@ -687,10 +681,8 @@
   %\vspace{-1.5cm} %文字上移
   \sanhao\textbf{\textit{South China Normal University}}\\
   \vspace{-0.5cm} %插入空白
-  {\songti \bfseries \xiaochu \ziju{2pt} \@optionpaperclass{}学位论文\\}
+  {\songti \bfseries \xiaochu \ziju{2pt} \@optionpaperclass{}毕业论文\\}
   \ifismaster
-  \vspace{0.2cm} %插入空白
-  {\songti \xiaoer \textbf{(\@mastertype 学位)}\\}
   \fi
   
   \vspace{1.8cm} %插入空白
@@ -700,13 +692,13 @@
   \vspace{45bp}
   {\songti \sihao
     \begin{tabular}{lp{5cm}c}
-      \raisebox{-1.5ex}[0pt]{学\hspace{0.5em}位\hspace{0.5em}申\hspace{0.5em}请\hspace{0.5em}人：} &
+      \raisebox{-1.5ex}[0pt]{学\hspace{1em}生\hspace{1em}姓\hspace{1em}名：} &
         {\fs \hfil\raisebox{-1ex}[0pt]{\@author}\hfil{}} & \\[0.5ex]
         \cline{2-2}
-      \raisebox{-1.5ex}[0pt]{专\hspace{0.2em}业\hspace{0.2em}学\hspace{0.2em}位\hspace{0.2em}名\hspace{0.2em}称：} &
-        {\fs \hfil\raisebox{-1ex}[0pt]{\@degreename}\hfil{}} & \\[0.5ex]
+      \raisebox{-1.5ex}[0pt]{\hspace{1em}学\hspace{3em}号\hspace{0.2em}：} &
+        {\fs \hfil\raisebox{-1ex}[0pt]{\@serialno}\hfil{}} & \\[0.5ex]
         \cline{2-2}
-      \raisebox{-1.5ex}[0pt]{专\hspace{0.2em}业\hspace{0.2em}学\hspace{0.2em}位\hspace{0.2em}领\hspace{0.2em}域：} &
+      \raisebox{-1.5ex}[0pt]{\hspace{1em}专\hspace{3em}业\hspace{0.2em}：} &
         {\fs \hfil\raisebox{-1ex}[0pt]{\@researchfield}\hfil{}} & \\[0.5ex]
         \cline{2-2}
       \raisebox{-1.5ex}[0pt]{所\hspace{1em}在\hspace{1em}院\hspace{1em}系：} &
