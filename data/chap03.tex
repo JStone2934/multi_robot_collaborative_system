@@ -1,32 +1,65 @@
 %!TEX root = ../thesis.tex
-\chapter{结论}
-\label{chap:conclusion}
+\chapter{目标识别与检测功能设计}
+为了实现多机器人的搜索功能，机器人必须具备准确的目标识别能力，以便在复杂环境中快速捕捉和定位感兴趣的目标。与传统的视觉方案相比，传统方法往往依赖于手工设计的特征提取算法，容易受到光照变化、遮挡和噪声的影响；而神经网络目标检测模型则能通过大量数据学习到更具泛化性的特征，在多变的场景中表现出更高的鲁棒性和识别准确率。因此，本项目选择采用基于神经网络的目标检测模型对目标进行识别。为此，主要工作包括对不同模型进行筛选和评估，确定最适合当前应用场景的方案；随后在大规模数据集上对模型进行训练，并结合迁移学习等技术进行参数调优；最后，还需要将训练好的模型与ROS系统进行适配和集成，确保目标检测模块能够实时、高效地与多机器人搜索系统中的其他模块协同工作。
+\section{目标检测模型的选择}
+\subsection{yolo目标检测模型}
+YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标检测算法，它通过一次前向传播同时实现目标定位与分类，从而大幅提高检测速度。YOLOv5s是该系列中较为轻量化的版本，其网络结构设计精简，参数量较少，在保证较高检测准确率的同时具有极快的推理速度。对于多机器人协同搜索系统来说，每个机器人都需要在动态环境中快速、准确地检测并定位目标，以便实时更新全局地图和调整搜索策略。YOLOv5s正因其低计算负载和高实时性，非常适合在资源受限的机器人平台上运行，并且易于与ROS系统集成，为多机器人系统提供高效的目标识别支持。
+\section{目标检测模型的训练与调优}
+\subsection{训练环境搭建}
+本项目在一台搭载NVIDIA GeForce RTX 3060（Laptop版）的笔记本电脑上构建了一个训练平台,从Ultralytics的GitHub仓库中克隆了YOLOv5官方代码库。该代码库不仅包含了经过大量实践验证的模型架构和训练脚本，还提供了详尽的文档和示例配置文件。这些资源提供了一个成熟、可靠的基础平台，使得后续的模型训练与调优能够更加高效和精准。此外，官方代码库的持续更新和广泛的社区支持，也为模型优化提供了丰富的参考和技术保障。
 
-如来道：“圣僧，汝前世原是我之二徒，名唤金蝉子。因为汝不听说法，轻慢
-我之大教，故贬汝之真灵，转生东土。今喜皈依，秉我迦持，又乘吾教，取去真经，
-甚有功果，加升大职正果，汝为旃檀功德佛。孙悟空，汝因大闹天宫，吾以甚深法
-力，压在五行山下，幸天灾满足，归于释教；且喜汝隐恶扬善，在途中炼魔降怪有
-功，全终全始，加升大职正果，汝为斗战胜佛。猪悟能，汝本天河水神，天蓬元帅。
-为汝蟠桃会上酗酒戏了仙娥，贬汝下界投胎，身如畜类。幸汝记爱人身，在福陵山
-云栈洞造孽，喜归大教，入吾沙门，保圣僧在路，却又有顽心，色情未泯。因汝挑
-担有功，加升汝职正果，做净坛使者。”八戒口中嚷道：“他们都成佛，如何把我
-做个净坛使者？”如来道：“因汝口壮身慵，食肠宽大。盖天下四大部洲，瞻仰吾
-教者甚多，凡诸佛事，教汝净坛，乃是个有受用的品级。如何不好——沙悟净，汝
-本是卷帘大将，先因蟠桃会上打碎玻璃盏，贬汝下界，汝落于流沙河，伤生吃人造
-孽，幸皈吾教，诚敬迦持，保护圣僧，登山牵马有功，加升大职正果，为金身罗汉。”
-又叫那白马：“汝本是西洋大海广晋龙王之子。因汝违逆父命，犯了不孝之罪，幸
-得皈身皈法，皈我沙门，每日家亏你驮负圣僧来西，又亏你驮负圣经去东，亦有功
-者，加升汝职正果，为八部天龙。”
+为了保证实验环境的隔离性和依赖库的一致性，采用了Anaconda创建独立的Python虚拟环境。选用Python 3.10作为开发语言，确保了与YOLOv5代码及相关依赖的兼容性。在虚拟环境中，通过官方提供的requirements.txt文件安装了包括PyTorch、NumPy、OpenCV等在内的所有必要依赖。此举不仅避免了系统中不同项目之间的依赖冲突，还提升了实验的可重复性和调试效率。并且依据所使用的PyTorch版本及其与CUDA的兼容要求，安装了合适版本的CUDA工具包与cuDNN库。正确配置的CUDA与cuDNN能够显著提高大规模矩阵运算的速度，缩短训练时间，从而使得YOLOv5模型在处理复杂数据时表现出更高的效率和稳定性。这一步骤对整体训练过程很重要，因为它直接影响到模型的迭代速度和调优效果。
+\subsection{训练数据采集}
+将gazebo仿真环境下的啤酒罐（图3-1）设定为机器人的搜索目标。为采集具有更多信息的数据，在仿真环境中从不同角度和距离录制目标的视频，然后使用python脚本将该视频按帧率分割为一组图片序列，获取原始训练数据。使用labelimg数据标注工具按照yolo格式对图片进行标注，此时数据集的总规模为90张图片。然后对数据集进行数据增强，数据增强的手段包括放缩、增加噪声、改变角度、调整曝光、改变色调等(图3-2)，最终将训练集的规模扩展到780张图片。此时将数据集划分训练集(train)、验证集(val)和测试集(test)，最后构建出完整的训练数据集。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{beer.png}
+    \caption{Gazebo中的啤酒罐模型}
+    \label{fig:ipe}
+\end{figure}
 
-因此：
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{数据增强1.png}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{数据增强2.png}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{数据增强3.png}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{数据增强4.png}
+    \end{minipage}
+    \caption{对原始图片进行数据增强}
+    \label{fig:minipage_comparison}
+\end{figure}
 
-\begin{compactitem}
-\item 唐僧封为旃檀功德佛；
-\item 孙悟空封为斗战胜佛；
-\item 猪八戒封为净坛使者；
-\item 沙河尚封为金身罗汉；
-\item 白龙马封为八部天龙。
-\item 华师是个好学校。
-\end{compactitem}
-
+\subsection{训练与调优}
+使用以下训练参数：
+\begin{table}[ht]
+    \centering
+    \setlength{\tabcolsep}{5em} 
+      \begin{tabular}{lc}
+        \toprule
+        训练参数 & 值\\
+        \midrule
+        weights   &       yolov5s.pt                               \\
+        epochs     & 200        \\
+        batch\_size       & 4   \\
+        imgsz  & 640  \\
+        workers      &    2             \\
+        optimizer   &   SGD          \\
+        \bottomrule
+      \end{tabular}
+    
+    \caption{yolov5s模型训练参数}
+    \label{tab:turtlebot3_comparison}
+\end{table}
+\section{模型集成到ROS系统}
 
