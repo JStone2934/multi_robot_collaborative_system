@@ -9,7 +9,7 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
 本项目在一台搭载NVIDIA GeForce RTX 3060（Laptop版）的笔记本电脑上构建了一个训练平台,从Ultralytics的GitHub仓库中克隆了YOLOv5官方代码库。该代码库不仅包含了经过大量实践验证的模型架构和训练脚本，还提供了详尽的文档和示例配置文件。这些资源提供了一个成熟、可靠的基础平台，使得后续的模型训练与调优能够更加高效和精准。此外，官方代码库的持续更新和广泛的社区支持，也为模型优化提供了丰富的参考和技术保障。
 
 为了保证实验环境的隔离性和依赖库的一致性，采用了Anaconda创建独立的Python虚拟环境。选用Python 3.10作为开发语言，确保了与YOLOv5代码及相关依赖的兼容性。在虚拟环境中，通过官方提供的requirements.txt文件安装了包括PyTorch、NumPy、OpenCV等在内的所有必要依赖。此举不仅避免了系统中不同项目之间的依赖冲突，还提升了实验的可重复性和调试效率。并且依据所使用的PyTorch版本及其与CUDA的兼容要求，安装了合适版本的CUDA工具包与cuDNN库。正确配置的CUDA与cuDNN能够显著提高大规模矩阵运算的速度，缩短训练时间，从而使得YOLOv5模型在处理复杂数据时表现出更高的效率和稳定性。这一步骤对整体训练过程很重要，因为它直接影响到模型的迭代速度和调优效果。
-\subsection{训练数据采集}
+\subsection{训练数据采集和预处理}
 将gazebo仿真环境下的啤酒罐（图3-1）设定为机器人的搜索目标。为采集具有更多信息的数据，在仿真环境中从不同角度和距离录制目标的视频，然后使用python脚本将该视频按帧率分割为一组图片序列，获取原始训练数据。使用labelimg数据标注工具按照yolo格式对图片进行标注，此时数据集的总规模为90张图片。然后对数据集进行数据增强，数据增强的手段包括放缩、增加噪声、改变角度、调整曝光、改变色调等(图3-2)，最终将训练集的规模扩展到780张图片。此时将数据集划分训练集(train)、验证集(val)和测试集(test)，最后构建出完整的训练数据集。
 \begin{figure}[ht] % use float package if you want it here
     \centering
@@ -62,7 +62,7 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
     \label{tab:turtlebot3_comparison}
 \end{table}
 
-使用模型对含有目标的图像进行推理检测，以测试模型对目标的识别效果，评估模型对目标的检测能力（图3-3）。
+使用模型对含有目标的图像进行推理检测，以测试模型对目标的识别效果，评估模型对目标的检测能力（图3-3）。直到模型对目标有明显且稳定的识别效果，并且需要关注每个目标的置信度，为后期过滤可能存在的误报做准备。
 \begin{figure}[ht] % use float package if you want it here
     \centering
     \includegraphics[width=0.8\textwidth]{目标检测效果.png}
@@ -70,4 +70,45 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
     \label{fig:ipe}
 \end{figure}
 \section{模型集成到ROS系统}
-为了将目标检测模型部署到多机器人搜索系统中，需要将模型的推理过程结合到ROS系统中，订阅两个机器人的摄像头图像话题，并且在完成检测后将检测结果发布出去。为此需要建立ROS包yolov5\_ros2，它将会同时接收所有机器人摄像头的图像，使用训练好的yolov5s模型进行推理检测，最后将推理完成的结果
+为了将目标检测模型部署到多机器人搜索系统中，需要将模型的推理过程结合到ROS系统中，订阅两个机器人的摄像头图像话题，并且在完成检测后将检测结果发布出去。为此需要建立ROS包yolov5\_ros2，它将会同时接收所有机器人摄像头的图像，使用训练好的yolov5s模型进行推理检测，最后将推理完成的位置数据和标记后的图像分别发布到话题/yolo\_result和/yolo\_img中。
+
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{YoloRqt.png}
+    \caption{yolov5\_ros2节点与话题示意图}
+    \label{fig:ipe}
+\end{figure}
+
+/yolo\_result话题使用了Detection2DArray的消息类型，其中包含多类数据，话题中含有的数据及其标签如下表（表3-2），这些数据将反应目标在图像中的位置，置信度和目标框选范围等。
+
+
+\begin{table}[ht]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lc} % 限制第二列宽度
+        \toprule
+        \textbf{消息字段} & \textbf{含义} \\
+        \midrule
+        \texttt{header.frame\_id} & 传感器坐标系，如 \texttt{camera\_<robot\_id>} \\
+        \texttt{header.stamp} & 图像时间戳，与原始图像一致 \\
+        \texttt{detections[]} & 检测到的目标列表，每个元素为 \texttt{Detection2D} \\
+        \texttt{detections[].id} & 目标类别名称，如 "person"、"car" \\
+        \texttt{detections[].bbox.center.x} & 目标中心 x 坐标 \\
+        \texttt{detections[].bbox.center.y} & 目标中心 y 坐标 \\
+        \texttt{detections[].bbox.center.position.x} & 目标中心 x 坐标（Galactic 及以上） \\
+        \texttt{detections[].bbox.center.position.y} & 目标中心 y 坐标（Galactic 及以上） \\
+        \texttt{detections[].bbox.size\_x} & 目标包围框宽度 \\
+        \texttt{detections[].bbox.size\_y} & 目标包围框高度 \\
+        \texttt{detections[].results[]} & 目标分类置信度信息列表 \\
+        \texttt{detections[].results[].hypothesis.class\_id} & 目标类别 ID \\
+        \texttt{detections[].results[].hypothesis.score} & 目标置信度分数（$[0,1]$） \\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{\texttt{yolo\_result} 话题的目标检测结果消息格式}
+    \label{tab:yolo_result}
+\end{table}
+
+值得注意的是，其中的header.stamp并没有使用yolo推理完成后的发布数据的时间戳，而是使用了原始图像获取时的时间戳，这是考虑到图像识别数据主要目的是定位目标位置，因此需要和其他的传感器数据例如激光雷达、位置传感器等进行融合，因此需要保持良好的同步性以提高目标检测的精度，以规避推理、传输、计算过程带来的延迟导致坐标偏移的问题。
+
+而yolo\_img话题则包含了原始图像完成推理后被标记目标框的图像，便于直观查看目标检测的效果。值得注意的是，由于yolo和OpenCV的默认图像格式不同，yolo使用的GBR顺序的颜色通道而OpenCV模型使用RGB，这导致如果不进行转换，则输出的图像会出现明显的颜色错误。
