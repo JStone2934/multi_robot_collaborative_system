@@ -111,4 +111,25 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
 
 值得注意的是，其中的header.stamp并没有使用yolo推理完成后的发布数据的时间戳，而是使用了原始图像获取时的时间戳，这是考虑到图像识别数据主要目的是定位目标位置，因此需要和其他的传感器数据例如激光雷达、位置传感器等进行融合，因此需要保持良好的同步性以提高目标检测的精度，以规避推理、传输、计算过程带来的延迟导致坐标偏移的问题。
 
-而yolo\_img话题则包含了原始图像完成推理后被标记目标框的图像，便于直观查看目标检测的效果。值得注意的是，由于yolo和OpenCV的默认图像格式不同，yolo使用的GBR顺序的颜色通道而OpenCV模型使用RGB，这导致如果不进行转换，则输出的图像会出现明显的颜色错误。
+而yolo\_img话题则包含了原始图像完成推理后被标记目标框的图像，便于直观查看目标检测的效果。值得注意的是，由于yolo和OpenCV的默认图像格式不同，yolo使用的GBR顺序的颜色通道而OpenCV模型使用RGB，因此必须进行适当的转换，否则输出的图像会出现明显的颜色错误（图3-5）。
+
+
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{yolo错图.png}
+    \end{minipage}
+    \vspace{1em} % 调整垂直间距
+    \begin{minipage}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{yolo对图.png}
+    \end{minipage}
+
+    \caption{错误颜色(上)与正确颜色（下）的对比}
+    \label{fig:minipage_comparison}
+\end{figure}
+
+
