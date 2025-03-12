@@ -41,7 +41,7 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
 \end{figure}
 
 \subsection{训练与调优}
-使用以下训练参数：
+完成数据集的处理后，为适应硬件平台的性能条件和优化模型训练效果,调整训练yolov5s模型的训练参数，完成训练后得到最佳权重文件best.pt，使用的关键训练参数如下表所示：
 \begin{table}[ht]
     \centering
     \setlength{\tabcolsep}{5em} 
@@ -61,5 +61,13 @@ YOLO（You Only Look Once）是一类基于卷积神经网络（CNN）的目标�
     \caption{yolov5s模型训练参数}
     \label{tab:turtlebot3_comparison}
 \end{table}
-\section{模型集成到ROS系统}
 
+使用模型对含有目标的图像进行推理检测，以测试模型对目标的识别效果，评估模型对目标的检测能力（图3-3）。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{目标检测效果.png}
+    \caption{测试目标检测模型效果}
+    \label{fig:ipe}
+\end{figure}
+\section{模型集成到ROS系统}
+为了将目标检测模型部署到多机器人搜索系统中，需要将模型的推理过程结合到ROS系统中，订阅两个机器人的摄像头图像话题，并且在完成检测后将检测结果发布出去。为此需要建立ROS包yolov5\_ros2，它将会同时接收所有机器人摄像头的图像，使用训练好的yolov5s模型进行推理检测，最后将推理完成的结果
