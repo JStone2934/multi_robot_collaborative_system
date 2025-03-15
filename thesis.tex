@@ -48,7 +48,25 @@
 \documentclass[master,vista,ttf,twoside]{scnuthesis}
 \usepackage{anyfontsize}
 \usepackage{myscnu}
+\usepackage{listings}% 引入listings包，用于在文档中插入代码，并可自定义代码样式
+\usepackage{xcolor}
+\usepackage{caption} % 引入caption宏包
 
+% 修改 "Listing" 为 "代码"
+
+\renewcommand{\lstlistingname}{代码}
+\lstset{
+language=Python, % 设置代码语言
+numbers=left, % 显示行号
+numberstyle=\tiny\color{gray}, % 行号样式
+keywordstyle=\color{blue}, % 关键字颜色
+commentstyle=\color{gray}, % 注释颜色
+stringstyle=\color{black}, % 字符串颜色
+frame=tb, % 代码框
+showstringspaces=false, % 不显示字符串中的空格
+breaklines=true, % 自动换行
+tabsize=4 % Tab键的宽度
+}
 
 \begin{document}
 \graphicspath{{figures/}}
@@ -76,7 +94,7 @@
 \input{data/chap01}
 \input{data/chap02}
 \input{data/chap03}
-
+\input{data/chap04}
 % 参考文献
 \cleardoublepage
 \renewcommand{\chapterlabel}{\bibname} % 设置参考文献的页眉

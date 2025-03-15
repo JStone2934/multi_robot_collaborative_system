@@ -1,0 +1,52 @@
+%!TEX root = ../thesis.tex
+\chapter{目标检测与搜索流程设计}
+在多机器人协同目标搜索系统中，准确确定目标的位置是核心需求之一。当机器人通过视觉检测识别到目标后，需要结合多种传感器的数据，对目标在地图中的具体坐标进行计算。这一过程中，不仅涉及数据融合技术，还需要在精确度、计算效率和系统稳定性之间找到平衡，以确保机器人能够快速、准确地感知目标位置并做出相应决策。因此，本章将详细介绍系统在目标检测与搜索流程中的设计方案，包括目标定位方法、传感器数据融合优化策略、以及数据处理方案，以提升系统的整体性能和可靠性。
+\section{目标坐标解算}
+\subsection{计算目标相对方位}
+如前文所述，可以通过yolov5神经网络模型检测到目标，此时获取的是目标在机器人摄像头视野里面的方位，包括目标的范围和其中心点的位置。此时可以根据摄像头的水平视野范围和分辨率解算得到目标相对机器人的方向。
+
+\begin{lstlisting}[caption={根据摄像头位置计算目标相对方向}]
+    
+    def camera_to_lidar_angle(self, object_x, fov_camera=1.02974, resolution_width=1920):
+        # 计算每个像素的视角宽度（弧度）
+        fov_per_pixel = fov_camera / resolution_width
+        # 计算图像中心位置
+        image_center = resolution_width / 2
+        # 计算激光雷达的角度（弧度）
+        angle = (object_x - image_center) * fov_per_pixel
+
+        print(f"角度{angle}，object{object_x}")
+        laser_angle = angle
+        return laser_angle
+
+\end{lstlisting}
+\subsection{计算目标距离}
+计算目标相对机器人的方位目的在于调用激光雷达对应方位的数据，以解算出目标的距离。参考以下的激光雷达话题数据格式（表4-1），当获取到目标相对机器人的方位后，即可通过ranges数组对应的角度数据得到目标的相对距离。
+\begin{table}[ht]
+    \caption{\texttt{LaserScan} 话题的激光扫描数据格式}
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lc} % 限制第二列宽度
+        \toprule
+        \textbf{消息字段} & \textbf{含义} \\
+        \midrule
+        header & 消息的时间戳和坐标系信息 \\
+        angle\_min & 激光扫描的起始角度，单位为弧度 \\
+        angle\_max & 激光扫描的终止角度，单位为弧度 \\
+        angle\_increment & 每个扫描点之间的角度增量，单位为弧度 \\
+        time\_increment & 每个扫描点之间的时间增量，单位为秒 \\
+        scan\_time & 完成一次扫描所需的时间，单位为秒 \\
+        range\_min & 激光雷达的最小有效范围，单位为米 \\
+        range\_max & 激光雷达的最大有效范围，单位为米 \\
+        ranges & 激光扫描每个角度对应的距离数据，单位为米 \\
+        intensities & 激光扫描每个角度对应的强度数据（没有时可为空） \\
+        \bottomrule
+    \end{tabular}
+    }
+    \label{tab:laserscan}
+\end{table}
+
+\subsection{解算目标坐标}
+当测得数据
+\section{传感器数据融合优化}
+\section{数据处理优化目标坐标}
