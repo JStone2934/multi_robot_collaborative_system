@@ -47,6 +47,60 @@
 \end{table}
 
 \subsection{解算目标坐标}
-当测得数据
+当测得目标与机器人的相对方向和距离，就得到了目标相对机器人的方位（代码4-2），此时再结合当前时刻的机器人位姿，即可解算得到目标在全局地图上的坐标代码（4-3）。
+\begin{lstlisting}[caption={计算目标相对机器人的方位}]
+    
+    angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
+    if 0 <= angle_index < len(scan_msg.ranges):
+        distance = scan_msg.ranges[angle_index]
+        #判断识别到的目标是否在激光雷达范围之外
+        if distance != float('inf') and distance < 2.8:
+            print(f"距离:{distance}")
+            self.target_in_laser = True
+        else:
+            self.target_in_laser = False
+            return
+        #使用三角函数计算相对位置
+        local_x = distance * math.cos(target_angle)
+        local_y = distance * math.sin(target_angle)
+
+\end{lstlisting}
+其中机器人当前的位姿数据来自于robot\_pose消息。值得注意的是，由于在ROS中使用的位姿尤其是机器人的pose或里程计的数据等大部分时候以四元数表示，优势在于计算效率高且精确，但是四元数也存在着本身不是很直观的缺点。现在需要对角度进行加减运算的时候，不便直接操作四元数，因此需要进行将四元数转换为欧拉角的过程。
+
+\begin{lstlisting}[caption={计算目标相对机器人的方位}]
+    
+    robot_x = robot_pose.position.x
+    robot_y = robot_pose.position.y
+        robot_theta = euler_from_quaternion([
+            robot_pose.orientation.x,
+            robot_pose.orientation.y,
+            robot_pose.orientation.z,
+            robot_pose.orientation.w
+        ])[2]
+        #计算目标在全局地图中的坐标
+        global_x = robot_x + local_x * math.cos(robot_theta) - local_y * math.sin(robot_theta)
+        global_y = robot_y + local_x * math.sin(robot_theta) + local_y * math.cos(robot_theta)
+\end{lstlisting}
+
 \section{传感器数据融合优化}
+上文提到的流程可以计算出目标的坐标数据，但是由于机器人通常在运动过程中进行这个流程，同时目标检测、激光雷达数据读取、机器人位姿数据都存在一定的时延。当这些时间延迟叠加在计算流程中，显然会造成明显的误差。因此在流程中融合这些数据时，十分有必要通过时间戳对这些数据进行同步，以使用在目标检测时刻的真实数据。在ROS2中，上述话题在发布时都会具有时间戳，但是仍然有必要对其进行进一步的操作。
+\subsection{对于目标检测信息的时间戳调整}
+目标检测模块在检测到目标后，会通过对应的话题发布目标检测数据，此时的目标检测结果话题中带有时间戳，这个时间戳表示了该话题发布的时刻。但是事实上，神经网络在对目标进行推理检测时会耗费一段时间，例如在一段目标识别模块的打印信息中（图4-1），注意这样一条数据：Speed: 2.1ms pre-process, 43.9ms inference, 0.2ms NMS per image at shape (1, 3, 384, 640)
+
+以上这条信息中：
+\begin{itemize}
+    \item 2.1ms pre-process：表示图像预处理耗时2.1毫秒。预处理包括图像的缩放、归一化等操作。
+    \item 43.9ms inference：表示模型推理耗时43.9毫秒。推理是指模型对图像进行目标检测的过程。
+    \item 0.2ms NMS：表示非极大值抑制（Non-Maximum Suppression, NMS）耗时0.2毫秒。NMS用于去除重叠的检测框，保留最可能的检测结果。
+\end{itemize}
+这表示了在整个处理流程中，预处理耗时2.1毫秒，推理耗时43.9毫秒，NMS耗时0.2毫秒。这些时间会直接导致检测信息和其他数据融合时产生误差。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{yolo延迟.png}
+    \caption{目标识别模块运行信息}
+    \label{fig:ipe}
+\end{figure}
+因此需要调整时间戳的来源，选择获取到原始图像的时刻作为对应为该信息的时间戳并进行发布，避免默认时间戳造成的延时误差。
+\subsection{时间戳队列同步}
+为了
 \section{数据处理优化目标坐标}
