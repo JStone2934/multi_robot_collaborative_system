@@ -175,3 +175,34 @@
     \label{fig:minipage_comparison}
 \end{figure}
 针对离散的目标坐标分布，可以认为其大致随机分布在目标附近，因此考虑采用聚类算法对原始的目标坐标数据进行处理。因此在traget\_detect包下建立marker\_fix模块进行数据处理，考虑到点的分布具有一定的密度，选择使用DBSCAN聚类算法处理点坐标数据。DBSCAN聚类算法的优势在于可以选择参数来过滤一些由于遮挡或者偏移导致过于错误形成聚集的目标点。当机器人发布点的坐标时，会同时对全局的坐标点进行重新聚类，以实现目标地图的动态调整。这意味着目标坐标的精度会不断随着机器人对目标检测的次数提高。当完成聚类后，聚类后的目标点坐标会被发布到地图中（图4-2右侧子图黄色较大点）。
+
+\section{本章小结}
+本章主要介绍的是目标检测与搜索流程设计，其中核心包是yolov5\_ros2和targert\_detect包，功能主要围绕ROS节点mulit\_robot\_map\_updater进行，该节点会订阅来自目标检测模块的话题，当目标检测模块检测到目标时结合激光雷达数据和机器人位姿数据对目标坐标进行解算与发布，并且采取一系列措施提高检测精度（图4-3）。
+
+以下表格（表4-2）展示了图中（图4-3）每个话题的含义：
+\begin{table}[ht]
+    \caption{mulit\_robot\_map\_updater节点的话题列表}
+    \centering
+    \setlength{\tabcolsep}{5em} 
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lc} % 限制第二列宽度
+        \toprule
+        \textbf{话题} & \textbf{含义} \\
+        \midrule
+        odom & 机器人位姿 \\
+        scan & 激光雷达数据 \\
+        yolo\_result & 目标检测结果 \\
+        merge\_map & 多机器人融合后的地图 \\
+        map\_markers & 识别后的原始坐标 \\
+        map\_markers\_fix & 数据处理修正后的坐标 \\
+        \bottomrule
+    \end{tabular}
+    }
+    \label{tab:laserscan}
+\end{table}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{目标检测节点图.png}
+    \caption{mulit\_robot\_map\_updater节点的ROS结构}
+    \label{fig:minipage_comparison}
+\end{figure}
