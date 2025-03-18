@@ -4,7 +4,6 @@
 \section{目标坐标解算}
 \subsection{计算目标相对方位}
 如前文所述，可以通过yolov5神经网络模型检测到目标，此时获取的是目标在机器人摄像头视野里面的方位，包括目标的范围和其中心点的位置。此时可以根据摄像头的水平视野范围和分辨率解算得到目标相对机器人的方向。
-
 \begin{lstlisting}[caption={根据摄像头位置计算目标相对方向}]
     
     def camera_to_lidar_angle(self, object_x, fov_camera=1.02974, resolution_width=1920):
@@ -20,6 +19,8 @@
         return laser_angle
 
 \end{lstlisting}
+需要注意的是，由于神经网络模型的性能限制，有时会产生一定的误识别，因此采取置信度过滤的策略。具体而言，当检测到目标时，首先判断其置信度是否满足最低要求。置信度同时也作为识别到多个目标时的优先级判断标注，若视野中同时检测到多个目标，则在满足条件的目标中选择置信度最高的一项。
+
 \subsection{计算目标距离}
 计算目标相对机器人的方位目的在于调用激光雷达对应方位的数据，以解算出目标的距离。参考以下的激光雷达话题数据格式（表4-1），当获取到目标相对机器人的方位后，即可通过ranges数组对应的角度数据得到目标的相对距离。
 \begin{table}[ht]
@@ -102,5 +103,75 @@
 \end{figure}
 因此需要调整时间戳的来源，选择获取到原始图像的时刻作为对应为该信息的时间戳并进行发布，避免默认时间戳造成的延时误差。
 \subsection{时间戳队列同步}
-为了
-\section{数据处理优化目标坐标}
+为了同步各个传感器的数据并使用时间戳进行精确同步，为此需要建立一个同步机制。最终采用的方案是建立多个消息队列，通过选取最接近的数据进行合并以达到同步的效果。
+\begin{lstlisting}[caption={传感器消息的同步队列}]
+    # 队列缓存，最大缓存长度为100条
+    # 两个机器人的激光雷达消息队列
+    self.scan_queue_robot1 = deque(maxlen=100)
+    self.scan_queue_robot2 = deque(maxlen=100)
+    # 两个机器人的视觉识别数据消息队列
+    self.detection_queue_robot1 = deque(maxlen=100)
+    self.detection_queue_robot2 = deque(maxlen=100)
+    # 两个机器人的位姿消息队列
+    self.odom_queue_robot1 = deque(maxlen=100)
+    self.odom_queue_robot2 = deque(maxlen=100)
+    # 机器人分别记录的目标坐标
+    self.marked_positions_robot1 = []
+    self.marked_positions_robot2 = []
+\end{lstlisting}
+每个传感器的消息会先分别进入队列，由于传感器数据融合的目的是在目标被检测到时融合对应时刻的传感器数据进行坐标解算，因此当yolo识别数据进入队列时，会在队列中对对应的激光雷达数据和位姿数据进行匹配。
+\begin{lstlisting}[caption={当yolo模型检测到目标时对数据进行匹配}]
+    if not self.scan_queue_robot1 or not self.detection_queue_robot1 or not self.odom_queue_robot1:
+    return  # 缓存不完整，无法同步
+    # 获取YOLO识别数据
+    cam_detection = self.detection_msg_robot1  # 使用已保存的detection_msg_robot1
+    if not cam_detection:
+        return  # 如果没有YOLO数据，跳过
+    # 获取与YOLO数据时间戳接近的位姿数据
+    odom_msg = self.get_closest_message_within_time(cam_detection.header.stamp, self.odom_queue_robot1)
+    # 获取与YOLO数据时间戳接近的激光雷达数据
+    scan_msg = self.get_closest_message_within_time(cam_detection.header.stamp, self.scan_queue_robot1)
+    if scan_msg and cam_detection and odom_msg:
+        self.process_robot1(scan_msg, cam_detection, odom_msg)
+\end{lstlisting}
+其中，时间戳匹配的函数ger\_closest\_message\_within\_time会循环查找队列找到最小差异的消息，并且可以调整时间戳差异范围，过滤不同精度的数据。
+\begin{lstlisting}[caption={当yolo模型检测到目标时对数据进行匹配}]
+    def get_closest_message_within_time(self, detection_stamp, message_queue,    max_time_diff=TIME_DIFF):
+        if len(message_queue) == 0:
+            return None
+        closest_msg = None
+        min_time_diff = float('inf')
+        for msg in message_queue:
+            # 获取消息的时间戳（秒）
+            msg_time = msg.header.stamp.sec + msg.header.stamp.nanosec / 1e9
+            # 获取YOLO检测数据的时间戳（秒）
+            detection_time = detection_stamp.sec + detection_stamp.nanosec / 1e9
+            # 计算时间差
+            time_diff = abs(msg_time - detection_time)
+            #print(f"Message Time: {msg_time}, Detection Time: {detection_time}, Time Diff: {time_diff}")
+            # 如果时间差小于最大时间差，认为符合条件
+            if time_diff <= max_time_diff:
+                # 如果这是第一次符合条件的消息，或者当前消息比已找到的更接近检测数据的时间
+                if closest_msg is None or time_diff < min_time_diff:
+                    closest_msg = msg
+                    min_time_diff = time_diff
+        return closest_msg
+\end{lstlisting}
+通过以上方法手动地完成了多个传感器数据的融合，减少了各种数据传输和推理延迟造成的解算结果偏差。
+\section{数据处理模块优化目标坐标}
+当机器人对目标进行检测与坐标解算时会得到目标坐标（图4-2右侧子图为仿真环境下目标啤酒罐的摆放位置，右侧子图是机器人在地图上发布的目标坐标标记结果），然而尽管机器人在数据融合时使用了时间戳同步的策略来提高目标坐标精度，但是受限于激光雷达与摄像头的帧率等硬件因素，最终解算得到的目标坐标仍然会存在误差。在对同一目标多帧数据的解算后，其误差通常表现为目标坐标分布为一片离散的点(图4-2右侧子图中展示的绿色点)。为此，有必要采用数据处理手段对这些数据进行补偿和清洗。
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{目标仿真.png}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{目标坐标.png}
+    \end{minipage}
+    \caption{仿真环境中的目标与地图中的目标标记}
+    \label{fig:minipage_comparison}
+\end{figure}
+针对离散的目标坐标分布，可以认为其大致随机分布在目标附近，因此考虑采用聚类算法对原始的目标坐标数据进行处理。因此在traget\_detect包下建立marker\_fix模块进行数据处理，考虑到点的分布具有一定的密度，选择使用DBSCAN聚类算法处理点坐标数据。DBSCAN聚类算法的优势在于可以选择参数来过滤一些由于遮挡或者偏移导致过于错误形成聚集的目标点。当机器人发布点的坐标时，会同时对全局的坐标点进行重新聚类，以实现目标地图的动态调整。这意味着目标坐标的精度会不断随着机器人对目标检测的次数提高。当完成聚类后，聚类后的目标点坐标会被发布到地图中（图4-2右侧子图黄色较大点）。
