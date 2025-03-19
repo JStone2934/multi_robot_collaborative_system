@@ -1,0 +1,17 @@
+%!TEX root = ../thesis.tex
+\chapter{路径规划与控制模块设计}
+在多机器人协同搜索系统中，需要控制多个机器人完成对空间的探索，而路径规划是确保机器人高效覆盖目标区域、避免碰撞并优化搜索效率的关键环节。本模块旨在为多个机器人提供合理的路径规划方案，使其在动态环境中能够高效协作，减少重复覆盖，并保证搜索任务的全面性和实时性。为了实现这一目标，本研究综合考虑了机器人间的避让机制、全局路径优化以及局部调整策略，确保系统在复杂环境下依然具备鲁棒性和适应性。本章将详细介绍路径规划的算法选择、实现方式及优化策略，并探讨如何结合ROS2的多机器人通信框架，实现高效的路径规划与调度。
+\section{模块架构}
+路径规划与控制模块由multi\_robot\_exploration包和path\_follow两个包组成。主要流程包括multi\_robot\_exploration包根据机器人获取的最新地图进行路径规划，完成规划后path\_follow功能包会订阅该路线话题并控制机器人根据路径运动，其相关节点通信如下图（图5-1）。
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{路径规划节点.png}
+    \caption{路径规划与控制模块节点结构}
+    \label{fig:minipage_comparison}
+\end{figure}
+
+
+其中/Exploration节点属于multi\_robot\_exploration包，在订阅最新的全局地图话题/merge\_map后会发布路径规划话题/path，节点/pathFolow根据/Exploration节点发布的路径分别控制对应的机器人。
+\section{路径规划模块}
+
+\section{根据路径控制机器人}
