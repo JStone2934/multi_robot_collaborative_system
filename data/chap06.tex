@@ -62,40 +62,41 @@
     \label{tab:ode_parameters}
 \end{table}
 
+\section{在仿真环境下运行系统}
 完成环境搭建后在仿真房屋的两个不同房间里分别放入turtlebot\_waffle机器人（图6-2），其中蓝色部分指示机器人激光雷达范围，白色线条指示机器人摄像头视角范围。
 
-\begin{figure}[ht] % use float package if you want it here
+\begin{figure}[H] % use float package if you want it here
     \centering
-    \includegraphics[width=0.8\textwidth]{放机器人1.png}
+    \includegraphics[width=0.7\textwidth]{放机器人1.png}
     \caption{在仿真房屋中放入机器人}
     \label{fig:ipe}
 \end{figure}
 
 运行地图融合模块，可以在rviz中查看当前根据两个机器人激光雷达获取得到的融合地图（图6-3）。
-\begin{figure}[ht] % use float package if you want it here
+\begin{figure}[H] % use float package if you want it here
     \centering
-    \includegraphics[width=0.8\textwidth]{地图融合.png}
+    \includegraphics[width=0.7\textwidth]{地图融合.png}
     \caption{地图融合模块}
     \label{fig:ipe}
 \end{figure}
 
 运行yolo目标检测，可以看到yolov5开始对目标进行检测（图6-4）。
-\begin{figure}[ht] % use float package if you want it here
+\begin{figure}[H] % use float package if you want it here
     \centering
-    \includegraphics[width=0.8\textwidth]{yolo运行.png}
+    \includegraphics[width=0.7\textwidth]{yolo运行.png}
     \caption{目标检测模块运行信息}
     \label{fig:ipe}
 \end{figure}
 
-运行目标搜索与定位模块，将会显示三个窗口，分别展示两个机器人的摄像头画面和最新的地图（图6-5）。其中机器人的摄像头画面经过目标检测模块的标记，带有目标检测框信息（图6-6）。最新的地图上带有目标坐标标记和规划路径标记（图6-7），两个机器人的路径和搜索目标坐标分别标记为红色和绿色（图6-8）以便区分。其中较大的亮黄色点即指示数据处理后的目标位置（图6-9）。
-\begin{figure}[ht] % use float package if you want it here
+运行目标搜索与定位模块，rviz中将会显示三个窗口，分别展示两个机器人的摄像头画面和标记了主要信息的地图（图6-5）。其中机器人的摄像头画面经过目标检测模块的标记，带有目标检测框信息（图6-6）。地图展示窗口中的标记包括目标坐标标记（图6-7）和规划路径标记，两个机器人的路径和搜索目标坐标分别标记为红色和绿色（图6-8）以便区分。其中较大的亮黄色点即指示数据处理后的目标位置（图6-9）。
+\begin{figure}[H] % use float package if you want it here
     \centering
     \includegraphics[width=0.8\textwidth]{目标搜索.png}
     \caption{目标搜索与定位显示界面}
     \label{fig:ipe}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.4\textwidth} 
         \centering
@@ -120,3 +121,13 @@
 
     \label{fig:minipage_comparison}
 \end{figure}
+
+运行路径规划与控制模块，可以看见机器人开始请求路径并且模块响应，然后机器人开始运动。
+
+\begin{figure}[H] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{路径规划响应修.png}
+    \caption{路径规划模块响应请求}
+    \label{fig:ip}
+\end{figure}
+
