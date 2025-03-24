@@ -1,0 +1,72 @@
+%!TEX root = ../thesis.tex
+\chapter{系统的仿真与测试}
+上文介绍了多机器人协同搜索的关键模块与技术方案，本章将介绍对此系统的仿真与测试效果。将综合验证系统的控制、搜索以及路线规划等能力。
+\section{仿真环境}
+\subsection{主要运行环境}
+仿真环境的基本情况包括硬件配置和软件环境（表6-1），由于gazebo仿真环境涉及较大量的图像处理，对硬件性能和软件版本有一定需求，因此仿真环境的配置是值得关注的问题。
+
+\begin{table}[ht]
+    \caption{主要运行环境配置}
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lc} % 限制第二列宽度
+        \toprule
+        \textbf{项目} & \textbf{参数} \\
+        \midrule
+        内存 & 16GB \\
+        处理器 & 1th Gen Intel® Core™ i7-11800H @ 2.30GHz × 16  \\
+        显卡 & NVIDIA GeForce RTX 3060 Laptop GPU \\
+        系统 & Ubuntu 20.04.6 LTS \\
+        Gazebo版本 & version 11.15.1\\
+        ROS 版本 & ros2-galactic\\
+        \bottomrule
+    \end{tabular}
+    }
+    \label{tab:laserscan}
+\end{table}
+在良好的配置下gazebo可以提高物理仿真参数以提高仿真的效果，使其更加接近实用条件，否则则有可能出现意料之外的错误效果。
+
+\subsection{主要仿真参数}
+对系统进行仿真时需要定义机器人参数，环境参数等，以求模拟接近真实环境。首先搭建了机器人进行搜索的地图，模拟现实环境下的房屋环境（图6-1），包括6个房间。其中有书架、桌子、垃圾桶、书架、啤酒罐等物品，所有材质都具有对应的纹理，例如木纹、大理石、塑料、红砖墙等，其中房屋结构有门、窗、走廊等。该房屋环境中共放置了5个啤酒罐模型，作为机器人搜索的目标。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{房间仿真.png}
+    \caption{仿真房屋环境搭建}
+    \label{fig:ipe}
+\end{figure}
+
+在仿真环境中需要设置物理引擎参数（表6-2），物理引擎参数会决定仿真的效果和性能。本项目在硬件限制条件下尽可能调整real\_time\_update\_rate和max\_step\_size以提高时间准确性。
+
+\begin{table}[ht]
+    \centering
+    \renewcommand{\arraystretch}{0.9}
+    \caption{Gazebo物理引擎参数设置}
+    \begin{tabular}{l l l}
+        \toprule
+        \textbf{参数} & \textbf{含义} & \textbf{值} \\
+        \midrule
+        real\_time\_update\_rate & 仿真每秒更新次数 & 1000.0 \\
+        max\_step\_size & 每步最大仿真时间步长（秒） & 0.001 \\
+        real\_time\_factor & 仿真时间与真实时间的比例 & 1 \\
+        type & ODE 求解器类型 & quick \\
+        iters & 求解器最大迭代次数 & 150 \\
+        sor & 超松弛参数（加速收敛） & 1.4 \\
+        use\_dynamic\_moi\_rescaling & 是否启用动态惯性矩缩放 & 1 \\
+        cfm & 约束柔性参数（降低约束振荡） & 0.00001 \\
+        erp & 误差恢复参数（影响刚体恢复速度） & 0.2 \\
+        contact\_max\_correcting\_vel & 最大接触点修正速度 & 2000.0 \\
+        contact\_surface\_layer & 接触表面层厚度（影响碰撞检测精度） & 0.01 \\
+        \bottomrule
+    \end{tabular}
+
+    \label{tab:ode_parameters}
+\end{table}
+
+完成环境搭建后在仿真房屋的两个不同房间里分别放入turtlebot\_waffle机器人（图6-2），其中蓝色部分指示机器人激光雷达范围，白色线条指示机器人摄像头视角范围。
+
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{放机器人1.png}
+    \caption{在仿真房屋中放入机器人}
+    \label{fig:ipe}
+\end{figure}
