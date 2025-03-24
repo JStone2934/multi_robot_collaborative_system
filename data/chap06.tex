@@ -70,3 +70,53 @@
     \caption{在仿真房屋中放入机器人}
     \label{fig:ipe}
 \end{figure}
+
+运行地图融合模块，可以在rviz中查看当前根据两个机器人激光雷达获取得到的融合地图（图6-3）。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{地图融合.png}
+    \caption{地图融合模块}
+    \label{fig:ipe}
+\end{figure}
+
+运行yolo目标检测，可以看到yolov5开始对目标进行检测（图6-4）。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{yolo运行.png}
+    \caption{目标检测模块运行信息}
+    \label{fig:ipe}
+\end{figure}
+
+运行目标搜索与定位模块，将会显示三个窗口，分别展示两个机器人的摄像头画面和最新的地图（图6-5）。其中机器人的摄像头画面经过目标检测模块的标记，带有目标检测框信息（图6-6）。最新的地图上带有目标坐标标记和规划路径标记（图6-7），两个机器人的路径和搜索目标坐标分别标记为红色和绿色（图6-8）以便区分。其中较大的亮黄色点即指示数据处理后的目标位置（图6-9）。
+\begin{figure}[ht] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{目标搜索.png}
+    \caption{目标搜索与定位显示界面}
+    \label{fig:ipe}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.4\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{目标检测框.png}
+        \caption{带有目标检测框的图像}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{目标坐标点.png}
+        \caption{原始目标坐标点}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{规划路线修.png}
+        \caption{红绿色规划路线}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{数据处理后坐标.png}
+        \caption{数据处理后坐标}
+    \end{minipage}
+
+    \label{fig:minipage_comparison}
+\end{figure}
