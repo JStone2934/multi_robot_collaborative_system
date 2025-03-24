@@ -13,5 +13,188 @@
 
 其中/Exploration节点属于multi\_robot\_exploration包，在订阅最新的全局地图话题/merge\_map后会发布路径规划话题/path，节点/pathFolow根据/Exploration节点发布的路径分别控制对应的机器人。
 \section{路径规划模块}
+\subsection{边界识别与探索区域分配}
+模块已经获取了最新的全局地图，并且其形式为栅格地图，为完成区域探索，需要进行边界识别与探索区域分配。边界识别的核心目标是确定已知区域与未知区域的交界处，即探索的前沿区域。在栅格地图中，已知区域通常由自由空间和障碍物构成，而未知区域尚未被机器人感知。因此，需要遍历整个栅格地图，寻找满足以下条件的栅格点：
+\begin{itemize}
+    \item 该点是自由空间（即机器人可以通过）。
+    \item 该点的相邻栅格中至少有一个是未知区域。
+\end{itemize}
+
+通过遍历地图并检测四邻域（上下左右）是否存在未知区域，可以高效地提取所有边界点，形成一个边界点集合frontiers。这些边界点代表了机器人需要探索的目标区域，为进一步的任务分配提供了基础。
+
+由于边界点分布通常是不均匀的，因此单独考虑每个边界点可能导致探索路径冗余或重复覆盖。为此，采用聚类算法将相邻的边界点归为一个区域，并进一步确定最优的探索目标点。具体的工作流程包括：
+\begin{itemize}
+
+    \item 基于广度优先搜索（BFS）进行区域划分
+        遍历 frontiers 中的所有点，采用 BFS 搜索相邻的边界点，并将其聚类到同一个探索区域中。
+        通过记录访问状态，确保每个点只被访问一次，从而形成多个不相交的探索区域 groups。
+        \begin{lstlisting}[caption={使用BFS对边界点进行聚类，形成多个区域}]
+        def cluster_frontiers(frontiers):
+            """
+            使用BFS对边界点进行聚类，形成多个区域
+            :param frontiers: 边界点列表 [(x, y), (x, y), ...]
+            :return: clustered_regions（多个探索区域，每个区域是边界点的集合）
+            """
+            clustered_regions = []
+            visited = set()
+            for frontier in frontiers:
+                if frontier in visited:
+                    continue
+                # BFS 聚类
+                queue = deque([frontier])
+                region = []
+                while queue:
+                    x, y = queue.popleft()
+                    if (x, y) in visited:
+                        continue
+                    visited.add((x, y))
+                    region.append((x, y))
+                    # 搜索四邻域
+                    neighbors = [(0,1), (0,-1), (1,0), (-1,0)]
+                    for dx, dy in neighbors:
+                        nx, ny = x + dx, y + dy
+                        if (nx, ny) in frontiers and (nx, ny) not in visited:
+                            queue.append((nx, ny))
+                clustered_regions.append(region)
+            return clustered_regions
+        \end{lstlisting}
+
+    \item 计算探索区域的中心点（质心）
+        对于每个探索区域，计算其所有边界点的几何均值，以获得该区域的中心点 centroid，作为机器人前往的目标点。
+        该方法可以避免单点目标的局限性，使机器人能够覆盖整个区域，提高探索效率。
+        \begin{lstlisting}[caption={计算每个区域的中心点}]
+        def compute_centroids(clustered_regions):
+            """
+            计算每个区域的中心点
+            :param clustered_regions: 已聚类的边界点区域
+            :return: 质心列表 [(cx, cy), (cx, cy), ...]
+            """
+            centroids = []
+            for region in clustered_regions:
+                x_coords, y_coords = zip(*region)
+                centroid = (sum(x_coords) / len(x_coords), sum(y_coords) / len(y_coords))
+                centroids.append(centroid)
+            return centroids
+        \end{lstlisting}
+    \item 最优目标选择
+        由于部分探索区域可能过小或分布零散，我们对区域大小进行筛选，选取 规模最大（点数最多）的前 5 个区域，避免机器人前往过小的目标区域。
+        机器人在前往目标时，优先选择距离最近的区域，以最小化行驶距离，提高任务执行效率。
+        
+\end{itemize}
+\subsection{进行路径规划}
+在确定最优目标后，需要进行路径规划以前往目标，因此需要计算机器人从当前位置到目标点的最优路径，避免障碍物，并尽可能缩短行驶距离。常见的路径规划方法包括 A*算法 和 Dijkstra算法。在本项目中采用 A*算法（A-star），因考虑其在计算效率与路径优化方面的良好平衡性。
+
+为实现A*算法，需要在搜索过程中综合考虑当前代价（g）和预计代价（h）：
+\begin{itemize}
+    \item g(n): 从起点到当前点 n 的实际代价（路径长度）。
+    \item h(n): 从当前点 n 到目标点的距离。
+    \item f(n) = g(n) + h(n): 作为路径搜索的评估函数，选择 f(n) 最小的点作为下一步搜索目标。
+\end{itemize}
+
+\begin{lstlisting}[caption={实现A*算法}]
+    def astar_search(grid, start, goal):
+    """
+    A*路径规划
+    :param grid: 栅格地图，0表示可行区域，1表示障碍物
+    :param start: 机器人起始位置 (x, y)
+    :param goal: 目标位置 (x, y)
+    :return: 规划路径（列表）
+    """
+    neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    open_set = []
+    heapq.heappush(open_set, (0, start))  # (优先级, 位置)
+    came_from = {}
+    g_score = {start: 0}
+    f_score = {start: heuristic(start, goal)}
+    while open_set:
+        _, current = heapq.heappop(open_set)
+        if current == goal:
+            path = []
+            while current in came_from:
+                path.append(current)
+                current = came_from[current]
+            return path[::-1]  # 反转路径
+        for dx, dy in neighbors:
+            neighbor = (current[0] + dx, current[1] + dy)
+            if 0 <= neighbor[0] < len(grid[0]) and 0 <= neighbor[1] < len(grid) and grid[neighbor[1]][neighbor[0]] == 0:
+                temp_g_score = g_score[current] + 1  # 假设每个移动步长为1
+                if neighbor not in g_score or temp_g_score < g_score[neighbor]:
+                    came_from[neighbor] = current
+                    g_score[neighbor] = temp_g_score
+                    f_score[neighbor] = temp_g_score + heuristic(neighbor, goal)
+                    heapq.heappush(open_set, (f_score[neighbor], neighbor))
+
+    return []  # 若未找到路径，返回空列表
+\end{lstlisting}
+
+在使用A*算法完成路径规划后，由于A*算法通常得到的是离散的直线段，为了使机器人运动更加平稳，需要使用B样条算法进行平滑。这样可以使路径更加平滑，减少机器人运动抖动，并且可以使用插值控制 sn 来调整路径平滑的精细程度。
+
+与此同时，为了避免机器人距离障碍物过近导致碰撞，路径规划时使用的地图数据需要经过障碍物范围膨胀。通过对栅格地图上的障碍物坐标周边偏移并设置为障碍物获得膨胀后的障碍物地图，需要注意的是，障碍物膨胀需要设计障碍物膨胀系数，若系数过小会失去膨胀的意义，但是若是设置得过大则有可能导致门口等地形被彻底封闭，因此需要调整得到合适的数值。
+
+\begin{lstlisting}[caption={障碍物膨胀方法}]
+    #障碍物扩展系数
+    expansion_size = 6 
+
+    def costmap(data, width, height, resolution):
+    data = np.array(data).reshape(height, width)
+    wall = np.where(data == 100)
+    for i in range(-expansion_size, expansion_size + 3):
+        for j in range(-expansion_size, expansion_size + 3):
+            if i == 0 and j == 0:
+                continue
+            x = wall[0] + i
+            y = wall[1] + j
+            x = np.clip(x, 0, height - 1)
+            y = np.clip(y, 0, width - 1)
+            data[x, y] = 100  # 直接标记为障碍物，无需乘以分辨率
+    return data
+\end{lstlisting}
+
+
+作为多机器人协同系统，路径规划时的重要任务还包括避免机器人碰撞。在路径规划过程中，使用的策略是将双方机器人当前的坐标与路径设置为障碍物，这样在自动路径规划时就会避开对方行进的路线从而避免碰撞。
+
+\subsection{机器人请求路径规划}
+机器人会在运行过程中，根据目前的不同条件向路径规划模块请求新的路径规划，以适应更加复杂的运行情况：
+\begin{itemize}
+
+    \item 初始探索阶段:
+    
+        当节点刚启动时，全局路径标志TB\_PATHF初始值为0。此时机器人0（tb3\_0）和机器人1（tb3\_1）会立即触发首次路径请求。这是为了生成初始探索路径。
+
+    \item 机器人停止移动时：
+    
+    当机器人的cmd\_vel（控制速度）的线速度和角速度均为0时，表示机器人可能到达目标点或遇到障碍物无法前进,系统会重新计算新路径并打印请求消息。
+
+    \item 路径规划失败后：
+
+    如果某次路径规划失败（如exploration返回f=-1），路径标志会被设为-1，此类情况如偶然的线程阻塞导致的路径规划失败，此时当机器人重新进入可探索状态且机器人停止时，机器人就会重新请求路线。
+
+\end{itemize}
+
+这些条件针对了机器人遇到的各种场景，包括系统刚启动时规划初始路线、机器人完成当前路径后停止或机器人卡在障碍物前无法移动等情况，使系统具有更好的鲁棒性。
 
 \section{根据路径控制机器人}
+当路径规划模块完成规划后会发布机器人路径话题，此时需要控制机器人跟随规划的路径完成运动，将发布的路径消息转换为机器人的运动控制命令，最终完成对机器人运动的控制。
+\subsection{路径控制算法}
+为实现一个基于ROS2的路径跟随节点，关键在于采用Pure Pursuit算法控制机器人沿指定路径移动。Pure Pursuit 算法的核心在于机器人通过不断寻找路径上的目标点并调整方向朝向该点前进，从而实现路径跟随。首先，机器人从里程计或传感器获取当前位置 $(x, y)$ 和朝向 $\theta$，然后在路径上寻找一个距离机器人当前位置超过设定前视距离的最近点 $(x_t, y_t)$，作为目标点。接着，计算机器人当前坐标与目标点之间的目标方向角：
+\[
+\theta_t = \text{atan2}(y_t - y, x_t - x)
+\]
+并计算航向误差：
+\[
+\Delta\theta = \theta_t - \theta
+\]
+确保其范围在 $(-\pi, \pi]$ 内。随后，根据误差计算线速度 $v$（通常设定为固定值或根据路径曲率调整）和角速度 $w$，其中 $w$ 受最大角速度 $\omega_{\max}$ 限制，以确保平稳转向：
+\[
+w = \max(-\omega_{\max}, \min(\Delta\theta, \omega_{\max}))
+\]
+最终，机器人根据 $v$ 和 $w$ 进行运动，并不断重复上述步骤，直到顺利抵达目标位置，实现路径跟随。
+
+
+\subsection{路径跟随的实现}
+首先，pathFollower 节点订阅 /path 话题，接收并解析路径数据，同时订阅 /odom 话题，获取机器人当前位置和朝向，并发布 /cmd\_vel 话题，向机器人发送速度指令，同时在 /visual\_path 话题上发布可视化路径数据。
+
+当路径信息到达时，get\_path 方法解析路径数据，并启动 follow\_path 线程，持续控制机器人运动。在 follow\_path 过程中，机器人不断更新自身位姿，并调用 pure\_pursuit 计算合适的线速度和角速度，确保沿着路径行驶，并在接近终点时停止。在 pure\_pursuit 方法中，机器人寻找前视点（超过 lookahead\_distance 的最近路径点），计算目标方向，并通过调整角速度 w 控制转向，避免急转弯，确保平稳运动。
+
+与此同时，odom\_callback 订阅 /odom 话题，将机器人位姿信息实时更新到变量中，为路径跟随提供数据支持。该代码适用于 TurtleBot3 或其他支持 /cmd\_vel 速度控制的移动机器人，可在Gazebo仿真或实际机器人上运行，实现路径跟随功能。
+
