@@ -131,3 +131,21 @@
     \label{fig:ip}
 \end{figure}
 
+\section{系统测试}
+在仿真环境下运行系统后，机器人逐渐完成对该环境的搜索（图6-11），在所有边界被探索完成后，路径规划与运动控制模块会发出探索完毕的信息。最终得到一张该环境的完整地图，并带有目标的坐标（图6-11）。
+
+\begin{figure}[H] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{探索完成.png}
+    \caption{路径规划模块完成探索}
+    \label{fig:ip}
+\end{figure}
+
+\begin{figure}[H] % use float package if you want it here
+    \centering
+    \includegraphics[width=0.8\textwidth]{系统运行结果.png}
+    \caption{运行完毕得到目标地图}
+    \label{fig:ip}
+\end{figure}
+
+观察该地图中的黄色目标标记，与仿真环境中的目标分布相对比，可见搜索结果与实际情况基本对应，找出了全部啤酒罐目标，数据处理后的目标坐标与真实位置平均偏差不到0.7米。但是也可以发现出现了一个多余的误报目标坐标，推测是由于环境中桌腿阻挡导致的激光雷达数据异常。除此之外，系统建立的地图完整清晰，机器人协同运行流畅无冲突。测试时，由15时36分53机器人开始请求路径到15时44分47秒完成搜索，完成探索共用时7分54秒，完成了对约90平方米的房屋环境搜索。至此可以认为，系统的全部功能已经实现。
