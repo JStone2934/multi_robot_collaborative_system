@@ -84,7 +84,7 @@ tabsize=4 % Tab键的宽度
 
 \renewcommand{\chapterlabel}{\denotationname} %设置页眉
 
-\input{data/denotation} % 如果要生成符号列表
+%\input{data/denotation} % 如果要生成符号列表
 
 % 更新图标题和表标题设置
 \renewcommand{\thetable}{\thechapter{}-\arabic{table}}
@@ -98,6 +98,7 @@ tabsize=4 % Tab键的宽度
 \input{data/chap04}
 \input{data/chap05}
 \input{data/chap06}
+\input{data/chap07}
 % 参考文献
 \cleardoublepage
 \renewcommand{\chapterlabel}{\bibname} % 设置参考文献的页眉
@@ -107,8 +108,7 @@ tabsize=4 % Tab键的宽度
 % 附录
 \appendix
 \backmatter
-\input{data/appendix01}
-\input{data/appendix02}
+
 
 % 致谢
 \cleardoublepage
@@ -118,7 +118,7 @@ tabsize=4 % Tab键的宽度
 % 作者攻读学位期间发表的学术论文目录
 \cleardoublepage
 \renewcommand{\chapterlabel}{\resumename} % 设置作者个人成果的页眉
-\input{data/resume}
+
 
 \end{document}
 %%
