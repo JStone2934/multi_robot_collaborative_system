@@ -326,7 +326,7 @@ class HeadquartersControl(Node):
         
         threading.Thread(target=self.start_exploration_r0).start() # 启动机器人1的探索线程
         threading.Thread(target=self.start_exploration_r1).start() # 启动机器人2的探索线程
-        threading.Thread(target=self.start_exploration_r2).start() # 启动机器人3的探索线程
+        #threading.Thread(target=self.start_exploration_r2).start() # 启动机器人3的探索线程
 
     def start_exploration_r0(self):
         while True:
