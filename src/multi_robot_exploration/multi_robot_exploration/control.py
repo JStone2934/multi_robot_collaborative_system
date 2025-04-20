@@ -11,7 +11,7 @@ import datetime
 
 lookahead_distance = 0.3  # 前视距离
 speed = 0.2  # 最大速度
-expansion_size = 5  # 墙壁扩展系数
+expansion_size = 6  # 墙壁扩展系数
 target_error = 0.01  # 目标误差
 MAX_ANGULAR_VELOCITY = 0.05  # 最大角速度
 SAFETY_DISTANCE = 1  # 机器人安全距离，过近会暂停行动

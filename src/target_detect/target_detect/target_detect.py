@@ -274,8 +274,8 @@ class MultiRobotMapUpdater(Node):
         else:
             laser_angle = angle
         '''
-        print(f"角度{angle}，object{object_x}")
-        laser_angle = angle
+        #print(f"角度{angle}，object{object_x}")
+        laser_angle = -angle
         return laser_angle
 
     # 更新地图并更新标记
@@ -283,6 +283,7 @@ class MultiRobotMapUpdater(Node):
         try:
             print("process")
             angle_index = int((target_angle - scan_msg.angle_min) / scan_msg.angle_increment)
+            print(angle_index)
             if 0 <= angle_index < len(scan_msg.ranges):
                 distance = scan_msg.ranges[angle_index]
                 if distance != float('inf') and distance < 2.8:
