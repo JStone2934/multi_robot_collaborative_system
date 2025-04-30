@@ -1,5 +1,5 @@
 # 多机器人协同搜索系统
-在ROBOT_ARMY下运行编译命令：
+在根目录下运行编译命令：
 ```bash
 colcon build
 ```
