@@ -28,3 +28,4 @@ ros2 launch target_detect target_detect_launch.py
 ros2 run multi_robot_exploration control
 ```
 
+致谢：对https://github.com/abdulkadrtr/multiRobotExploration-RobotArmy.git的项目进行了参考
